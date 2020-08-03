@@ -1,5 +1,5 @@
 <template>
-    <router-link :to="to" class="button is-outlined is-link" exact-active-class="is-light" exact>
+    <router-link :to="to" class="button is-link" exact-active-class="is-light" exact>
         <slot />
     </router-link>
 </template>
