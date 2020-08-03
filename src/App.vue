@@ -9,7 +9,7 @@
         <aside class="box has-background-primary">
             <nav-sidebar />
         </aside>
-        <footer class="box has-background-warning">
+        <footer class="box has-background-info">
             Footer Controls Go Here
         </footer>
     </div>
