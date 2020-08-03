@@ -6,21 +6,21 @@ import Situation from '../views/Situation.vue';
 Vue.use(VueRouter);
 
 const routes = [
-  {
-    path: '/situation',
-    name: 'Situation',
-    component: Situation,
-  },
-  {
-    path: '/',
-    redirectTo: '/situation',
-  },
+    {
+        path: '/situation',
+        name: 'Situation',
+        component: Situation,
+    },
+    {
+        path: '/',
+        redirect: { name: 'Situation' },
+    },
 ];
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes,
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes,
 });
 
 export default router;

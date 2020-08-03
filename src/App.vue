@@ -1,81 +1,81 @@
 <template>
-  <div id="app">
-    <header>Header Content</header>
-    <main>
-      Main Content
-      <router-view />
-    </main>
-    <aside role="navigation">Sidebar here</aside>
-    <footer>Footer Controls Go Here</footer>
-  </div>
+    <div id="app">
+        <header>
+            <nav-header />
+        </header>
+        <main class="box has-background-dark">
+            <router-view />
+        </main>
+        <aside class="box has-background-primary">
+            <nav-sidebar />
+        </aside>
+        <footer class="box has-background-warning">
+            Footer Controls Go Here
+        </footer>
+    </div>
 </template>
 
+<script>
+import NavSidebar from '@/components/NavSidebar.vue';
+import NavHeader from '@/components/NavHeader.vue';
+
+export default {
+    name: 'App',
+    components: {
+        NavHeader,
+        NavSidebar,
+    },
+};
+</script>
+
 <style lang="scss">
-$bgColor: black;
-
-$panelBgColor: #a1ffff;
-$panelUrgentColor: #fdfd7b;
-$panelSubtleColor: #498eed;
-$panelInfoColor: #394ea9;
-$panelTextColor: #f8fefb;
-
-// Heads up display colors
-$hudFriendlyColor: #5bab7a;
-$hudUnknownColor: #fdfd7b;
-$hudCivillianColor: #f8fefb;
-$hudHostileColor: #fd4344;
-
-// Margins
-$m1: 0.5rem;
-$m2: 1rem;
+@import '@/assets/styles/variables.scss';
+@import '@/assets/styles/bulma.scss';
 
 html {
-  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
-  background-color: $bgColor;
-  color: $panelTextColor;
+    background-color: $bgColor;
+    color: $panelTextColor;
 }
 
 #app {
-  position: fixed;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 
-  padding: $m1;
+    padding: $m1;
 
-  display: grid;
-  grid-template-areas:
-    "header header"
-    "sideNav main"
-    "footer footer";
+    display: grid;
+    grid-template-areas:
+        'header header'
+        'sideNav main'
+        'footer footer';
 
-  row-gap: $m1;
-  column-gap: $m1;
+    column-gap: $m1;
 
-  grid-template-rows: auto 1fr auto;
-  grid-template-columns: auto 1fr;
+    grid-template-rows: auto 1fr auto;
+    grid-template-columns: auto 1fr;
 
-  > aside {
-    grid-area: sideNav;
-    background-color: $panelBgColor;
-    color: $panelInfoColor;
-  }
+    > aside {
+        grid-area: sideNav;
+        margin-bottom: $m1;
+    }
 
-  > header {
-    grid-area: header;
-    background-color: $panelSubtleColor;
-  }
+    > header {
+        grid-area: header;
+        margin-bottom: $m1;
+    }
 
-  > footer {
-    grid-area: footer;
-    background-color: $panelUrgentColor;
-    color: $panelInfoColor;
-  }
+    > footer {
+        grid-area: footer;
+    }
 
-  > main {
-    grid-area: main;
-  }
+    > main {
+        grid-area: main;
+        margin-bottom: $m1;
+    }
 }
 </style>
