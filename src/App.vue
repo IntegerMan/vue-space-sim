@@ -1,10 +1,18 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <header>
+      Header Content
+    </header>
+    <main>
+      Main Content
+      <router-view/>
+    </main>
+    <aside role="navigation">
+      Sidebar here
+    </aside>
+    <footer>
+      Footer Controls Go Here
+    </footer>
   </div>
 </template>
 
@@ -15,18 +23,25 @@
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-}
 
-#nav {
-  padding: 30px;
+  display: grid;
+  grid-template-areas:
+    'header header'
+    'sideNav main'
+    'footer fooer';
+  grid-template-rows: 'auto 1fr auto'
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+  > aside {
+    grid-area: 'sideNav'
+  }
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+  > header {
+    grid-area: 'header'
+  }
+
+  > footer {
+    grid-area: 'footer'
   }
 }
+
 </style>
