@@ -2,11 +2,9 @@
     <nav role="navigation">
         <nav-button class="is-fullwidth" :to="{ name: 'Situation' }">Situation</nav-button>
         <nav-button class="is-fullwidth" :to="{ name: 'Nav' }">Navigation</nav-button>
-        <nav-button class="is-fullwidth" :to="{ name: 'Engineering' }">Engineering</nav-button>
+        <nav-button class="is-fullwidth" :to="{ name: 'Tactical' }">Tactical</nav-button>
         <nav-button class="is-fullwidth" :to="{ name: 'Flight' }">Flight Ops</nav-button>
-        <nav-button class="is-fullwidth" :to="{ name: 'Crew' }">Crew</nav-button>
-        <nav-button class="is-fullwidth" :to="{ name: 'Supplies' }">Supplies</nav-button>
-        <nav-button class="is-fullwidth" :to="{ name: 'HangarDeck' }">Hangar Deck</nav-button>
+        <nav-button class="is-fullwidth" :to="{ name: 'Engineering' }">Engineering</nav-button>
     </nav>
 </template>
 

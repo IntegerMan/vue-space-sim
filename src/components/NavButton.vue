@@ -7,6 +7,7 @@
 <script>
 export default {
     name: 'NavButton',
+
     props: ['to'],
 };
 </script>
