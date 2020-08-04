@@ -37,30 +37,28 @@
 export default {
     name: 'GameSpeedControl',
     data() {
-        return {
-            mediaState: 1,
-        };
+        return {};
     },
     computed: {
         isPaused() {
-            return this.mediaState === 0;
+            return this.$store.state.speed === 0;
         },
         isPlaying() {
-            return this.mediaState === 1;
+            return this.$store.state.speed === 1;
         },
         isFastForward() {
-            return this.mediaState === 2;
+            return this.$store.state.speed === 2;
         },
     },
     methods: {
         pause() {
-            this.mediaState = 0;
+            this.$store.dispatch('pause');
         },
         play() {
-            this.mediaState = 1;
+            this.$store.dispatch('play');
         },
         fastForward() {
-            this.mediaState = 2;
+            this.$store.dispatch('fastForward');
         },
     },
 };
