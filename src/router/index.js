@@ -3,7 +3,8 @@ import VueRouter from 'vue-router';
 
 import Situation from '../views/Situation.vue';
 import Navigation from '../views/Navigation.vue';
-import Tactical from '../views/Tactical.vue';
+import Combat from '../views/Combat.vue';
+import Sensors from '../views/Sensors.vue';
 import FlightOps from '../views/FlightOps.vue';
 import Engineering from '../views/Engineering.vue';
 
@@ -21,9 +22,14 @@ const routes = [
         component: Navigation,
     },
     {
-        path: '/game/tactical',
-        name: 'Tactical',
-        component: Tactical,
+        path: '/game/sensors',
+        name: 'Sensors',
+        component: Sensors,
+    },
+    {
+        path: '/game/combat',
+        name: 'Combat',
+        component: Combat,
     },
     {
         path: '/game/flight',

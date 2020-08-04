@@ -34,31 +34,32 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Situation Display
 
 -[ ] Render Grid Lines
--[ ] Render a Ship Component
--[ ] Render a Hostile Component
+-[x] Render a Ship Component
+-[x] Render a Hostile Component
 -[ ] Render Ship Components Based on Data
 -[ ] Indicate Heading on Ship Components
--[ ] Indicate Name or Designation Under Ship Components
+-[x] Indicate Name or Designation Under Ship Components
 
 ### Simulation
 
--[ ] Add a playback speed component
+-[x] Add a playback speed component
 -[ ] When not paused, the playback speed component should periodically cause the simulation to advance
 -[ ] Simulating should cause ships to move around
 
-## Navigation
+## Combat
 
--[ ] Allow the player to set a heading
--[ ] Allow the player to set a velocity
--[ ] Simulation causes the ship to move
-
-## Tactical
-
--[ ] Allow the player to initiate a jump
 -[ ] Allow the player to fire weapons
 -[ ] Allow the player to toggle weapon auto-fire
 -[ ] Allow the player to set a target
 -[ ] Allow the player to toggle auto-targeting
+
+## Sensors
+
+-[ ] Allow the player to select a contact
+-[ ] Display details on contact
+-[ ] Allow the player to categorize the contact
+-[ ] Allow the player to see known categorizations of other vessels
+-[ ] Allow the player to see ship's current sensor emissions
 
 ## Flight Ops
 
@@ -72,6 +73,13 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -[ ] Display ship systems
 -[ ] Allow viewing and setting power levels
 -[ ] Allow prioritizing damage control activities
+
+## Navigation
+
+-[ ] Allow the player to initiate a jump
+-[ ] Allow the player to set a heading
+-[ ] Allow the player to set a velocity
+-[ ] Simulation causes the ship to move
 
 ## Collaboration
 
