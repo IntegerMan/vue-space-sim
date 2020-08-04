@@ -1,17 +1,17 @@
 <template>
     <div class="has-text-light">
         <h1 class="title has-text-light">
-            Situation
+            Tactical
         </h1>
         <h2 class="subtitle has-text-light">
-            Main Situation Display Goes here
+            Tactical Display Goes here
         </h2>
     </div>
 </template>
 
 <script>
 export default {
-    name: 'Situation',
+    name: 'Tactical',
     components: {},
 };
 </script>
