@@ -2,7 +2,7 @@
     <div class="buttons has-addons are-small">
         <button
             class="button"
-            :class="{ 'is-success': isPaused, 'is-dark': !isPaused }"
+            :class="{ 'is-warning': isPaused, 'is-dark': !isPaused }"
             title="Pause"
             @click="pause()"
         >
