@@ -37,6 +37,10 @@ html {
     color: $panelTextColor;
 }
 
+html {
+    overflow-y: hidden;
+}
+
 #app {
     position: fixed;
     left: 0;
@@ -74,6 +78,22 @@ html {
     > main {
         grid-area: main;
         margin-bottom: $m1;
+        overflow: auto;
     }
+}
+
+// Scrollbar Styling
+::-webkit-scrollbar {
+    width: $m2;
+}
+::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 0.25rem $background;
+}
+::-webkit-scrollbar-thumb {
+    background: $primary;
+    border-radius: 0.25rem;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: $link;
 }
 </style>
