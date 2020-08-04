@@ -1,8 +1,6 @@
 <template>
     <div id="app">
-        <header>
-            <nav-header />
-        </header>
+        <nav-header />
         <main class="box has-background-dark">
             <router-view />
         </main>
