@@ -41,24 +41,24 @@ export default {
     },
     computed: {
         isPaused() {
-            return this.$store.state.speed === 0;
+            return this.$store.state.simulation.speed === 0;
         },
         isPlaying() {
-            return this.$store.state.speed === 1;
+            return this.$store.state.simulation.speed === 1;
         },
         isFastForward() {
-            return this.$store.state.speed === 2;
+            return this.$store.state.simulation.speed === 2;
         },
     },
     methods: {
         pause() {
-            this.$store.dispatch('pause');
+            this.$store.dispatch('simulation/pause');
         },
         play() {
-            this.$store.dispatch('play');
+            this.$store.dispatch('simulation/play');
         },
         fastForward() {
-            this.$store.dispatch('fastForward');
+            this.$store.dispatch('simulation/fastForward');
         },
     },
 };

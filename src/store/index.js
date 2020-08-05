@@ -3,12 +3,15 @@ import Vuex from 'vuex';
 
 import Classification from '../enums/Classification.js';
 import ContactType from '../enums/ContactType.js';
+import simulation from '@/store/simulation.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
+    modules: {
+        simulation,
+    },
     state: {
-        speed: 0,
         contacts: [
             {
                 id: 1,
@@ -32,21 +35,6 @@ export default new Vuex.Store({
         ],
     },
     getters: {},
-    actions: {
-        pause({ commit }) {
-            commit('SET_SPEED', 0);
-        },
-        play({ commit }) {
-            commit('SET_SPEED', 1);
-        },
-        fastForward({ commit }) {
-            commit('SET_SPEED', 2);
-        },
-    },
-    mutations: {
-        SET_SPEED(state, speed) {
-            state.speed = speed;
-        },
-    },
-    modules: {},
+    actions: {},
+    mutations: {},
 });
