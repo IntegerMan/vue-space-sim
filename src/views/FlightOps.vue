@@ -6,12 +6,15 @@
         <h2 class="subtitle has-text-light">
             Flight Operations Display Goes here
         </h2>
+        <situation-grid />
     </div>
 </template>
 
 <script>
+import SituationGrid from '@/components/SituationGrid.vue';
+
 export default {
     name: 'FlightOps',
-    components: {},
+    components: { SituationGrid },
 };
 </script>

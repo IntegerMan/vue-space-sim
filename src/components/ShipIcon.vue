@@ -9,24 +9,51 @@
 </template>
 
 <script>
+import Classification from '../enums/Classification.js';
+import ContactType from '../enums/ContactType.js';
+
 export default {
     name: 'ShipIcon',
     props: {
-        text: {
-            type: String,
-            default: 'UNKNOWN',
+        contact: {
+            type: Object,
+            required: true,
         },
-        transform: {
-            type: String,
-            default: 'shrink-2',
+    },
+    computed: {
+        color() {
+            switch (this.contact.classification) {
+                case Classification.FRIENDLY:
+                    return 'has-text-success';
+                case Classification.HOSTILE:
+                    return 'has-text-danger';
+                case Classification.CIVILLIAN:
+                    return 'has-text-info';
+                case Classification.UNCLASSIFIED:
+                    return 'has-text-primary';
+                default:
+                    return 'has-text-warning';
+            }
         },
-        color: {
-            type: String,
-            default: 'has-text-warning',
+        transform() {
+            return 'shrink-6';
         },
-        icon: {
-            type: [String, Object],
-            default: () => ['fas', 'angle-up'],
+        text() {
+            return `${this.contact.code} ${this.contact.name}`;
+        },
+        icon() {
+            switch (this.contact.contactType) {
+                case ContactType.FIGHTER:
+                    return ['fas', 'chevron-up']; // Alt: 'arrow-up'
+                case ContactType.CARRIER:
+                    return ['fas', 'campground'];
+                case ContactType.PIRATE:
+                    return ['fas', 'skull-crossbones'];
+                case ContactType.RADIOLOGICAL:
+                    return ['fas', 'radiation']; // Alt: 'radiation'
+                default:
+                    return ['fas', 'exclamation']; // Alt: 'exclamation-triangle', 'exclamation-circle'
+            }
         },
     },
 };

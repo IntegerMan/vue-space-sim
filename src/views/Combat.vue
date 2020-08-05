@@ -6,12 +6,15 @@
         <h2 class="subtitle has-text-light">
             Combat Display Goes here
         </h2>
+        <situation-grid />
     </div>
 </template>
 
 <script>
+import SituationGrid from '@/components/SituationGrid.vue';
+
 export default {
     name: 'Combat',
-    components: {},
+    components: { SituationGrid },
 };
 </script>

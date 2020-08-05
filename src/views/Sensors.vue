@@ -6,12 +6,15 @@
         <h2 class="subtitle has-text-light">
             Sensors Display Goes here
         </h2>
+        <situation-grid />
     </div>
 </template>
 
 <script>
+import SituationGrid from '@/components/SituationGrid.vue';
+
 export default {
     name: 'Sensors',
-    components: {},
+    components: { SituationGrid },
 };
 </script>
