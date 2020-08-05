@@ -46,13 +46,15 @@ export default {
                 case ContactType.FIGHTER:
                     return ['fas', 'chevron-up']; // Alt: 'arrow-up'
                 case ContactType.CARRIER:
-                    return ['fas', 'campground'];
+                    return ['fas', 'bullseye'];
                 case ContactType.PIRATE:
                     return ['fas', 'skull-crossbones'];
+                case ContactType.LIGHT:
+                    return ['fas', 'caret-down'];
                 case ContactType.RADIOLOGICAL:
                     return ['fas', 'radiation']; // Alt: 'radiation'
                 default:
-                    return ['fas', 'exclamation']; // Alt: 'exclamation-triangle', 'exclamation-circle'
+                    return ['fas', 'question']; // Alt: 'exclamation-triangle', 'exclamation-circle'
             }
         },
     },
