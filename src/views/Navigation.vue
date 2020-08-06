@@ -7,16 +7,14 @@
             Navigation Display Goes here
         </h2>
         <situation-grid />
-        <helm-control />
     </div>
 </template>
 
 <script>
 import SituationGrid from '@/components/SituationGrid.vue';
-import HelmControl from '@/components/HelmControl.vue';
 
 export default {
     name: 'Navigation',
-    components: { SituationGrid, HelmControl },
+    components: { SituationGrid },
 };
 </script>

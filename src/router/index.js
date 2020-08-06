@@ -3,6 +3,7 @@ import VueRouter from 'vue-router';
 
 import Situation from '../views/Situation.vue';
 import Navigation from '../views/Navigation.vue';
+import HelmControl from '@/components/HelmControl.vue';
 import Combat from '../views/Combat.vue';
 import Sensors from '../views/Sensors.vue';
 import FlightOps from '../views/FlightOps.vue';
@@ -19,7 +20,10 @@ const routes = [
     {
         path: '/game/nav',
         name: 'Nav',
-        component: Navigation,
+        components: {
+            default: Navigation,
+            footer: HelmControl,
+        },
     },
     {
         path: '/game/sensors',

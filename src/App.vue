@@ -8,7 +8,7 @@
             <nav-sidebar />
         </aside>
         <footer class="box has-background-info">
-            Footer Controls Go Here
+            <router-view name="footer" />
         </footer>
     </div>
 </template>
@@ -58,7 +58,7 @@ html {
 
     column-gap: $m1;
 
-    grid-template-rows: auto 1fr auto;
+    grid-template-rows: auto 1fr 7rem;
     grid-template-columns: auto 1fr;
 
     > aside {

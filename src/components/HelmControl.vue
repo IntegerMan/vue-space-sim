@@ -2,7 +2,7 @@
     <form class="helm-control">
         <div class="field is-horizontal">
             <div class="field-label is-normal">
-                <label class="label has-text-info" for="txtHeading">Heading</label>
+                <label class="label" for="txtHeading">Heading</label>
             </div>
             <div class="field-body">
                 <div class="field has-addons">
@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="field-label is-normal">
-                <label class="label has-text-info" for="txtThrottle">Throttle</label>
+                <label class="label" for="txtThrottle">Throttle</label>
             </div>
             <div class="field-body">
                 <div class="field has-addons">
