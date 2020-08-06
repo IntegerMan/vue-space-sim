@@ -4,12 +4,14 @@ import Vuex from 'vuex';
 import Classification from '../enums/Classification.js';
 import ContactType from '../enums/ContactType.js';
 import simulation from '@/store/simulation.js';
+import helm from '@/store/helm.js';
 
 Vue.use(Vuex);
 
 export default new Vuex.Store({
     modules: {
         simulation,
+        helm,
     },
     state: {
         contacts: [
