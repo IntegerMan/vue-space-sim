@@ -7,20 +7,25 @@
             <div class="field-body">
                 <div class="field has-addons">
                     <p class="control">
-                        <input
+                        <knob-control
                             id="txtHeading"
-                            class="input"
-                            type="number"
-                            min="0"
-                            max="360"
-                            step="1"
                             v-model.number="heading"
+                            :primaryColor="primaryColor"
+                            :secondaryColor="secondaryColor"
+                            :animation="{
+                                animated: true,
+                                animateValue: true,
+                                animationDuration: '5000',
+                                animationFunction: 'linear',
+                            }"
+                            :min="0"
+                            :max="360"
                         />
                     </p>
                     <div class="control">
-                        <a class="button is-primary" @click.prevent="setHeading()">
+                        <button class="button is-primary" @click.prevent="setHeading()">
                             Set
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -30,20 +35,25 @@
             <div class="field-body">
                 <div class="field has-addons">
                     <p class="control">
-                        <input
+                        <knob-control
                             id="txtThrottle"
-                            class="input"
-                            type="number"
-                            min="-100"
-                            max="100"
-                            step="1"
                             v-model.number="throttle"
+                            :min="-100"
+                            :max="100"
+                            :primaryColor="primaryColor"
+                            :secondaryColor="secondaryColor"
+                            :animation="{
+                                animated: true,
+                                animateValue: true,
+                                animationDuration: '5000',
+                                animationFunction: 'linear',
+                            }"
                         />
                     </p>
                     <div class="control">
-                        <a class="button is-primary" @click.prevent="setSpeed()">
+                        <button class="button is-primary" @click.prevent="setSpeed()">
                             Set
-                        </a>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -52,8 +62,13 @@
 </template>
 
 <script>
+import KnobControl from 'vue-knob-control';
+
 export default {
     name: 'HelmControl',
+    components: {
+        KnobControl,
+    },
     methods: {
         setSpeed() {
             this.$store.dispatch('helm/setThrottle', this.throttle);
@@ -68,6 +83,14 @@ export default {
             heading: 0,
         };
     },
+    computed: {
+        primaryColor() {
+            return 'red';
+        },
+        secondaryColor() {
+            return 'green';
+        },
+    },
     created() {
         this.throttle = this.$store.state.helm.requestedThrottle;
         this.heading = this.$store.state.helm.requestedHeading;
@@ -77,8 +100,15 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
+form.helm-control > div.field.is-horizontal {
+    align-items: center;
 
-form.helm-control {
-    margin-top: $m2;
+    .field {
+        align-items: center;
+    }
+
+    button {
+        margin-left: $m1;
+    }
 }
 </style>

@@ -58,7 +58,7 @@ html {
 
     column-gap: $m1;
 
-    grid-template-rows: auto 1fr 7rem;
+    grid-template-rows: auto 1fr 8rem;
     grid-template-columns: auto 1fr;
 
     > aside {
