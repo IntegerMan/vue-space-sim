@@ -10,7 +10,7 @@
                         <knob-control
                             id="txtHeading"
                             v-model.number="heading"
-                            :primaryColor="primaryColor"
+                            :primaryColor="headingColor"
                             :secondaryColor="secondaryColor"
                             :animation="{
                                 animated: true,
@@ -40,7 +40,7 @@
                             v-model.number="throttle"
                             :min="-100"
                             :max="100"
-                            :primaryColor="primaryColor"
+                            :primaryColor="throttleColor"
                             :secondaryColor="secondaryColor"
                             :animation="{
                                 animated: true,
@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import KnobControl from 'vue-knob-control';
+import KnobControl from 'vue-knob-control'; // Details can be found at https://github.com/kramer99/vue-knob-control
 
 export default {
     name: 'HelmControl',
@@ -84,11 +84,32 @@ export default {
         };
     },
     computed: {
+        throttleColor() {
+            if (this.throttle < -75 || this.throttle > 85) {
+                return this.dangerColor;
+            } else if (this.throttle < 0 || this.throttle > 70) {
+                return this.warningColor;
+            } else {
+                return this.successColor;
+            }
+        },
+        headingColor() {
+            return this.successColor;
+        },
         primaryColor() {
-            return 'red';
+            return '#e19e47';
+        },
+        successColor() {
+            return '#76b894';
+        },
+        warningColor() {
+            return '#ffdd57';
+        },
+        dangerColor() {
+            return '#d25d5d';
         },
         secondaryColor() {
-            return 'green';
+            return '#101010';
         },
     },
     created() {
