@@ -2,7 +2,7 @@ const Classification = {
     UNCLASSIFIED: 0,
     HOSTILE: 1,
     FRIENDLY: 2,
-    CIVILLIAN: 3,
+    CIVILIAN: 3,
     UNKNOWN: 4,
 };
 
