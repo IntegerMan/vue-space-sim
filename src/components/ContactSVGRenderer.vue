@@ -1,22 +1,17 @@
 <template>
-    <g>
+    <!-- Translate the entire group. That way the contents can be relative to a standard set of coordinates -->
+    <g :transform="'translate(' + contact.x + ' ' + contact.y + ')'">
         <title>{{ tooltip }}</title>
-        <circle
-            :cx="contact.x"
-            :cy="contact.y"
-            :r="radius"
-            :stroke="stroke"
-            :stroke-width="2"
-            fill="transparent"
-        />
+        <!-- The bounding circle -->
+        <circle :r="radius" :stroke="stroke" :stroke-width="2" fill="transparent" />
+        <!-- Tooltip -->
         <text
             v-if="showLegend"
-            :x="contact.x"
-            :y="contact.y + radius + 20"
+            :y="radius + 20"
             :stroke="fill"
             text-anchor="middle"
-            >{{ tooltip }}</text
-        >
+            v-text="tooltip"
+        />
     </g>
 </template>
 
@@ -45,6 +40,9 @@ export default {
         },
         showLegend() {
             return this.mapMode !== MapMode.HELM || this.contact.isPlayer;
+        },
+        fontSize() {
+            return 20;
         },
         tooltip() {
             return `${this.contact.code} ${this.contact.name}`;

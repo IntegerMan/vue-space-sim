@@ -33,7 +33,10 @@ const routes = [
     {
         path: '/game/combat',
         name: 'Combat',
-        component: Combat,
+        components: {
+            default: Combat,
+            footer: HelmControl,
+        },
     },
     {
         path: '/game/flight',
