@@ -29,15 +29,11 @@
                 :contact="contact"
                 :mapMode="mapMode"
             />
-            <div v-if="false">
-                <ship-icon v-for="contact of contacts" :key="contact.id" :contact="contact" />
-            </div>
         </svg>
     </div>
 </template>
 
 <script>
-import ShipIcon from '@/components/ShipIcon.vue';
 import ContactSVGRenderer from '@/components/ContactSVGRenderer.vue';
 import ShipFormatter from '@/helpers/ShipFormatter.js';
 import ColorLiterals from '@/helpers/ColorLiterals.js';
@@ -48,7 +44,6 @@ export default {
         mapMode: Number,
     },
     components: {
-        ShipIcon,
         ContactSVGRenderer,
     },
     computed: {
