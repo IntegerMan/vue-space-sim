@@ -1,15 +1,7 @@
 <template>
     <div class="situation-grid has-background-black">
         <svg width="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMinYMin meet">
-            <rect
-                width="25"
-                height="25"
-                v-for="contact of contacts"
-                :fill="calculateColorHex(contact)"
-                :key="contact.id"
-                :x="contact.x"
-                :y="contact.y"
-            />
+            <ContactSVGRenderer v-for="contact of contacts" :key="contact.id" :contact="contact" />
             <div v-if="false">
                 <ship-icon v-for="contact of contacts" :key="contact.id" :contact="contact" />
             </div>
@@ -19,12 +11,14 @@
 
 <script>
 import ShipIcon from '@/components/ShipIcon.vue';
+import ContactSVGRenderer from '@/components/ContactSVGRenderer.vue';
 import ShipFormatter from '@/helpers/ShipFormatter.js';
 
 export default {
     name: 'SituationGrid',
     components: {
         ShipIcon,
+        ContactSVGRenderer,
     },
     computed: {
         contacts() {
