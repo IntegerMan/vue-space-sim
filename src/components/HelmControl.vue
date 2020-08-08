@@ -63,6 +63,7 @@
 
 <script>
 import KnobControl from 'vue-knob-control'; // Details can be found at https://github.com/kramer99/vue-knob-control
+import ColorLiterals from '@/helpers/ColorLiterals.js';
 
 export default {
     name: 'HelmControl',
@@ -86,30 +87,18 @@ export default {
     computed: {
         throttleColor() {
             if (this.throttle < -75 || this.throttle > 85) {
-                return this.dangerColor;
+                return ColorLiterals.danger;
             } else if (this.throttle < 0 || this.throttle > 70) {
-                return this.warningColor;
+                return ColorLiterals.warning;
             } else {
-                return this.successColor;
+                return ColorLiterals.success;
             }
         },
         headingColor() {
-            return this.successColor;
-        },
-        primaryColor() {
-            return '#e19e47';
-        },
-        successColor() {
-            return '#76b894';
-        },
-        warningColor() {
-            return '#ffdd57';
-        },
-        dangerColor() {
-            return '#d25d5d';
+            return ColorLiterals.success;
         },
         secondaryColor() {
-            return '#101010';
+            return ColorLiterals.background;
         },
     },
     created() {

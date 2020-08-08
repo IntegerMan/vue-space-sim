@@ -9,8 +9,8 @@
 </template>
 
 <script>
-import Classification from '../enums/Classification.js';
-import ContactType from '../enums/ContactType.js';
+import ContactType from '@/enums/ContactType.js';
+import ShipFormatter from '@/helpers/ShipFormatter.js';
 
 export default {
     name: 'ShipIcon',
@@ -22,18 +22,7 @@ export default {
     },
     computed: {
         color() {
-            switch (this.contact.classification) {
-                case Classification.FRIENDLY:
-                    return 'has-text-success';
-                case Classification.HOSTILE:
-                    return 'has-text-danger';
-                case Classification.CIVILLIAN:
-                    return 'has-text-info';
-                case Classification.UNCLASSIFIED:
-                    return 'has-text-primary';
-                default:
-                    return 'has-text-warning';
-            }
+            return ShipFormatter.calculateColorClass(this.contact);
         },
         transform() {
             return 'shrink-6';
