@@ -30,4 +30,8 @@ export default {
                 return ColorLiterals.warning;
         }
     },
+    // eslint-disable-next-line no-unused-vars
+    calculateStrokeHex(contact) {
+        return ColorLiterals.text;
+    },
 };

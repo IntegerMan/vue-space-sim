@@ -3,18 +3,21 @@
         <h1 class="title has-text-light">
             Flight Ops
         </h1>
-        <h2 class="subtitle has-text-light">
-            Flight Operations Display Goes here
-        </h2>
-        <situation-grid />
+        <situation-grid :mapMode="mapMode" />
     </div>
 </template>
 
 <script>
 import SituationGrid from '@/components/SituationGrid.vue';
+import MapMode from '@/enums/MapMode.js';
 
 export default {
     name: 'FlightOps',
     components: { SituationGrid },
+    computed: {
+        mapMode() {
+            return MapMode.FLIGHTOPS;
+        },
+    },
 };
 </script>

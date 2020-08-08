@@ -1,7 +1,12 @@
 <template>
     <div class="situation-grid has-background-black">
         <svg width="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMinYMin meet">
-            <ContactSVGRenderer v-for="contact of contacts" :key="contact.id" :contact="contact" />
+            <ContactSVGRenderer
+                v-for="contact of contacts"
+                :key="contact.id"
+                :contact="contact"
+                :mapMode="mapMode"
+            />
             <div v-if="false">
                 <ship-icon v-for="contact of contacts" :key="contact.id" :contact="contact" />
             </div>
@@ -16,6 +21,9 @@ import ShipFormatter from '@/helpers/ShipFormatter.js';
 
 export default {
     name: 'SituationGrid',
+    props: {
+        mapMode: Number,
+    },
     components: {
         ShipIcon,
         ContactSVGRenderer,
@@ -33,4 +41,8 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.situation-grid {
+    width: 28rem;
+}
+</style>

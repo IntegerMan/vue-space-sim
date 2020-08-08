@@ -3,15 +3,21 @@
         <h1 class="title has-text-light">
             Navigation
         </h1>
-        <situation-grid />
+        <situation-grid :mapMode="mapMode" />
     </div>
 </template>
 
 <script>
 import SituationGrid from '@/components/SituationGrid.vue';
+import MapMode from '@/enums/MapMode.js';
 
 export default {
     name: 'Navigation',
     components: { SituationGrid },
+    computed: {
+        mapMode() {
+            return MapMode.HELM;
+        },
+    },
 };
 </script>

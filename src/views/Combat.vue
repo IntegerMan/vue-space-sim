@@ -3,18 +3,21 @@
         <h1 class="title has-text-light">
             Combat
         </h1>
-        <h2 class="subtitle has-text-light">
-            Combat Display Goes here
-        </h2>
-        <situation-grid />
+        <situation-grid :mapMode="mapMode" />
     </div>
 </template>
 
 <script>
 import SituationGrid from '@/components/SituationGrid.vue';
+import MapMode from '@/enums/MapMode.js';
 
 export default {
     name: 'Combat',
     components: { SituationGrid },
+    computed: {
+        mapMode() {
+            return MapMode.COMBAT;
+        },
+    },
 };
 </script>
