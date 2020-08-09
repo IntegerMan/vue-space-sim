@@ -1,52 +1,38 @@
 <template>
     <form class="helm-control">
-        <div class="field is-horizontal">
-            <div class="field-label is-normal">
-                <label class="label" for="txtHeading">Heading</label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <p class="control">
-                        <knob-control
-                            id="txtHeading"
-                            v-model.number="heading"
-                            :primaryColor="headingColor"
-                            :secondaryColor="secondaryColor"
-                            :animation="{
-                                animated: true,
-                                animateValue: true,
-                                animationDuration: '5000',
-                                animationFunction: 'linear',
-                            }"
-                            :min="0"
-                            :max="360"
-                        />
-                    </p>
-                </div>
-            </div>
-            <div class="field-label is-normal">
-                <label class="label" for="txtThrottle">Throttle</label>
-            </div>
-            <div class="field-body">
-                <div class="field">
-                    <p class="control">
-                        <knob-control
-                            id="txtThrottle"
-                            v-model.number="throttle"
-                            :min="-100"
-                            :max="100"
-                            :primaryColor="throttleColor"
-                            :secondaryColor="secondaryColor"
-                            :animation="{
-                                animated: true,
-                                animateValue: true,
-                                animationDuration: '5000',
-                                animationFunction: 'linear',
-                            }"
-                        />
-                    </p>
-                </div>
-            </div>
+        <div class="control">
+            <label class="label" for="txtHeading">Heading</label>
+            <knob-control
+                id="txtHeading"
+                v-model.number="heading"
+                :primaryColor="headingColor"
+                :secondaryColor="secondaryColor"
+                :animation="{
+                    animated: true,
+                    animateValue: true,
+                    animationDuration: '5000',
+                    animationFunction: 'linear',
+                }"
+                :min="0"
+                :max="360"
+            />
+        </div>
+        <div class="control">
+            <label class="label" for="txtThrottle">Throttle</label>
+            <knob-control
+                id="txtThrottle"
+                v-model.number="throttle"
+                :min="-100"
+                :max="100"
+                :primaryColor="throttleColor"
+                :secondaryColor="secondaryColor"
+                :animation="{
+                    animated: true,
+                    animateValue: true,
+                    animationDuration: '5000',
+                    animationFunction: 'linear',
+                }"
+            />
         </div>
     </form>
 </template>
@@ -101,15 +87,18 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
-form.helm-control > div.field.is-horizontal {
-    align-items: center;
 
-    .field {
+.helm-control {
+    display: flex;
+    justify-content: space-around;
+
+    > .control {
+        display: flex;
         align-items: center;
     }
 
-    button {
-        margin-left: $m1;
+    label {
+        margin-right: $m1;
     }
 }
 </style>
