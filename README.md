@@ -58,8 +58,11 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 ### Simulation
 
 -   [x] Add a playback speed component
--   [ ] When not paused, the playback speed component should periodically cause the simulation to advance
+-   [x] When not paused, the playback speed component should periodically cause the simulation to advance
 -   [x] Simulating should cause ships to move around
+-   [ ] AI Ships should flee from projectiles when appropriate
+-   [ ] AI Ships should pursue prey when appropriate
+-   [ ] AI Ships should navigate towards their nav point when not in combat
 
 ## Combat
 

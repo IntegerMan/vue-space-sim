@@ -42,7 +42,9 @@
 export default {
     name: 'GameSpeedControl',
     data() {
-        return {};
+        return {
+            timeout: null,
+        };
     },
     computed: {
         isPaused() {
@@ -56,17 +58,39 @@ export default {
         },
     },
     methods: {
+        clearTimer() {
+            if (this.timeout) {
+                clearTimeout(this.timeout);
+                this.timeout = null;
+            }
+        },
+        setTimer() {
+            if (this.isPaused) {
+                this.clearTimer();
+            } else {
+                const ticks = this.isFastForward ? 150 : 500;
+                this.timeout = setTimeout(this.onTimerTick, ticks);
+            }
+        },
+        advanceOne() {
+            this.clearTimer();
+            this.$store.dispatch('simulation/advanceOne');
+        },
+        onTimerTick() {
+            this.$store.dispatch('simulation/advance');
+            this.setTimer();
+        },
         pause() {
+            this.clearTimer();
             this.$store.dispatch('simulation/pause');
         },
         play() {
             this.$store.dispatch('simulation/play');
-        },
-        advanceOne() {
-            this.$store.dispatch('simulation/advanceOne');
+            this.setTimer();
         },
         fastForward() {
             this.$store.dispatch('simulation/fastForward');
+            this.setTimer();
         },
     },
 };
