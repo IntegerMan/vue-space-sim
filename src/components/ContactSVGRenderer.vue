@@ -57,12 +57,20 @@ export default {
             return this.contact.size;
         },
         showLegend() {
-            return this.mapMode !== MapMode.HELM || this.contact.isPlayer;
+            switch (this.mapMode) {
+                case MapMode.HELM:
+                    return this.contact.isPlayer;
+                case MapMode.DEBUG:
+                    return true;
+                default:
+                    return true;
+            }
         },
         showHeading() {
             switch (this.mapMode) {
-                case MapMode.HELM:
-                    return true; // TODO: Only within X units of player
+                case MapMode.HELM: // TODO: Only within X units of player
+                case MapMode.DEBUG:
+                    return true;
                 case MapMode.SITUATION:
                     return this.contact.isPlayer;
                 case MapMode.COMBAT:

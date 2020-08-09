@@ -10,6 +10,11 @@
                 <font-awesome-icon icon="pause"></font-awesome-icon>
             </span>
         </button>
+        <button class="button is-dark" title="Advance One" @click="advanceOne()">
+            <span class="icon is-small">
+                <font-awesome-icon icon="step-forward"></font-awesome-icon>
+            </span>
+        </button>
         <button
             class="button"
             :class="{ 'is-success': isPlaying, 'is-dark': !isPlaying }"
@@ -56,6 +61,9 @@ export default {
         },
         play() {
             this.$store.dispatch('simulation/play');
+        },
+        advanceOne() {
+            this.$store.dispatch('simulation/advanceOne');
         },
         fastForward() {
             this.$store.dispatch('simulation/fastForward');

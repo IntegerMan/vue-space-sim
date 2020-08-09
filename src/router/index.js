@@ -8,6 +8,7 @@ import Combat from '../views/Combat.vue';
 import Sensors from '../views/Sensors.vue';
 import FlightOps from '../views/FlightOps.vue';
 import Engineering from '../views/Engineering.vue';
+import Debug from '../views/Debug.vue';
 
 Vue.use(VueRouter);
 
@@ -35,6 +36,14 @@ const routes = [
         name: 'Combat',
         components: {
             default: Combat,
+            footer: HelmControl,
+        },
+    },
+    {
+        path: '/game/debug',
+        name: 'Debug',
+        components: {
+            default: Debug,
             footer: HelmControl,
         },
     },

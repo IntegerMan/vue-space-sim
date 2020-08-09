@@ -6,6 +6,7 @@
         <nav-button class="is-fullwidth" :to="{ name: 'Sensors' }">Sensors</nav-button>
         <nav-button class="is-fullwidth" :to="{ name: 'Flight' }">Flight Ops</nav-button>
         <nav-button class="is-fullwidth" :to="{ name: 'Engineering' }">Engineering</nav-button>
+        <nav-button class="is-fullwidth" :to="{ name: 'Debug' }">Debug View</nav-button>
     </nav>
 </template>
 

@@ -5,6 +5,7 @@ import Classification from '../enums/Classification.js';
 import ContactType from '../enums/ContactType.js';
 import simulation from '@/store/simulation.js';
 import helm from '@/store/helm.js';
+import VectorHelper from '@/helpers/VectorHelper.js';
 
 Vue.use(Vuex);
 
@@ -24,6 +25,7 @@ export default new Vuex.Store({
                 contactType: ContactType.CARRIER,
                 size: 15,
                 heading: 35,
+                thrust: 15,
                 x: 500,
                 y: 500,
             },
@@ -35,6 +37,7 @@ export default new Vuex.Store({
                 contactType: ContactType.UNCLASSIFIED,
                 size: 7,
                 heading: 288,
+                thrust: 15,
                 x: 755,
                 y: 112,
             },
@@ -42,10 +45,11 @@ export default new Vuex.Store({
                 id: 3,
                 code: 'CIV-134',
                 name: 'Joyrider',
-                classification: Classification.CIVILLIAN,
+                classification: Classification.CIVILIAN,
                 contactType: ContactType.LIGHT,
                 size: 3,
                 heading: 95,
+                thrust: 15,
                 x: 420,
                 y: 881,
             },
@@ -57,6 +61,7 @@ export default new Vuex.Store({
                 contactType: ContactType.RADIOLOGICAL,
                 size: 2,
                 heading: 70,
+                thrust: 15,
                 x: 395,
                 y: 411,
             },
@@ -68,12 +73,29 @@ export default new Vuex.Store({
                 contactType: ContactType.PIRATE,
                 size: 5,
                 heading: 310,
+                thrust: 15,
                 x: 920,
                 y: 640,
             },
         ],
     },
     getters: {},
-    actions: {},
-    mutations: {},
+    actions: {
+        advanceSimulation(context) {
+            //const rand = new Random();
+
+            const newContacts = context.state.contacts.map(c => {
+                const currentPos = { x: c.x, y: c.y };
+                const newPos = VectorHelper.calculateNewPosition(currentPos, c.heading, c.thrust);
+                return { ...c, x: newPos.x, y: newPos.y };
+            });
+
+            context.commit('UPDATE_CONTACTS', newContacts);
+        },
+    },
+    mutations: {
+        UPDATE_CONTACTS(state, contacts) {
+            state.contacts = contacts;
+        },
+    },
 });

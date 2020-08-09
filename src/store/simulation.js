@@ -10,6 +10,10 @@ const simulation = {
         play({ commit }) {
             commit('SET_SPEED', 1);
         },
+        advanceOne({ dispatch }) {
+            dispatch('pause');
+            dispatch('advanceSimulation', null, { root: true });
+        },
         fastForward({ commit }) {
             commit('SET_SPEED', 2);
         },
