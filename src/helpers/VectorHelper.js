@@ -7,7 +7,6 @@ export default {
         const radians = this.degreesToRadians(headingInDegrees);
         const modX = thrust * Math.sin(radians);
         const modY = thrust * Math.cos(radians);
-        console.log(modX, modY);
 
         return { x: pos.x + modX, y: pos.y - modY };
     },
