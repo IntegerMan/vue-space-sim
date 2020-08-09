@@ -5,7 +5,7 @@
                 <label class="label" for="txtHeading">Heading</label>
             </div>
             <div class="field-body">
-                <div class="field has-addons">
+                <div class="field">
                     <p class="control">
                         <knob-control
                             id="txtHeading"
@@ -22,18 +22,13 @@
                             :max="360"
                         />
                     </p>
-                    <div class="control">
-                        <button class="button is-primary" @click.prevent="setHeading()">
-                            Set
-                        </button>
-                    </div>
                 </div>
             </div>
             <div class="field-label is-normal">
                 <label class="label" for="txtThrottle">Throttle</label>
             </div>
             <div class="field-body">
-                <div class="field has-addons">
+                <div class="field">
                     <p class="control">
                         <knob-control
                             id="txtThrottle"
@@ -50,11 +45,6 @@
                             }"
                         />
                     </p>
-                    <div class="control">
-                        <button class="button is-primary" @click.prevent="setSpeed()">
-                            Set
-                        </button>
-                    </div>
                 </div>
             </div>
         </div>
@@ -70,19 +60,20 @@ export default {
     components: {
         KnobControl,
     },
-    methods: {
-        setSpeed() {
-            this.$store.dispatch('helm/setThrottle', this.throttle);
-        },
-        setHeading() {
-            this.$store.dispatch('helm/setHeading', this.heading);
-        },
-    },
+    methods: {},
     data() {
         return {
             throttle: 0,
             heading: 0,
         };
+    },
+    watch: {
+        throttle: function(newVal) {
+            this.$store.dispatch('helm/setThrottle', newVal);
+        },
+        heading: function(newVal) {
+            this.$store.dispatch('helm/setHeading', newVal);
+        },
     },
     computed: {
         throttleColor() {
