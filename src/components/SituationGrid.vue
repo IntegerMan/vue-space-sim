@@ -1,6 +1,11 @@
 <template>
     <div class="situation-grid has-background-black">
-        <svg width="100%" viewBox="0 0 1000 1000" preserveAspectRatio="xMinYMin meet">
+        <svg
+            width="100%"
+            viewBox="0 0 1000 1000"
+            preserveAspectRatio="xMinYMin meet"
+            shape-rendering="auto"
+        >
             <g id="gridLines">
                 <line
                     v-for="line of mapGridLines"

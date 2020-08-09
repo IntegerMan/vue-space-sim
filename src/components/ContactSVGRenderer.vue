@@ -2,8 +2,7 @@
     <!-- Translate the entire group. That way the contents can be relative to a standard set of coordinates -->
     <g :transform="'translate(' + contact.x + ' ' + contact.y + ')'">
         <title>{{ tooltip }}</title>
-        <!-- The bounding circle -->
-        <circle :r="radius" :stroke="stroke" :stroke-width="2" fill="transparent" />
+
         <!-- Heading indicator arrow -->
         <g :transform="`rotate(${contact.heading})`" trasform-origin="0 0" v-if="showHeading">
             <line
@@ -28,7 +27,21 @@
                 :stroke="stroke"
             />
         </g>
-        <!-- Tooltip -->
+        <!-- Main iconography goes here -->
+        <svg
+            shape-rendering="auto"
+            :width="radius * 4"
+            :height="radius * 4"
+            viewBox="0 0 100 100"
+            preserveAspectRatio="xMinYMin meet"
+            :x="-radius * 2"
+            :y="-radius * 2"
+        >
+            <ContactSVGIcon :contact="contact" :mapMode="mapMode" />
+        </svg>
+        <!-- The bounding circle -->
+        <circle :r="radius" :stroke="stroke" :stroke-width="2" fill="transparent" />
+        <!-- Legend -->
         <text
             v-if="showLegend"
             :y="radius + fontSize"
@@ -43,6 +56,7 @@
 import ShipFormatter from '@/helpers/ShipFormatter.js';
 import MapMode from '@/enums/MapMode.js';
 import Classification from '@/enums/Classification.js';
+import ContactSVGIcon from '@/components/ContactSVGIcon.vue';
 
 export default {
     name: 'ContactSVGRenderer',
@@ -50,15 +64,15 @@ export default {
         contact: Object,
         mapMode: Number,
     },
+    components: {
+        ContactSVGIcon,
+    },
     computed: {
         stroke() {
             return ShipFormatter.calculateStrokeHex(this.contact);
         },
         fill() {
             return ShipFormatter.calculateColorHex(this.contact);
-        },
-        textClass() {
-            return ShipFormatter.calculateColorClass(this.contact);
         },
         radius() {
             return this.contact.size;
@@ -92,7 +106,7 @@ export default {
             return 20;
         },
         tooltip() {
-            return `${this.contact.code} ${this.contact.name}`;
+            return `${this.contact.code} ${this.contact.name.toUpperCase()}`;
         },
     },
 };

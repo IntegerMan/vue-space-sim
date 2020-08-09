@@ -8,7 +8,7 @@ export default {
                 return 'has-text-success';
             case Classification.HOSTILE:
                 return 'has-text-danger';
-            case Classification.CIVILLIAN:
+            case Classification.CIVILIAN:
                 return 'has-text-info';
             case Classification.UNCLASSIFIED:
                 return 'has-text-primary';
@@ -22,7 +22,7 @@ export default {
                 return ColorLiterals.success;
             case Classification.HOSTILE:
                 return ColorLiterals.danger;
-            case Classification.CIVILLIAN:
+            case Classification.CIVILIAN:
                 return ColorLiterals.info;
             case Classification.UNCLASSIFIED:
                 return ColorLiterals.primary;

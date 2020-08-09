@@ -44,7 +44,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -   [x] Render Ship Components Based on Data
 -   [x] Indicate Heading on Ship Components
 -   [x] Indicate Name or Designation Under Ship Components
--   [ ] Render icons based on the ship type
+-   [x] Render icons based on the ship type
 -   [ ] Render sensor range
 -   [ ] Render weapon range
 -   [ ] Render past positioning

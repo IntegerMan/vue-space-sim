@@ -7,6 +7,9 @@ const ContactType = {
     MISSILE: 5,
     RADIOLOGICAL: 6,
     PIRATE: 7,
+    DESTROYER: 8,
+    CRUISER: 9,
+    DREADNAUGHT: 10,
 };
 
 export default ContactType;
