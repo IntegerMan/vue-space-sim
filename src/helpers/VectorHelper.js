@@ -10,4 +10,12 @@ export default {
 
         return { x: pos.x + modX, y: pos.y - modY };
     },
+
+    translateRelativeToPos(contact, pos, viewPortOffset) {
+        return {
+            ...contact,
+            x: contact.x - pos.x + viewPortOffset.x,
+            y: contact.y - pos.y + viewPortOffset.y,
+        };
+    },
 };

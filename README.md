@@ -33,18 +33,28 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 
 ### Situation Display
 
--[ ] Render Grid Lines
+-[x] Render Grid Lines
 -[x] Render a Ship Component
 -[x] Render a Hostile Component
--[ ] Render Ship Components Based on Data
--[ ] Indicate Heading on Ship Components
+-[x] Render Ship Components Based on Data
+-[x] Indicate Heading on Ship Components
 -[x] Indicate Name or Designation Under Ship Components
+-[ ] Render icons based on the ship type
+-[ ] Render sensor range
+-[ ] Render weapon range
+-[ ] Render past positioning
+-[ ] Render predicted future position
+-[ ] Render asteroids
+-[ ] Render nebulae
+-[ ] Render stations
+-[ ] Render nav markers
+-[ ] Render jump points
 
 ### Simulation
 
 -[x] Add a playback speed component
 -[ ] When not paused, the playback speed component should periodically cause the simulation to advance
--[ ] Simulating should cause ships to move around
+-[x] Simulating should cause ships to move around
 
 ## Combat
 

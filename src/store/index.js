@@ -79,7 +79,17 @@ export default new Vuex.Store({
             },
         ],
     },
-    getters: {},
+    getters: {
+        contactsRelativeToPlayer(state) {
+            const player = state.contacts.find(c => c.isPlayer);
+            const playerPos = { x: player.x, y: player.y };
+            const viewPortOffset = { x: 500, y: 500 }; // TODO: This should live elsewhere
+
+            return state.contacts.map(c =>
+                VectorHelper.translateRelativeToPos(c, playerPos, viewPortOffset)
+            );
+        },
+    },
     actions: {
         advanceSimulation(context) {
             //const rand = new Random();

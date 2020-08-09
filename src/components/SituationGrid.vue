@@ -48,7 +48,7 @@ export default {
     },
     computed: {
         contacts() {
-            return this.$store.state.contacts;
+            return this.$store.getters.contactsRelativeToPlayer;
         },
         mapGridLines() {
             return 5; // For best effect, this should be odd so the player ship isn't crosshaired

@@ -19,7 +19,14 @@
                 :fill="stroke"
                 :transform="`translate(0 ${-radius - 7})`"
             />
-            <line :x1="0" :x2="0" :y1="radius" :y2="radius + 5" :stroke-width="2" :stroke="stroke" />
+            <line
+                :x1="0"
+                :x2="0"
+                :y1="radius"
+                :y2="radius + 5"
+                :stroke-width="2"
+                :stroke="stroke"
+            />
         </g>
         <!-- Tooltip -->
         <text
@@ -76,9 +83,7 @@ export default {
                 case MapMode.COMBAT:
                     return true;
                 case MapMode.FLIGHTOPS:
-                    return (
-                        this.contact.classification === Classification.FRIENDLY
-                    );
+                    return this.contact.classification === Classification.FRIENDLY;
                 default:
                     return false;
             }
