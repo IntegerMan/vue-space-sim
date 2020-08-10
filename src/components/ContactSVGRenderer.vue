@@ -5,27 +5,24 @@
 
         <!-- Heading indicator arrow -->
         <g :transform="`rotate(${contact.heading})`" trasform-origin="0 0" v-if="showHeading">
-            <line
-                :x1="0"
-                :x2="0"
-                :y1="-radius"
-                :y2="-radius - 10"
-                :stroke-width="2"
-                :stroke="stroke"
-            />
+            <line :y1="-radius" :y2="-radius - 10" :stroke-width="2" :stroke="stroke" />
             <polygon
                 points="-7,0 7,0 0,-7"
                 :fill="stroke"
                 :transform="`translate(0 ${-radius - 7})`"
             />
-            <line
-                :x1="0"
-                :x2="0"
-                :y1="radius"
-                :y2="radius + 5"
-                :stroke-width="2"
-                :stroke="stroke"
-            />
+            <line :y1="radius" :y2="radius + 5" :stroke-width="2" :stroke="stroke" />
+        </g>
+        <!-- Heading Indicator -->
+        <g
+            v-if="showDesiredHeading"
+            :transform="`rotate(${contact.desiredHeading})`"
+            :stroke-width="2"
+            stroke-dasharray="1,1"
+            :stroke="fill"
+        >
+            <line :y1="-radius" :y2="-radius - 10" />
+            <polygon points="-7,0 7,0 0,-7" :transform="`translate(0 ${-radius - 7})`" />
         </g>
         <!-- Main iconography goes here -->
         <svg
@@ -85,6 +82,23 @@ export default {
                     return true;
                 default:
                     return true;
+            }
+        },
+        isPlayer() {
+            return this.contact.id === this.$store.getters.playerShip.id;
+        },
+        showDesiredHeading() {
+            switch (this.mapMode) {
+                case MapMode.HELM:
+                    return this.isPlayer && this.contact.heading != this.contact.desiredHeading;
+                case MapMode.DEBUG:
+                    return true;
+                case MapMode.SITUATION:
+                    return this.isPlayer;
+                case MapMode.FLIGHTOPS:
+                    return this.contact.classification === Classification.FRIENDLY;
+                default:
+                    return false;
             }
         },
         showHeading() {

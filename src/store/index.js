@@ -25,7 +25,8 @@ export default new Vuex.Store({
                 contactType: ContactType.CARRIER,
                 size: 22,
                 heading: 35,
-                thrust: 15,
+                desiredHeading: 0,
+                thrust: 8,
                 x: 500,
                 y: 500,
             },
@@ -37,6 +38,7 @@ export default new Vuex.Store({
                 contactType: ContactType.UNCLASSIFIED,
                 size: 7,
                 heading: 288,
+                desiredHeading: 288,
                 thrust: 15,
                 x: 755,
                 y: 112,
@@ -49,7 +51,8 @@ export default new Vuex.Store({
                 contactType: ContactType.LIGHT,
                 size: 8,
                 heading: 95,
-                thrust: 15,
+                desiredHeading: 95,
+                thrust: 10,
                 x: 420,
                 y: 881,
             },
@@ -61,7 +64,8 @@ export default new Vuex.Store({
                 contactType: ContactType.RADIOLOGICAL,
                 size: 8,
                 heading: 70,
-                thrust: 15,
+                desiredHeading: 70,
+                thrust: 25,
                 x: 395,
                 y: 411,
             },
@@ -73,15 +77,19 @@ export default new Vuex.Store({
                 contactType: ContactType.PIRATE,
                 size: 7,
                 heading: 310,
-                thrust: 15,
+                desiredHeading: 310,
+                thrust: 20,
                 x: 920,
                 y: 640,
             },
         ],
     },
     getters: {
-        contactsRelativeToPlayer(state) {
-            const player = state.contacts.find(c => c.isPlayer);
+        playerShip(state) {
+            return state.contacts.find(c => c.isPlayer);
+        },
+        contactsRelativeToPlayer(state, getters) {
+            const player = getters.playerShip;
             const playerPos = { x: player.x, y: player.y };
             const viewPortOffset = { x: 500, y: 500 }; // TODO: This should live elsewhere
 
@@ -94,6 +102,10 @@ export default new Vuex.Store({
     mutations: {
         UPDATE_CONTACTS(state, contacts) {
             state.contacts = contacts;
+        },
+        SET_DESIRED_HEADING(state, payload) {
+            const contact = state.contacts.find(c => c.id === payload.contactId);
+            contact.desiredHeading = payload.value;
         },
     },
 });

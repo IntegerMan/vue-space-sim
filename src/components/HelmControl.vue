@@ -80,7 +80,7 @@ export default {
     },
     created() {
         this.throttle = this.$store.state.helm.requestedThrottle;
-        this.heading = this.$store.state.helm.requestedHeading;
+        this.heading = this.$store.getters['helm/requestedHeading'];
     },
 };
 </script>
