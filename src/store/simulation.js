@@ -1,4 +1,4 @@
-import VectorHelper from '@/helpers/VectorHelper.js';
+import VectorHelper from '../helpers/VectorHelper.js';
 
 const simulation = {
     namespaced: true,
@@ -13,7 +13,46 @@ const simulation = {
             commit('SET_SPEED', 1);
         },
         advance(context) {
-            const newContacts = context.rootState.contacts.map(c => {
+            const contacts = context.rootState.contacts.map(c => {
+                let heading = c.heading;
+                if (c.heading !== c.desiredHeading) {
+                    const maxTurn = 15; // TODO: This should live elsewhere
+                    let distanceRight, distanceLeft;
+
+                    if (c.heading < c.desiredHeading) {
+                        distanceLeft = c.heading + 360 - c.desiredHeading;
+                        distanceRight = c.desiredHeading - c.heading;
+                    } else {
+                        distanceLeft = c.heading - c.desiredHeading;
+                        distanceRight = 360 - c.heading + c.desiredHeading;
+                    }
+
+                    if (distanceLeft < distanceRight) {
+                        if (distanceLeft <= maxTurn) {
+                            heading = c.desiredHeading;
+                        } else {
+                            heading -= maxTurn;
+                        }
+                    } else {
+                        if (distanceRight <= maxTurn) {
+                            heading = c.desiredHeading;
+                        } else {
+                            heading += maxTurn;
+                        }
+                    }
+
+                    while (heading < 0) {
+                        heading += 360;
+                    }
+
+                    while (heading >= 360) {
+                        heading -= 360;
+                    }
+                }
+
+                return { ...c, heading: heading };
+            });
+            const newContacts = contacts.map(c => {
                 const currentPos = { x: c.x, y: c.y };
                 const newPos = VectorHelper.calculateNewPosition(currentPos, c.heading, c.thrust);
                 return { ...c, x: newPos.x, y: newPos.y };
