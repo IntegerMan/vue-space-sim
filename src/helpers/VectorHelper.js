@@ -18,4 +18,44 @@ export default {
             y: contact.y - pos.y + viewPortOffset.y,
         };
     },
+
+    steerTowardsHeading(current, target, maxTurn) {
+        if (current === target) return current;
+        let distanceRight, distanceLeft;
+
+        if (current < target) {
+            distanceLeft = current + 360 - target;
+            distanceRight = target - current;
+        } else {
+            distanceLeft = current - target;
+            distanceRight = 360 - current + target;
+        }
+
+        if (distanceLeft < distanceRight) {
+            if (distanceLeft <= maxTurn) {
+                current = target;
+            } else {
+                current -= maxTurn;
+            }
+        } else {
+            if (distanceRight <= maxTurn) {
+                current = target;
+            } else {
+                current += maxTurn;
+            }
+        }
+
+        return this.clampDegrees(current);
+    },
+
+    clampDegrees(value) {
+        while (value < 0) {
+            value += 360;
+        }
+
+        while (value >= 360) {
+            value -= 360;
+        }
+        return value;
+    },
 };
