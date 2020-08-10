@@ -88,9 +88,11 @@ export default {
             return this.contact.id === this.$store.getters.playerShip.id;
         },
         showDesiredHeading() {
+            if (this.contact.heading === this.contact.desiredHeading) return false;
+
             switch (this.mapMode) {
                 case MapMode.HELM:
-                    return this.isPlayer && this.contact.heading != this.contact.desiredHeading;
+                    return this.isPlayer;
                 case MapMode.DEBUG:
                     return true;
                 case MapMode.SITUATION:
