@@ -21,6 +21,41 @@ export default {
 
     steerTowardsHeading(current, target, maxTurn) {
         if (current === target) return current;
+
+        let distance = this.calculateTurnDistanceInDegrees(current, target);
+
+        if (distance.left < distance.right) {
+            if (distance.left <= maxTurn) {
+                current = target;
+            } else {
+                current -= maxTurn;
+            }
+        } else {
+            if (distance.right <= maxTurn) {
+                current = target;
+            } else {
+                current += maxTurn;
+            }
+        }
+
+        return this.clampDegrees(current);
+    },
+
+    moveTowardsSetThrottle(current, target, maxChange) {
+        // Do nothing if we're already at our target
+        if (current === target) return current;
+
+        // Instantly snap to the target if we're in range
+        if (Math.abs(current - target) < maxChange) return target;
+
+        if (current < target) {
+            return current + maxChange;
+        } else {
+            return current - maxChange;
+        }
+    },
+
+    calculateTurnDistanceInDegrees(current, target) {
         let distanceRight, distanceLeft;
 
         if (current < target) {
@@ -31,21 +66,7 @@ export default {
             distanceRight = 360 - current + target;
         }
 
-        if (distanceLeft < distanceRight) {
-            if (distanceLeft <= maxTurn) {
-                current = target;
-            } else {
-                current -= maxTurn;
-            }
-        } else {
-            if (distanceRight <= maxTurn) {
-                current = target;
-            } else {
-                current += maxTurn;
-            }
-        }
-
-        return this.clampDegrees(current);
+        return { left: distanceLeft, right: distanceRight };
     },
 
     clampDegrees(value) {

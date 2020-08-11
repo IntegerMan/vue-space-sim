@@ -79,7 +79,7 @@ export default {
         },
     },
     created() {
-        this.throttle = this.$store.state.helm.requestedThrottle;
+        this.throttle = this.$store.getters['helm/requestedThrottle'];
         this.heading = this.$store.getters['helm/requestedHeading'];
     },
 };

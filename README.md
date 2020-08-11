@@ -50,8 +50,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -   [ ] Render past positioning
 -   [ ] Render predicted future position
 -   [x] Render desired heading
--   [ ] Render desired throttle
--   [ ] Render current throttle as a magnitude
+-   [x] Render desired throttle
+-   [x] Render current throttle as a magnitude
 -   [ ] Render asteroids
 -   [ ] Render nebulae
 -   [ ] Render stations
@@ -103,7 +103,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -   [x] Allow the player to set a velocity
 -   [x] Simulation causes the ship to move
 -   [x] Ship has turning radius and will move towards set heading
--   [ ] Ship has acceleration / deceleration speed and will move towards set speed
+-   [x] Ship has acceleration / deceleration speed and will move towards set speed
 
 ## Collaboration
 

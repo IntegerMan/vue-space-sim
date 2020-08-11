@@ -22,6 +22,11 @@ const simulation = {
                             c.desiredHeading,
                             15 // TODO: Max Turn should live elsewhere
                         ),
+                        thrust: VectorHelper.moveTowardsSetThrottle(
+                            c.thrust,
+                            c.desiredThrottle,
+                            15 // TODO: Max throttle change should live elsewhere
+                        ),
                     };
                 })
                 .map(c => {
