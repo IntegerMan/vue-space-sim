@@ -1,6 +1,6 @@
 <template>
     <!-- Translate the entire group. That way the contents can be relative to a standard set of coordinates -->
-    <g :transform="'translate(' + contact.x + ' ' + contact.y + ')'">
+    <g :transform="'translate(' + contact.pos.x * zoom + ' ' + contact.pos.y * zoom + ')'">
         <title>{{ tooltip }}</title>
 
         <!-- Heading indicator arrow -->
@@ -23,7 +23,6 @@
             v-if="showDesiredHeading"
             :transform="`rotate(${contact.desiredHeading})`"
             :stroke-width="2"
-            stroke-dasharray="1,1"
             :stroke="fill"
         >
             <line :y1="-radius" :y2="-radius - desiredThrottleMagnitude - 3" />
@@ -60,15 +59,19 @@
 <script>
 import VectorHelper from '../helpers/VectorHelper.js';
 import ShipFormatter from '../helpers/ShipFormatter.js';
-import MapMode from '@/enums/MapMode.js';
-import Classification from '@/enums/Classification.js';
-import ContactSVGIcon from '@/components/ContactSVGIcon.vue';
+import MapMode from '../enums/MapMode.js';
+import Classification from '../enums/Classification.js';
+import ContactSVGIcon from '../components/ContactSVGIcon.vue';
 
 export default {
     name: 'ContactSVGRenderer',
     props: {
         contact: Object,
         mapMode: Number,
+        zoom: {
+            type: Number,
+            default: 1,
+        },
     },
     components: {
         ContactSVGIcon,
@@ -81,13 +84,21 @@ export default {
             return ShipFormatter.calculateColorHex(this.contact);
         },
         radius() {
-            return this.contact.size;
+            return this.contact.size * this.zoom;
         },
         throttleMagnitude() {
-            return VectorHelper.calculatePercentMagnitude(this.contact.thrust, 3, 50);
+            return VectorHelper.calculatePercentMagnitude(
+                this.contact.thrust,
+                3 * this.zoom,
+                50 * this.zoom
+            );
         },
         desiredThrottleMagnitude() {
-            return VectorHelper.calculatePercentMagnitude(this.contact.desiredThrottle, 3, 50);
+            return VectorHelper.calculatePercentMagnitude(
+                this.contact.desiredThrottle,
+                3 * this.zoom,
+                50 * this.zoom
+            );
         },
         showLegend() {
             switch (this.mapMode) {

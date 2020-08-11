@@ -3,7 +3,7 @@
         <h1 class="title has-text-light">
             Sensors
         </h1>
-        <situation-grid :mapMode="mapMode" />
+        <situation-grid :mapMode="mapMode" :zoom="1" />
     </div>
 </template>
 

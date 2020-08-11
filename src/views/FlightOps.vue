@@ -1,7 +1,7 @@
 <template>
     <div class="has-text-light">
         <h1 class="title has-text-light">Flight Ops</h1>
-        <situation-grid :mapMode="mapMode" />
+        <situation-grid :mapMode="mapMode" :zoom="0.75" />
     </div>
 </template>
 

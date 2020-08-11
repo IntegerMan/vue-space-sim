@@ -2,7 +2,7 @@
     <div class="situation-grid has-background-black">
         <svg
             width="100%"
-            viewBox="0 0 1000 1000"
+            :viewBox="'0 0 ' + viewPortSize.width + ' ' + viewPortSize.height"
             preserveAspectRatio="xMinYMin meet"
             shape-rendering="auto"
         >
@@ -13,7 +13,7 @@
                     :x1="x"
                     :x2="x"
                     :y1="0"
-                    :y2="1000"
+                    :y2="viewPortSize.height"
                 />
                 <line
                     v-for="y of horizontalGridLines"
@@ -21,7 +21,7 @@
                     :y1="y"
                     :y2="y"
                     :x1="0"
-                    :x2="1000"
+                    :x2="viewPortSize.width"
                 />
             </g>
             <ContactSVGRenderer
@@ -29,6 +29,7 @@
                 :key="contact.id"
                 :contact="contact"
                 :mapMode="mapMode"
+                :zoom="zoom"
             />
         </svg>
     </div>
@@ -43,6 +44,15 @@ export default {
     name: 'SituationGrid',
     props: {
         mapMode: Number,
+        zoom: {
+            type: Number,
+            default: 1,
+        },
+    },
+    data() {
+        return {
+            viewPortSize: { height: 1000 / this.zoom, width: 1000 / this.zoom },
+        };
     },
     components: {
         ContactSVGRenderer,
@@ -56,7 +66,7 @@ export default {
 
             const lines = [];
 
-            for (let y = 0; y < 1000; y++) {
+            for (let y = 0; y < this.viewPortSize.height / this.zoom; y++) {
                 if ((y + playerY) % 200 === 0) {
                     lines.push(y);
                 }
@@ -68,7 +78,7 @@ export default {
 
             const lines = [];
 
-            for (let x = 0; x < 1000; x++) {
+            for (let x = 0; x < this.viewPortSize.width / this.zoom; x++) {
                 if ((x + playerX) % 200 === 0) {
                     lines.push(x);
                 }

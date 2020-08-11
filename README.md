@@ -58,8 +58,9 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -   [ ] Render nav markers
 -   [ ] Render jump points
 -   [x] Grid lines should be relative to the system, not the player
--   [ ] Allow different views to have different zoom settings
+-   [x] Allow different views to have different zoom settings
 -   [ ] Zoom in and out of the map
+-   [ ] Optionally center zoomed views on the player's ship
 
 ### Simulation
 
