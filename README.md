@@ -49,11 +49,15 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -   [ ] Render weapon range
 -   [ ] Render past positioning
 -   [ ] Render predicted future position
+-   [x] Render desired heading
+-   [ ] Render desired throttle
+-   [ ] Render current throttle as a magnitude
 -   [ ] Render asteroids
 -   [ ] Render nebulae
 -   [ ] Render stations
 -   [ ] Render nav markers
 -   [ ] Render jump points
+-   [ ] Grid lines should be relative to the system, not the player
 
 ### Simulation
 
@@ -98,7 +102,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -   [x] Allow the player to set a heading
 -   [x] Allow the player to set a velocity
 -   [x] Simulation causes the ship to move
--   [ ] Ship has turning radius and will move towards set heading
+-   [x] Ship has turning radius and will move towards set heading
 -   [ ] Ship has acceleration / deceleration speed and will move towards set speed
 
 ## Collaboration
