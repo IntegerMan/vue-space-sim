@@ -30,6 +30,7 @@
                 :contact="contact"
                 :mapMode="mapMode"
                 :zoom="zoom"
+                :offset="offset"
             />
         </svg>
     </div>
@@ -48,6 +49,10 @@ export default {
             type: Number,
             default: 1,
         },
+        centerOnPlayer: {
+            type: Boolean,
+            default: true,
+        },
     },
     data() {
         return {
@@ -61,26 +66,47 @@ export default {
         contacts() {
             return this.$store.getters.contactsRelativeToPlayer;
         },
+        topLevelTransform() {
+            if (this.centerOnPlayer) {
+                const pos = this.$store.getters.playerShip.pos;
+                const offsetX = 0;
+                const offsetY = 0;
+                console.log(this.viewPortSize, pos);
+                return `translate(${offsetX} ${offsetY})`;
+            } else {
+                return '';
+            }
+        },
         horizontalGridLines() {
             const playerY = Math.round(this.$store.getters.playerShip.pos.y);
 
             const lines = [];
 
-            for (let y = 0; y < this.viewPortSize.height / this.zoom; y++) {
-                if ((y + playerY) % 200 === 0) {
-                    lines.push(y);
+            for (let y = 0; y < Math.max(1000, 1000 / this.zoom); y++) {
+                if (Math.round(y + playerY) % 200 === 0) {
+                    lines.push(Math.round(y - this.offset.y));
                 }
             }
             return lines;
+        },
+        offset() {
+            if (this.centerOnPlayer) {
+                return {
+                    x: (this.viewPortSize.width / 2) * this.zoom - this.viewPortSize.width / 2,
+                    y: (this.viewPortSize.height / 2) * this.zoom - this.viewPortSize.height / 2,
+                };
+            } else {
+                return { x: 0, y: 0 };
+            }
         },
         verticalGridLines() {
             const playerX = Math.round(this.$store.getters.playerShip.pos.x);
 
             const lines = [];
 
-            for (let x = 0; x < this.viewPortSize.width / this.zoom; x++) {
-                if ((x + playerX) % 200 === 0) {
-                    lines.push(x);
+            for (let x = 0; x < Math.max(1000, 1000 / this.zoom); x++) {
+                if (Math.round(x + playerX) % 200 === 0) {
+                    lines.push(Math.round(x - this.offset.x));
                 }
             }
             return lines;

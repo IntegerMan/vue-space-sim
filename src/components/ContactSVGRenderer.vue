@@ -1,6 +1,6 @@
 <template>
     <!-- Translate the entire group. That way the contents can be relative to a standard set of coordinates -->
-    <g :transform="'translate(' + contact.pos.x * zoom + ' ' + contact.pos.y * zoom + ')'">
+    <g :transform="'translate(' + effectivePos.x + ' ' + effectivePos.y + ')'">
         <title>{{ tooltip }}</title>
 
         <!-- Heading indicator arrow -->
@@ -72,11 +72,18 @@ export default {
             type: Number,
             default: 1,
         },
+        offset: {
+            type: Object,
+            default: () => ({ x: 0, y: 0 }),
+        },
     },
     components: {
         ContactSVGIcon,
     },
     computed: {
+        effectivePos() {
+            return { x: this.contact.pos.x - this.offset.x, y: this.contact.pos.y - this.offset.y };
+        },
         stroke() {
             return ShipFormatter.calculateStrokeHex(this.contact);
         },
@@ -123,6 +130,7 @@ export default {
 
             switch (this.mapMode) {
                 case MapMode.HELM:
+                case MapMode.COMBAT:
                     return this.isPlayer;
                 case MapMode.DEBUG:
                     return true;
@@ -140,9 +148,8 @@ export default {
                 case MapMode.DEBUG:
                     return true;
                 case MapMode.SITUATION:
-                    return this.contact.isPlayer;
                 case MapMode.COMBAT:
-                    return true;
+                    return this.contact.isPlayer;
                 case MapMode.FLIGHTOPS:
                     return this.contact.classification === Classification.FRIENDLY;
                 default:

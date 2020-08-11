@@ -3,7 +3,7 @@
         <h1 class="title has-text-light">
             Navigation
         </h1>
-        <situation-grid :mapMode="mapMode" :zoom="0.5" />
+        <situation-grid :mapMode="mapMode" :zoom="0.5" :centerOnPlayer="false" />
     </div>
 </template>
 

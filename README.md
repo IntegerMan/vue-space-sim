@@ -60,7 +60,8 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -   [x] Grid lines should be relative to the system, not the player
 -   [x] Allow different views to have different zoom settings
 -   [ ] Zoom in and out of the map
--   [ ] Optionally center zoomed views on the player's ship
+-   [x] Center zoomed views on the player's ship
+-   [x] Option to not center on the player
 
 ### Simulation
 
