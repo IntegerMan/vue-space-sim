@@ -28,8 +28,10 @@ export default new Vuex.Store({
                 desiredHeading: 0,
                 thrust: 8,
                 desiredThrottle: 15,
-                x: 500,
-                y: 500,
+                pos: {
+                    x: 500,
+                    y: 500,
+                },
             },
             {
                 id: 2,
@@ -42,8 +44,10 @@ export default new Vuex.Store({
                 desiredHeading: 288,
                 thrust: 15,
                 desiredThrottle: 15,
-                x: 755,
-                y: 112,
+                pos: {
+                    x: 755,
+                    y: 112,
+                },
             },
             {
                 id: 3,
@@ -56,8 +60,10 @@ export default new Vuex.Store({
                 desiredHeading: 95,
                 thrust: 10,
                 desiredThrottle: 10,
-                x: 420,
-                y: 881,
+                pos: {
+                    x: 420,
+                    y: 881,
+                },
             },
             {
                 id: 4,
@@ -70,8 +76,10 @@ export default new Vuex.Store({
                 desiredHeading: 70,
                 thrust: 25,
                 desiredThrottle: 25,
-                x: 395,
-                y: 411,
+                pos: {
+                    x: 395,
+                    y: 411,
+                },
             },
             {
                 id: 5,
@@ -84,8 +92,10 @@ export default new Vuex.Store({
                 desiredHeading: 310,
                 thrust: 20,
                 desiredThrottle: 20,
-                x: 920,
-                y: 640,
+                pos: {
+                    x: 920,
+                    y: 640,
+                },
             },
         ],
     },
@@ -95,7 +105,7 @@ export default new Vuex.Store({
         },
         contactsRelativeToPlayer(state, getters) {
             const player = getters.playerShip;
-            const playerPos = { x: player.x, y: player.y };
+            const playerPos = player.pos;
             const viewPortOffset = { x: 500, y: 500 }; // TODO: This should live elsewhere
 
             return state.contacts.map(c =>

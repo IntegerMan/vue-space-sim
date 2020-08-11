@@ -14,8 +14,8 @@ export default {
     translateRelativeToPos(contact, pos, viewPortOffset) {
         return {
             ...contact,
-            x: contact.x - pos.x + viewPortOffset.x,
-            y: contact.y - pos.y + viewPortOffset.y,
+            x: contact.pos.x - pos.x + viewPortOffset.x,
+            y: contact.pos.y - pos.y + viewPortOffset.y,
         };
     },
 

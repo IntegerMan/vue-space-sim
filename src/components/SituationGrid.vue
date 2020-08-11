@@ -52,7 +52,7 @@ export default {
             return this.$store.getters.contactsRelativeToPlayer;
         },
         horizontalGridLines() {
-            const playerY = Math.round(this.$store.getters.playerShip.y);
+            const playerY = Math.round(this.$store.getters.playerShip.pos.y);
 
             const lines = [];
 
@@ -64,7 +64,7 @@ export default {
             return lines;
         },
         verticalGridLines() {
-            const playerX = Math.round(this.$store.getters.playerShip.x);
+            const playerX = Math.round(this.$store.getters.playerShip.pos.x);
 
             const lines = [];
 

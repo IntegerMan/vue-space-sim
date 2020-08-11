@@ -30,13 +30,10 @@ const simulation = {
                     };
                 })
                 .map(c => {
-                    const currentPos = { x: c.x, y: c.y };
-                    const newPos = VectorHelper.calculateNewPosition(
-                        currentPos,
-                        c.heading,
-                        c.thrust
-                    );
-                    return { ...c, x: newPos.x, y: newPos.y };
+                    return {
+                        ...c,
+                        pos: VectorHelper.calculateNewPosition(c.pos, c.heading, c.thrust),
+                    };
                 });
 
             context.commit('UPDATE_CONTACTS', newContacts, { root: true });
