@@ -5,11 +5,16 @@
 
         <!-- Heading indicator arrow -->
         <g :transform="`rotate(${contact.heading})`" trasform-origin="0 0" v-if="showHeading">
-            <line :y1="-radius" :y2="-radius - 10" :stroke-width="2" :stroke="stroke" />
+            <line
+                :y1="-radius"
+                :y2="-radius - throttleMagnitude - 3"
+                :stroke-width="2"
+                :stroke="stroke"
+            />
             <polygon
                 points="-7,0 7,0 0,-7"
                 :fill="stroke"
-                :transform="`translate(0 ${-radius - 7})`"
+                :transform="`translate(0 ${-radius - throttleMagnitude})`"
             />
             <line :y1="radius" :y2="radius + 5" :stroke-width="2" :stroke="stroke" />
         </g>
@@ -21,8 +26,11 @@
             stroke-dasharray="1,1"
             :stroke="fill"
         >
-            <line :y1="-radius" :y2="-radius - 10" />
-            <polygon points="-7,0 7,0 0,-7" :transform="`translate(0 ${-radius - 7})`" />
+            <line :y1="-radius" :y2="-radius - desiredThrottleMagnitude - 3" />
+            <polygon
+                points="-7,0 7,0 0,-7"
+                :transform="`translate(0 ${-radius - desiredThrottleMagnitude})`"
+            />
         </g>
         <!-- Main iconography goes here -->
         <svg
@@ -50,7 +58,8 @@
 </template>
 
 <script>
-import ShipFormatter from '@/helpers/ShipFormatter.js';
+import VectorHelper from '../helpers/VectorHelper.js';
+import ShipFormatter from '../helpers/ShipFormatter.js';
 import MapMode from '@/enums/MapMode.js';
 import Classification from '@/enums/Classification.js';
 import ContactSVGIcon from '@/components/ContactSVGIcon.vue';
@@ -74,6 +83,12 @@ export default {
         radius() {
             return this.contact.size;
         },
+        throttleMagnitude() {
+            return VectorHelper.calculatePercentMagnitude(this.contact.thrust, 3, 50);
+        },
+        desiredThrottleMagnitude() {
+            return VectorHelper.calculatePercentMagnitude(this.contact.desiredThrottle, 3, 50);
+        },
         showLegend() {
             switch (this.mapMode) {
                 case MapMode.HELM:
@@ -88,7 +103,12 @@ export default {
             return this.contact.id === this.$store.getters.playerShip.id;
         },
         showDesiredHeading() {
-            if (this.contact.heading === this.contact.desiredHeading) return false;
+            if (
+                this.contact.heading === this.contact.desiredHeading &&
+                this.contact.thrust === this.contact.desiredThrottle
+            ) {
+                return false;
+            }
 
             switch (this.mapMode) {
                 case MapMode.HELM:

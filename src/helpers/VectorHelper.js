@@ -58,4 +58,12 @@ export default {
         }
         return value;
     },
+
+    calculatePercentMagnitude(value, min, max) {
+        const range = max - min;
+        const pct = value / 100.0;
+        const desired = range * pct;
+
+        return Math.max(min, desired);
+    },
 };

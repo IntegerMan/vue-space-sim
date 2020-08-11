@@ -27,6 +27,7 @@ export default new Vuex.Store({
                 heading: 35,
                 desiredHeading: 0,
                 thrust: 8,
+                desiredThrottle: 15,
                 x: 500,
                 y: 500,
             },
@@ -40,6 +41,7 @@ export default new Vuex.Store({
                 heading: 288,
                 desiredHeading: 288,
                 thrust: 15,
+                desiredThrottle: 15,
                 x: 755,
                 y: 112,
             },
@@ -53,6 +55,7 @@ export default new Vuex.Store({
                 heading: 95,
                 desiredHeading: 95,
                 thrust: 10,
+                desiredThrottle: 10,
                 x: 420,
                 y: 881,
             },
@@ -66,6 +69,7 @@ export default new Vuex.Store({
                 heading: 70,
                 desiredHeading: 70,
                 thrust: 25,
+                desiredThrottle: 25,
                 x: 395,
                 y: 411,
             },
@@ -79,6 +83,7 @@ export default new Vuex.Store({
                 heading: 310,
                 desiredHeading: 310,
                 thrust: 20,
+                desiredThrottle: 20,
                 x: 920,
                 y: 640,
             },
@@ -106,6 +111,10 @@ export default new Vuex.Store({
         SET_DESIRED_HEADING(state, payload) {
             const contact = state.contacts.find(c => c.id === payload.contactId);
             contact.desiredHeading = payload.value;
+        },
+        SET_DESIRED_THROTTLE(state, payload) {
+            const contact = state.contacts.find(c => c.id === payload.contactId);
+            contact.desiredThrottle = payload.value;
         },
     },
 });

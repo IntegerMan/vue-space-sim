@@ -1,12 +1,14 @@
 export default {
     namespaced: true,
-    state: {
-        requestedThrottle: 0,
-    },
+    state: {},
     getters: {
         requestedHeading(state, getters, rootState, rootGetters) {
             const playerShip = rootGetters.playerShip;
             return playerShip.desiredHeading;
+        },
+        requestedThrottle(state, getters, rootState, rootGetters) {
+            const playerShip = rootGetters.playerShip;
+            return playerShip.desiredThrottle;
         },
     },
     actions: {
@@ -18,13 +20,14 @@ export default {
                 { root: true }
             );
         },
-        setThrottle({ commit }, throttle) {
-            commit('SET_THROTTLE', throttle);
+        setThrottle(context, throttle) {
+            const ship = context.rootGetters.playerShip;
+            context.commit(
+                'SET_DESIRED_THROTTLE',
+                { contactId: ship.id, value: throttle },
+                { root: true }
+            );
         },
     },
-    mutations: {
-        SET_THROTTLE(state, throttle) {
-            state.requestedThrottle = throttle;
-        },
-    },
+    mutations: {},
 };
