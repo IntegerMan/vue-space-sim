@@ -6,26 +6,22 @@
             preserveAspectRatio="xMinYMin meet"
             shape-rendering="auto"
         >
-            <g id="gridLines">
+            <g id="gridLines" :stroke="lineStroke" :stroke-width="2" stroke-dasharray="2,5">
                 <line
-                    v-for="line of mapGridLines"
-                    :key="'vertLine' + line"
-                    :x1="line * lineSize"
-                    :x2="line * lineSize"
+                    v-for="x of verticalGridLines"
+                    :key="'vertLine' + x"
+                    :x1="x"
+                    :x2="x"
                     :y1="0"
                     :y2="1000"
-                    :stroke="lineStroke"
-                    :stroke-width="1"
                 />
                 <line
-                    v-for="line of mapGridLines"
-                    :key="'horizLine' + line"
-                    :y1="line * lineSize"
-                    :y2="line * lineSize"
+                    v-for="y of horizontalGridLines"
+                    :key="'horizLine' + y"
+                    :y1="y"
+                    :y2="y"
                     :x1="0"
                     :x2="1000"
-                    :stroke="lineStroke"
-                    :stroke-width="1"
                 />
             </g>
             <ContactSVGRenderer
@@ -55,11 +51,29 @@ export default {
         contacts() {
             return this.$store.getters.contactsRelativeToPlayer;
         },
-        mapGridLines() {
-            return 5; // For best effect, this should be odd so the player ship isn't crosshaired
+        horizontalGridLines() {
+            const playerY = Math.round(this.$store.getters.playerShip.y);
+
+            const lines = [];
+
+            for (let y = 0; y < 1000; y++) {
+                if ((y + playerY) % 200 === 0) {
+                    lines.push(y);
+                }
+            }
+            return lines;
         },
-        lineSize() {
-            return 1000 / this.mapGridLines;
+        verticalGridLines() {
+            const playerX = Math.round(this.$store.getters.playerShip.x);
+
+            const lines = [];
+
+            for (let x = 0; x < 1000; x++) {
+                if ((x + playerX) % 200 === 0) {
+                    lines.push(x);
+                }
+            }
+            return lines;
         },
         lineStroke() {
             return ColorLiterals.text;

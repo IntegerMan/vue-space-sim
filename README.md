@@ -57,7 +57,7 @@ See [Configuration Reference](https://cli.vuejs.org/config/).
 -   [ ] Render stations
 -   [ ] Render nav markers
 -   [ ] Render jump points
--   [ ] Grid lines should be relative to the system, not the player
+-   [x] Grid lines should be relative to the system, not the player
 
 ### Simulation
 
