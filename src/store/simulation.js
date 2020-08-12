@@ -1,4 +1,4 @@
-import VectorHelper from '../helpers/VectorHelper.js';
+import SimulationService from '../services/SimulationService.js';
 
 const simulation = {
     namespaced: true,
@@ -13,28 +13,7 @@ const simulation = {
             commit('SET_SPEED', 1);
         },
         advance(context) {
-            const newContacts = context.rootState.contacts
-                .map(c => {
-                    return {
-                        ...c,
-                        heading: VectorHelper.steerTowardsHeading(
-                            c.heading,
-                            c.desiredHeading,
-                            15 // TODO: Max Turn should live elsewhere
-                        ),
-                        thrust: VectorHelper.moveTowardsSetThrottle(
-                            c.thrust,
-                            c.desiredThrottle,
-                            15 // TODO: Max throttle change should live elsewhere
-                        ),
-                    };
-                })
-                .map(c => {
-                    return {
-                        ...c,
-                        pos: VectorHelper.calculateNewPosition(c.pos, c.heading, c.thrust),
-                    };
-                });
+            const newContacts = context.rootState.contacts.map(c => SimulationService.simulate(c));
 
             context.commit('UPDATE_CONTACTS', newContacts, { root: true });
         },

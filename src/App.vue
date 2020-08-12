@@ -23,6 +23,9 @@ export default {
         NavHeader,
         NavSidebar,
     },
+    created() {
+        this.$store.dispatch('startGame');
+    },
 };
 </script>
 
