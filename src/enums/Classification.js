@@ -4,6 +4,7 @@ const Classification = {
     FRIENDLY: 2,
     CIVILIAN: 3,
     UNKNOWN: 4,
+    NEUTRAL: 5,
 };
 
 export default Classification;

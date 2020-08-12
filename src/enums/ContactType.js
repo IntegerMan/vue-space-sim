@@ -10,6 +10,8 @@ const ContactType = {
     DESTROYER: 8,
     CRUISER: 9,
     DREADNAUGHT: 10,
+    JUMP_POINT: 11,
+    STATION: 12,
 };
 
 export default ContactType;

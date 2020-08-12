@@ -81,8 +81,8 @@ export default {
         horizontalGridLines() {
             const lines = [];
 
-            for (let y = 0; y <= Math.max(1000, 1000 / this.zoom); y++) {
-                if (Math.round(y) % 200 === 0) {
+            for (let y = 0; y <= Math.max(2000, 1000 / this.zoom); y++) {
+                if (Math.round(y) % this.gridSize === 0) {
                     lines.push(Math.round(y - this.offset.y));
                 }
             }
@@ -91,8 +91,8 @@ export default {
         verticalGridLines() {
             const lines = [];
 
-            for (let x = 0; x <= Math.max(1000, 1000 / this.zoom); x++) {
-                if (Math.round(x) % 200 === 0) {
+            for (let x = 0; x <= Math.max(2000, 1000 / this.zoom); x++) {
+                if (Math.round(x) % this.gridSize === 0) {
                     lines.push(Math.round(x - this.offset.x));
                 }
             }
@@ -100,6 +100,9 @@ export default {
         },
         lineStroke() {
             return ColorLiterals.text;
+        },
+        gridSize() {
+            return 250;
         },
     },
     methods: {

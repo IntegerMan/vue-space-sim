@@ -5,6 +5,7 @@ import simulation from './simulation.js';
 import helm from './helm.js';
 
 import VectorHelper from '../helpers/VectorHelper.js';
+import Sector from '../enums/Sector.js';
 import SectorService from '../services/SectorService.js';
 
 Vue.use(Vuex);
@@ -24,16 +25,16 @@ export default new Vuex.Store({
         contactsRelativeToPlayer(state, getters) {
             const player = getters.playerShip;
             const playerPos = player.pos;
-            const viewPortOffset = { x: 500, y: 500 }; // TODO: This should live elsewhere
+            const viewPortSize = { x: 1000, y: 1000 }; // TODO: This should live elsewhere
 
             return state.contacts.map(c =>
-                VectorHelper.translateRelativeToPos(c, playerPos, viewPortOffset)
+                VectorHelper.translateRelativeToPos(c, playerPos, viewPortSize)
             );
         },
     },
     actions: {
         startGame(context) {
-            context.dispatch('populateSector', 'START_SECTOR'); // TODO: Use a sector enum
+            context.dispatch('populateSector', Sector.START_SECTOR);
         },
         populateSector(context, sector) {
             const contacts = SectorService.buildInitialContacts(sector);
