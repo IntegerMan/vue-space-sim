@@ -13,8 +13,8 @@ export default {
             size: 15,
             heading: 0,
             desiredHeading: 0,
-            thrust: 8,
-            desiredThrottle: 8,
+            throttle: 0,
+            desiredThrottle: 0,
             pos: pos,
         };
 
@@ -27,8 +27,6 @@ export default {
 
     createStation(configureFunc, classification, pos) {
         const stationFunc = contact => {
-            contact.thrust = 0;
-            contact.desiredThrottle = 0;
             contact.size = 45;
             contact.contactType = ContactType.STATION;
 
@@ -42,8 +40,6 @@ export default {
 
     createJumpPoint(configureFunc, pos) {
         const func = contact => {
-            contact.thrust = 0;
-            contact.desiredThrottle = 0;
             contact.size = 25;
             contact.contactType = ContactType.JUMP_POINT;
 
@@ -58,6 +54,8 @@ export default {
     createShip(configureFunc, classification, shipType, pos) {
         const shipFunc = contact => {
             contact.contactType = shipType;
+            contact.throttle = 25;
+            contact.desiredThrottle = 25;
 
             if (configureFunc) {
                 configureFunc(contact);

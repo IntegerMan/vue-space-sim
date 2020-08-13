@@ -66,6 +66,10 @@ export default {
         contacts() {
             return this.$store.getters.contactsRelativeToPlayer;
         },
+        sector() {
+            console.log(this.$store);
+            return this.$store.getters['galaxy/currentSector'];
+        },
         offset() {
             if (this.centerOnPlayer) {
                 const playerPos = this.$store.getters.playerShip.pos;
@@ -81,7 +85,7 @@ export default {
         horizontalGridLines() {
             const lines = [];
 
-            for (let y = 0; y <= Math.max(2000, 1000 / this.zoom); y++) {
+            for (let y = 0; y <= Math.max(this.sector.size.y, this.viewPortSize.height); y++) {
                 if (Math.round(y) % this.gridSize === 0) {
                     lines.push(Math.round(y - this.offset.y));
                 }
@@ -91,7 +95,7 @@ export default {
         verticalGridLines() {
             const lines = [];
 
-            for (let x = 0; x <= Math.max(2000, 1000 / this.zoom); x++) {
+            for (let x = 0; x <= Math.max(this.sector.size.x, this.viewPortSize.width); x++) {
                 if (Math.round(x) % this.gridSize === 0) {
                     lines.push(Math.round(x - this.offset.x));
                 }

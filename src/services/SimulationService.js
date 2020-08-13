@@ -1,5 +1,6 @@
 import VectorHelper from '../helpers/VectorHelper.js';
 import fp from 'lodash/fp';
+import ShipDefinitionService from './ShipDefinitionService';
 
 export default {
     adjustSystems(contact) {
@@ -8,19 +9,23 @@ export default {
             heading: VectorHelper.steerTowardsHeading(
                 contact.heading,
                 contact.desiredHeading,
-                15 // TODO: Max Turn should live elsewhere
+                ShipDefinitionService.getMaxTurn(contact)
             ),
-            thrust: VectorHelper.moveTowardsSetThrottle(
-                contact.thrust,
+            throttle: VectorHelper.moveTowardsSetThrottle(
+                contact.throttle,
                 contact.desiredThrottle,
-                15 // TODO: Max throttle change should live elsewhere
+                ShipDefinitionService.getMaxAcceleration(contact)
             ),
         };
     },
     updatePosition(contact) {
         return {
             ...contact,
-            pos: VectorHelper.calculateNewPosition(contact.pos, contact.heading, contact.thrust),
+            pos: VectorHelper.calculateNewPosition(
+                contact.pos,
+                contact.heading,
+                (contact.throttle / 100) * ShipDefinitionService.getMaxThrust(contact)
+            ),
         };
     },
     simulate(contact) {

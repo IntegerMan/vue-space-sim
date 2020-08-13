@@ -96,7 +96,7 @@ export default {
         },
         throttleMagnitude() {
             return VectorHelper.calculatePercentMagnitude(
-                this.contact.thrust,
+                this.contact.throttle,
                 3 * this.zoom,
                 50 * this.zoom
             );
@@ -124,7 +124,7 @@ export default {
         showDesiredHeading() {
             if (
                 this.contact.heading === this.contact.desiredHeading &&
-                this.contact.thrust === this.contact.desiredThrottle
+                this.contact.throttle === this.contact.desiredThrottle
             ) {
                 return false;
             }
