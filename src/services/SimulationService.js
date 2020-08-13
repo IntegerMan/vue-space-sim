@@ -1,4 +1,5 @@
 import VectorHelper from '../helpers/VectorHelper.js';
+import fp from 'lodash/fp';
 
 export default {
     adjustSystems(contact) {
@@ -23,10 +24,6 @@ export default {
         };
     },
     simulate(contact) {
-        // TODO: This is a prime candidate for functional composition
-        contact = this.adjustSystems(contact);
-        contact = this.updatePosition(contact);
-
-        return contact;
+        return fp.compose(this.adjustSystems, this.updatePosition)(contact);
     },
 };

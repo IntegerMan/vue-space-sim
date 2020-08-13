@@ -1,5 +1,5 @@
 <template>
-    <svg width="48" height="48" viewBox="0 0 500 515" x="26" y="26">
+    <svg width="45" height="45" viewBox="0 0 575 515" x="27" y="27">
         <path :d="pathData" :fill="fill" />
     </svg>
 </template>
