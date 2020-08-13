@@ -13,90 +13,80 @@ export default {
     buildInitialContacts(sector) {
         const contacts = [
             ShipService.createShip(
-                Classification.FRIENDLY,
-                ContactType.CARRIER,
-                { x: 900, y: 1000 },
                 s => {
                     s.isPlayer = true;
                     s.name = 'Concordia';
                     s.code = 'CVS-65';
-                }
+                },
+                Classification.FRIENDLY,
+                ContactType.CARRIER,
+                { x: 880, y: 1000 }
             ),
-            ShipService.createShip(
-                Classification.NEUTRAL,
-                ContactType.JUMP_POINT,
+            ShipService.createJumpPoint(
+                c => {
+                    c.name = 'Jump Point';
+                },
                 {
                     x: 650,
                     y: 200,
-                },
-                c => {
-                    c.name = 'Jump Point';
                 }
             ),
-            ShipService.createShip(
-                Classification.NEUTRAL,
-                ContactType.JUMP_POINT,
+            ShipService.createJumpPoint(
+                c => {
+                    c.name = 'Jump Point';
+                },
                 {
                     x: 200,
                     y: 1600,
-                },
-                c => {
-                    c.name = 'Jump Point';
                 }
             ),
-            ShipService.createShip(
-                Classification.NEUTRAL,
-                ContactType.JUMP_POINT,
+            ShipService.createJumpPoint(
+                c => {
+                    c.name = 'Jump Point';
+                },
                 {
                     x: 1800,
                     y: 900,
-                },
-                c => {
-                    c.name = 'Jump Point';
                 }
             ),
-            ShipService.createShip(
+            ShipService.createStation(
+                c => {
+                    c.name = 'Colony';
+                },
                 Classification.CIVILIAN,
-                ContactType.STATION,
                 {
                     x: 1000,
                     y: 1000,
-                },
-                c => {
-                    c.name = 'Colony';
                 }
             ),
-            ShipService.createShip(
+            ShipService.createStation(
+                c => {
+                    c.name = 'Mining Base';
+                },
                 Classification.CIVILIAN,
-                ContactType.STATION,
                 {
                     x: 1350,
                     y: 1100,
-                },
-                c => {
-                    c.name = 'Mining Base';
                 }
             ),
-            ShipService.createShip(
+            ShipService.createStation(
+                c => {
+                    c.name = 'Manufacturing';
+                },
                 Classification.CIVILIAN,
-                ContactType.STATION,
                 {
                     x: 550,
                     y: 1700,
-                },
-                c => {
-                    c.name = 'Manufacturing';
                 }
             ),
-            ShipService.createShip(
+            ShipService.createStation(
+                c => {
+                    c.name = 'Pirate Base';
+                },
                 Classification.HOSTILE,
-                ContactType.STATION,
                 {
                     x: 1750,
                     y: 250,
-                },
-                c => {
-                    c.name = 'Pirate Base';
                 }
             ),
         ];

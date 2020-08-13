@@ -61,6 +61,7 @@ import VectorHelper from '../helpers/VectorHelper.js';
 import ShipFormatter from '../helpers/ShipFormatter.js';
 import MapMode from '../enums/MapMode.js';
 import Classification from '../enums/Classification.js';
+import ContactType from '../enums/ContactType.js';
 import ContactSVGIcon from '../components/ContactSVGIcon.vue';
 
 export default {
@@ -143,6 +144,13 @@ export default {
             }
         },
         showHeading() {
+            if (
+                this.contact.contactType === ContactType.STATION ||
+                this.contact.contactType === ContactType.JUMP_POINT
+            ) {
+                return false;
+            }
+
             switch (this.mapMode) {
                 case MapMode.HELM: // TODO: Only within X units of player
                 case MapMode.DEBUG:
