@@ -1,5 +1,6 @@
 import Classification from '../enums/Classification.js';
 import ContactType from '../enums/ContactType.js';
+import Sector from '../enums/Sector';
 import ShipService from './ShipService.js';
 
 export default {
@@ -9,8 +10,20 @@ export default {
         return startId;
     },
 
-    // eslint-disable-next-line no-unused-vars
+    buildSectors() {
+        return [this.loadSector(Sector.START_SECTOR)];
+    },
+    loadSector(sectorId) {
+        return {
+            name: 'Starting Sector',
+            id: sectorId,
+            size: { x: 2000, y: 2000 },
+        };
+    },
+
     buildInitialContacts(sector) {
+        console.log('Building contacts for sector', sector);
+
         const contacts = [
             ShipService.createShip(
                 s => {

@@ -3,9 +3,9 @@ import Vuex from 'vuex';
 
 import simulation from './simulation.js';
 import helm from './helm.js';
+import galaxy from './galaxy.js';
 
 import VectorHelper from '../helpers/VectorHelper.js';
-import Sector from '../enums/Sector.js';
 import SectorService from '../services/SectorService.js';
 
 Vue.use(Vuex);
@@ -14,6 +14,7 @@ export default new Vuex.Store({
     modules: {
         simulation,
         helm,
+        galaxy,
     },
     state: {
         contacts: [],
@@ -34,10 +35,11 @@ export default new Vuex.Store({
     },
     actions: {
         startGame(context) {
-            context.dispatch('populateSector', Sector.START_SECTOR);
+            context.dispatch('galaxy/initializeSectors');
+            context.dispatch('loadContacts');
         },
-        populateSector(context, sector) {
-            const contacts = SectorService.buildInitialContacts(sector);
+        loadContacts(context) {
+            const contacts = SectorService.buildInitialContacts(galaxy.getters.currentSector);
             context.commit('UPDATE_CONTACTS', contacts);
         },
     },
