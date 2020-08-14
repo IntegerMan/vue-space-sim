@@ -19,7 +19,7 @@
                 "name": "Mining Base",
                 "type": "MINING",
                 "owner": "CIVILIAN",
-                "pos": { "x": 1350, "y": 1100 }
+                "pos": { "x": 1350, "y": 1350 }
             },
             {
                 "id": 4,

@@ -1,8 +1,12 @@
 import Classification from '../enums/Classification.js';
 import ContactType from '../enums/ContactType.js';
-import Sector from '../enums/Sector';
-import ShipService from './ShipService.js';
+import Sector from '../enums/Sector.js';
+
 import SectorData from '../data/Sectors.json';
+
+import ShipService from './ShipService.js';
+import RandomService from './RandomService.js';
+
 import _ from 'lodash';
 
 export default {
@@ -16,7 +20,6 @@ export default {
         return [this.loadSector(Sector.START_SECTOR)];
     },
 
-    // eslint-disable-next-line no-unused-vars
     loadSector(sectorId) {
         const sector = SectorData.find(s => s.id === sectorId);
         if (!sector) {
@@ -29,21 +32,29 @@ export default {
         return sector;
     },
 
-    buildInitialContacts(sector) {
-        let contacts = [
-            ShipService.createShip(
-                s => {
-                    s.isPlayer = true;
-                    s.name = 'Concordia';
-                    s.code = 'CVS-65';
-                },
-                Classification.FRIENDLY,
-                ContactType.CARRIER,
-                { x: 880, y: 1000 }
-            ),
-        ];
+    buildInitialContacts(sector, player) {
+        const initialNPCs = [];
 
-        contacts = _.concat(contacts, ...sector.stations, ...sector.jumpPoints);
+        for (let i = 0; i < 5; i++) {
+            // TODO: Base the count on sector density
+            // TODO: Figure out an origin
+            // TODO: Figure out a destination
+            const pos = RandomService.randomPos(sector); // TODO: Spawn near a station or jump point, or halfway between the two
+            const ship = ShipService.createShip(
+                s => {
+                    s.heading = RandomService.randomDegree();
+                    s.desiredHeading = s.heading;
+                    s.name = 'Scout'; // TODO: should have a valid name
+                },
+                Classification.HOSTILE, // TODO: Should have an appropriate classification
+                ContactType.LIGHT, // TODO: Should have an appropriate contact type
+                // TODO: Should have an appropriate mission registered
+                pos
+            );
+            initialNPCs.push(ship);
+        }
+
+        const contacts = _.concat(sector.stations, ...sector.jumpPoints, player, ...initialNPCs);
 
         this.assignIds(contacts);
 

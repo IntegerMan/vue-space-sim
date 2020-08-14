@@ -5,7 +5,7 @@ export default {
     randomInt(min, max) {
         return Math.round(Math.random() * (max - min)) + min;
     },
-    randomPos(sector, margin) {
+    randomPos(sector, margin = { x: 100, y: 100 }) {
         return {
             x: this.randomInt(margin.x, sector.size.x - margin.x),
             y: this.randomInt(margin.y, sector.size.y - margin.y),

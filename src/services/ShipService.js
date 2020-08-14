@@ -86,4 +86,16 @@ export default {
 
         return this.createContact(shipFunc, classification, pos);
     },
+    createPlayer(pos) {
+        return this.createShip(
+            s => {
+                s.isPlayer = true;
+                s.name = 'Concordia';
+                s.code = 'CVS-65';
+            },
+            Classification.FRIENDLY,
+            ContactType.CARRIER,
+            pos
+        );
+    },
 };

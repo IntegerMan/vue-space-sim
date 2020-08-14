@@ -7,6 +7,7 @@ import galaxy from './galaxy.js';
 
 import VectorHelper from '../helpers/VectorHelper.js';
 import SectorService from '../services/SectorService.js';
+import ShipService from '../services/ShipService.js';
 
 Vue.use(Vuex);
 
@@ -39,9 +40,9 @@ export default new Vuex.Store({
             context.dispatch('loadContacts');
         },
         loadContacts(context) {
-            const contacts = SectorService.buildInitialContacts(
-                context.getters['galaxy/currentSector']
-            );
+            const sector = context.getters['galaxy/currentSector'];
+            const player = ShipService.createPlayer(sector.playerStartPos || { x: 880, y: 1000 });
+            const contacts = SectorService.buildInitialContacts(sector, player);
             context.commit('UPDATE_CONTACTS', contacts);
         },
     },
