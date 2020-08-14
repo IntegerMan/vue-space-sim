@@ -24,28 +24,53 @@ export default {
 
         return contact;
     },
+    configureStatic(obj) {
+        obj.code = obj.code || '';
+        obj.heading = 0;
+        obj.desiredHeading = 0;
+        obj.throttle = 0;
+        obj.desiredThrottle = 0;
+    },
+    configureStation(obj) {
+        this.configureStatic(obj);
 
-    createStation(configureFunc, classification, pos) {
-        const stationFunc = contact => {
-            contact.size = 45;
-            contact.contactType = ContactType.STATION;
+        obj.contactType = ContactType.STATION;
+        obj.size = this.parseTier(obj);
+        obj.classification = this.parseOwner(obj);
+    },
+    configureJumpPoint(obj) {
+        this.configureStatic(obj);
 
-            if (configureFunc) {
-                configureFunc(contact);
-            }
-        };
-
-        return this.createContact(stationFunc, classification, pos);
+        obj.name = obj.name || 'Jump Point';
+        obj.contactType = ContactType.JUMP_POINT;
+        obj.size = 25;
+        obj.classification = Classification.NEUTRAL;
     },
 
-    createJumpPoint(pos, name = 'Jump Point') {
-        const func = contact => {
-            contact.size = 25;
-            contact.contactType = ContactType.JUMP_POINT;
-            contact.name = name;
-        };
+    parseOwner(obj) {
+        switch (obj.owner) {
+            case 'CIVILIAN':
+                return Classification.CIVILIAN;
+            case 'PIRATE':
+                return Classification.HOSTILE;
+            default:
+                console.warn('Unknown owner', obj);
+                return Classification.UNKNOWN;
+        }
+    },
 
-        return this.createContact(func, Classification.NEUTRAL, pos);
+    parseTier(obj) {
+        switch (obj.tier) {
+            case 'LARGE':
+                return 60;
+            case 'MEDIUM':
+                return 45;
+            case 'SMALL':
+                return 30;
+            default:
+                console.warn('Unknown size', obj);
+                return 30;
+        }
     },
 
     createShip(configureFunc, classification, shipType, pos) {

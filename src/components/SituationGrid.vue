@@ -67,7 +67,6 @@ export default {
             return this.$store.getters.contactsRelativeToPlayer;
         },
         sector() {
-            console.log(this.$store);
             return this.$store.getters['galaxy/currentSector'];
         },
         offset() {
