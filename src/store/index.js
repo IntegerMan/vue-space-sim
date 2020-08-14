@@ -39,7 +39,9 @@ export default new Vuex.Store({
             context.dispatch('loadContacts');
         },
         loadContacts(context) {
-            const contacts = SectorService.buildInitialContacts(galaxy.getters.currentSector);
+            const contacts = SectorService.buildInitialContacts(
+                context.getters['galaxy/currentSector']
+            );
             context.commit('UPDATE_CONTACTS', contacts);
         },
     },

@@ -38,14 +38,11 @@ export default {
         return this.createContact(stationFunc, classification, pos);
     },
 
-    createJumpPoint(configureFunc, pos) {
+    createJumpPoint(pos, name = 'Jump Point') {
         const func = contact => {
             contact.size = 25;
             contact.contactType = ContactType.JUMP_POINT;
-
-            if (configureFunc) {
-                configureFunc(contact);
-            }
+            contact.name = name;
         };
 
         return this.createContact(func, Classification.NEUTRAL, pos);
