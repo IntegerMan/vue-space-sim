@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import ShipFormatter from '@/helpers/ShipFormatter.js';
-import ContactType from '@/enums/ContactType.js';
-import FontAwesomeSVGRenderer from '@/components/FontAwesomeSVGRenderer.vue';
+import ShipFormatter from '../helpers/ShipFormatter.js';
+import ContactType from '../enums/ContactType.js';
+import FontAwesomeSVGRenderer from '../components/FontAwesomeSVGRenderer.vue';
 
 export default {
     name: 'ContactSVGIcon',
@@ -70,7 +70,14 @@ export default {
                     return 'M439.15 453.06L297.17 384l141.99-69.06c7.9-3.95 11.11-13.56 7.15-21.46L432 264.85c-3.95-7.9-13.56-11.11-21.47-7.16L224 348.41 37.47 257.69c-7.9-3.95-17.51-.75-21.47 7.16L1.69 293.48c-3.95 7.9-.75 17.51 7.15 21.46L150.83 384 8.85 453.06c-7.9 3.95-11.11 13.56-7.15 21.47l14.31 28.63c3.95 7.9 13.56 11.11 21.47 7.15L224 419.59l186.53 90.72c7.9 3.95 17.51.75 21.47-7.15l14.31-28.63c3.95-7.91.74-17.52-7.16-21.47zM150 237.28l-5.48 25.87c-2.67 12.62 5.42 24.85 16.45 24.85h126.08c11.03 0 19.12-12.23 16.45-24.85l-5.5-25.87c41.78-22.41 70-62.75 70-109.28C368 57.31 303.53 0 224 0S80 57.31 80 128c0 46.53 28.22 86.87 70 109.28zM280 112c17.65 0 32 14.35 32 32s-14.35 32-32 32-32-14.35-32-32 14.35-32 32-32zm-112 0c17.65 0 32 14.35 32 32s-14.35 32-32 32-32-14.35-32-32 14.35-32 32-32z';
                 case ContactType.STATION:
                     return 'M172.268 501.67C26.97 291.031 0 269.413 0 192 0 85.961 85.961 0 192 0s192 85.961 192 192c0 77.413-26.97 99.031-172.268 309.67-9.535 13.774-29.93 13.773-39.464 0zM192 272c44.183 0 80-35.817 80-80s-35.817-80-80-80-80 35.817-80 80 35.817 80 80 80z';
+                // TODO: Support JUMP_GATE
+                // TODO: Support CRUISER
+                // TODO: Support DESTROYER
+                // TODO: Support FIGHTER
+                // TODO: Support MISSILE
+                // TODO: Support FREIGHTER
                 default:
+                    console.warn('Unknown contact type', this.contact.contactType);
                     return 'M504 256c0 136.997-111.043 248-248 248S8 392.997 8 256C8 119.083 119.043 8 256 8s248 111.083 248 248zM262.655 90c-54.497 0-89.255 22.957-116.549 63.758-3.536 5.286-2.353 12.415 2.715 16.258l34.699 26.31c5.205 3.947 12.621 3.008 16.665-2.122 17.864-22.658 30.113-35.797 57.303-35.797 20.429 0 45.698 13.148 45.698 32.958 0 14.976-12.363 22.667-32.534 33.976C247.128 238.528 216 254.941 216 296v4c0 6.627 5.373 12 12 12h56c6.627 0 12-5.373 12-12v-1.333c0-28.462 83.186-29.647 83.186-106.667 0-58.002-60.165-102-116.531-102zM256 338c-25.365 0-46 20.635-46 46 0 25.364 20.635 46 46 46s46-20.636 46-46c0-25.365-20.635-46-46-46z';
             }
         },
@@ -78,8 +85,10 @@ export default {
             switch (this.contact.contactType) {
                 case ContactType.STATION:
                     return 380;
+                case ContactType.PIRATE:
+                    return 425;
                 default:
-                    return 575;
+                    return 550;
             }
         },
     },

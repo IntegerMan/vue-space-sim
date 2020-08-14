@@ -46,8 +46,8 @@ export default {
                     s.desiredHeading = s.heading;
                     s.name = 'Scout'; // TODO: should have a valid name
                 },
-                Classification.HOSTILE, // TODO: Should have an appropriate classification
-                ContactType.LIGHT, // TODO: Should have an appropriate contact type
+                RandomService.randomEnum(Classification), // TODO: Should have an appropriate classification
+                RandomService.randomEnum(ContactType), // TODO: Should have an appropriate contact type
                 // TODO: Should have an appropriate mission registered
                 pos
             );
