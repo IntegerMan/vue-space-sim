@@ -77,7 +77,7 @@ export default {
         const shipFunc = contact => {
             contact.contactType = shipType;
             contact.throttle = 25;
-            contact.desiredThrottle = 25;
+            contact.desiredThrottle = contact.throttle;
 
             if (configureFunc) {
                 configureFunc(contact);

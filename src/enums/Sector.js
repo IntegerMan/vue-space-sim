@@ -1,3 +1,3 @@
 export default {
-    START_SECTOR: 1,
+    START_SECTOR: 'SEC-1',
 };

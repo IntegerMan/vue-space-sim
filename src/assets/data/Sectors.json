@@ -1,0 +1,150 @@
+[
+    {
+        "id": "SEC-1",
+        "name": "Start Sector",
+        "owner": "CIVILIAN",
+        "size": { "x": 2000, "y": 2000 },
+        "stations": [
+            {
+                "id": "COL-1",
+                "tier": "MEDIUM",
+                "name": "Colony",
+                "type": "COLONY",
+                "owner": "CIVILIAN",
+                "pos": { "x": 1000, "y": 1000 },
+                "aiTasks": []
+            },
+            {
+                "id": "MIN-1",
+                "tier": "SMALL",
+                "name": "Mining Base",
+                "type": "MINING",
+                "owner": "CIVILIAN",
+                "pos": { "x": 1350, "y": 1350 },
+                "aiTasks": [
+                    {
+                        "type": "MINING",
+                        "owner": "CIVILIAN",
+                        "shipType": "UTILITY",
+                        "locations": [{ "x": 1500, "y": 1450, "r": 200 }]
+                    },
+                    {
+                        "type": "DELIVER",
+                        "owner": "CIVILIAN",
+                        "shipType": "FREIGHTER",
+                        "stationId": "MFG-1"
+                    }
+                ]
+            },
+            {
+                "id": "MFG-1",
+                "tier": "SMALL",
+                "name": "Manufacturing",
+                "type": "MFG",
+                "owner": "CIVILIAN",
+                "pos": { "x": 550, "y": 1700 },
+                "aiTasks": [
+                    {
+                        "type": "DELIVER",
+                        "owner": "CIVILIAN",
+                        "shipType": "FREIGHTER",
+                        "stationId": "COL-1"
+                    }
+                ]
+            },
+            {
+                "id": "PIR-1",
+                "tier": "SMALL",
+                "name": "Pirate Base",
+                "type": "PIRATE",
+                "owner": "PIRATE",
+                "pos": { "x": 1750, "y": 250 },
+                "aiTasks": [
+                    {
+                        "type": "PIRACY",
+                        "owner": "CIVILIAN",
+                        "shipType": "FIGHTER",
+                        "locations": [{ "x": 1600, "y": 400, "r": 250 }]
+                    }
+                ]
+            }
+        ],
+        "jumpPoints": [
+            {
+                "id": "JMP-1",
+                "pos": { "x": 650, "y": 200 },
+                "destPos": { "x": 1000, "y": 1000 },
+                "aiTasks": [
+                    {
+                        "type": "DELIVER",
+                        "shipType": "FREIGHTER",
+                        "stationId": "MIN-1",
+                        "owner": "CIVILIAN"
+                    },
+                    {
+                        "type": "DELIVER",
+                        "stationId": "COL-1",
+                        "shipType": "FREIGHTER",
+                        "owner": "CIVILIAN"
+                    },
+                    {
+                        "type": "DELIVER",
+                        "stationId": "MFG-1",
+                        "shipType": "FREIGHTER",
+                        "owner": "CIVILIAN"
+                    }
+                ]
+            },
+            {
+                "id": "JMP-2",
+                "pos": { "x": 200, "y": 1600 },
+                "destPos": { "x": 1000, "y": 1000 },
+                "aiTasks": [
+                    {
+                        "type": "DELIVER",
+                        "shipType": "FREIGHTER",
+                        "stationId": "MIN-1",
+                        "owner": "CIVILIAN"
+                    },
+                    {
+                        "type": "DELIVER",
+                        "stationId": "COL-1",
+                        "shipType": "FREIGHTER",
+                        "owner": "CIVILIAN"
+                    },
+                    {
+                        "type": "DELIVER",
+                        "stationId": "MFG-1",
+                        "shipType": "FREIGHTER",
+                        "owner": "CIVILIAN"
+                    }
+                ]
+            },
+            {
+                "id": "JMP-3",
+                "pos": { "x": 1800, "y": 900 },
+                "destPos": { "x": 1000, "y": 1000 },
+                "aiTasks": [
+                    {
+                        "type": "DELIVER",
+                        "shipType": "FREIGHTER",
+                        "stationId": "MIN-1",
+                        "owner": "CIVILIAN"
+                    },
+                    {
+                        "type": "DELIVER",
+                        "stationId": "COL-1",
+                        "shipType": "FREIGHTER",
+                        "owner": "CIVILIAN"
+                    },
+                    {
+                        "type": "DELIVER",
+                        "stationId": "MFG-1",
+                        "shipType": "FREIGHTER",
+                        "owner": "CIVILIAN"
+                    }
+                ]
+            }
+        ]
+    }
+]
