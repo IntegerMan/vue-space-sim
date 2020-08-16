@@ -87,21 +87,6 @@ export default {
         return null;
     },
 
-    /**
-     * Calculates and returns a desired heading for something at an origin position heading to a destination.
-     * Destination may or may not be present
-     * @param {Object} originPos the position of the craft making the calculation
-     * @param {Object | null} destination the destination to head to
-     * @returns {Number} the desired heading in degrees
-     */
-    calculateHeading(originPos, destination) {
-        if (destination) {
-            return VectorHelper.getHeadingInDegrees(originPos, destination.pos);
-        } else {
-            return RandomService.randomDegree(); // TODO: Aim away from station at least
-        }
-    },
-
     buildInitialContacts(sector, player) {
         const initialNPCs = [];
 
@@ -149,8 +134,6 @@ export default {
             }
         });
 
-        const contacts = _.concat(sector.stations, ...sector.jumpPoints, player, ...initialNPCs);
-
-        return contacts;
+        return _.concat(initialNPCs, ...sector.stations, ...sector.jumpPoints, player);
     },
 };

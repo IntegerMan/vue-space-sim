@@ -5,6 +5,7 @@
             :viewBox="'0 0 ' + viewPortSize.width + ' ' + viewPortSize.height"
             preserveAspectRatio="xMinYMin meet"
             shape-rendering="auto"
+            @click="handleClick($event)"
         >
             <g id="gridLines" :stroke="lineStroke" :stroke-width="2" stroke-dasharray="2,5">
                 <line
@@ -74,8 +75,8 @@ export default {
                 const playerPos = this.$store.getters.playerShip.pos;
 
                 return {
-                    x: playerPos.x - this.viewPortSize.width / 2,
-                    y: playerPos.y - this.viewPortSize.height / 2,
+                    x: Math.round(playerPos.x - this.viewPortSize.width / 2),
+                    y: Math.round(playerPos.y - this.viewPortSize.height / 2),
                 };
             } else {
                 return { x: 0, y: 0 };
@@ -111,6 +112,31 @@ export default {
     methods: {
         calculateColorHex(contact) {
             return ShipFormatter.calculateColorHex(contact);
+        },
+        handleClick(event) {
+            let target = event.target;
+            while (target && !target.width) {
+                target = target.ownerSVGElement;
+            }
+
+            if (target) {
+                const offset = this.offset;
+                const viewport = this.viewPortSize;
+
+                const width = target.width.baseVal.value;
+                const height = target.height.baseVal.value;
+
+                const x = Math.round((event.offsetX / width) * viewport.width) + offset.x;
+                const y = Math.round((event.offsetY / height) * viewport.height) + offset.y;
+
+                console.log(
+                    `Click occurred at ${x}, ${y}`,
+                    this.viewPortSize.width,
+                    this.viewPortSize.height,
+                    this.zoom,
+                    offset
+                );
+            }
         },
     },
 };
