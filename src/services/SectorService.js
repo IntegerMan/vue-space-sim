@@ -122,12 +122,14 @@ export default {
             } else {
                 console.log(task, origin, destination);
 
-                const pos = RandomService.displace(origin.pos, 50);
+                let pos, heading;
 
-                let heading;
                 if (destination) {
-                    heading = VectorHelper.getHeadingInDegrees(pos, destination.pos);
+                    heading = VectorHelper.getHeadingInDegrees(origin.pos, destination.pos);
+                    pos = VectorHelper.calculateNewPosition(origin.pos, heading, 50);
                 } else {
+                    console.warn('No destination detected for task', task);
+                    pos = RandomService.displace(origin.pos, 50);
                     heading = VectorHelper.getHeadingInDegrees(origin.pos, pos); // Aim away from launch station
                 }
 
