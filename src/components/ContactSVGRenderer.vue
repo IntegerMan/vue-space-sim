@@ -111,6 +111,7 @@ export default {
         showLegend() {
             switch (this.mapMode) {
                 case MapMode.HELM:
+                case MapMode.NAV:
                     return this.contact.isPlayer;
                 case MapMode.DEBUG:
                     return true;
@@ -131,6 +132,7 @@ export default {
 
             switch (this.mapMode) {
                 case MapMode.HELM:
+                case MapMode.NAV:
                 case MapMode.COMBAT:
                     return this.isPlayer;
                 case MapMode.DEBUG:
@@ -153,6 +155,7 @@ export default {
 
             switch (this.mapMode) {
                 case MapMode.HELM: // TODO: Only within X units of player
+                case MapMode.NAV: // TODO: Only within X units of player
                 case MapMode.DEBUG:
                     return true;
                 case MapMode.SITUATION:

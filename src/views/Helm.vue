@@ -1,14 +1,9 @@
 <template>
     <div class="has-text-light">
         <h1 class="title has-text-light">
-            Navigation
+            Helm
         </h1>
-        <situation-grid
-            :mapMode="mapMode"
-            :zoom="0.5"
-            :centerOnPlayer="false"
-            @LocationClick="handleClick($event)"
-        />
+        <situation-grid :mapMode="mapMode" :zoom="1.5" @LocationClick="handleClick($event)" />
     </div>
 </template>
 

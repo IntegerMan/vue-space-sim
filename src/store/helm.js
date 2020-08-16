@@ -1,3 +1,5 @@
+import VectorHelper from '../helpers/VectorHelper';
+
 export default {
     namespaced: true,
     state: {},
@@ -12,6 +14,16 @@ export default {
         },
     },
     actions: {
+        setHeadingToFacePos(context, pos) {
+            const ship = context.rootGetters.playerShip;
+            const heading = VectorHelper.getHeadingInDegrees(ship.pos, pos);
+            console.log(`Steering player towards heading ${heading}`);
+            context.commit(
+                'SET_DESIRED_HEADING',
+                { contactId: ship.id, value: heading },
+                { root: true }
+            );
+        },
         setHeading(context, heading) {
             const ship = context.rootGetters.playerShip;
             context.commit(

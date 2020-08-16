@@ -129,13 +129,7 @@ export default {
                 const x = Math.round((event.offsetX / width) * viewport.width) + offset.x;
                 const y = Math.round((event.offsetY / height) * viewport.height) + offset.y;
 
-                console.log(
-                    `Click occurred at ${x}, ${y}`,
-                    this.viewPortSize.width,
-                    this.viewPortSize.height,
-                    this.zoom,
-                    offset
-                );
+                this.$emit('LocationClick', { x, y });
             }
         },
     },

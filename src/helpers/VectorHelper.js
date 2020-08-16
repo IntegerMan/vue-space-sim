@@ -26,7 +26,13 @@ export default {
      * @returns {Number} the angle (in degrees) from the originPos to the targetPos
      */
     getHeadingInDegrees(originPos, targetPos) {
-        return (Math.atan2(targetPos.y - originPos.y, targetPos.x - originPos.x) * 180) / Math.PI;
+        const diffY = targetPos.y - originPos.y;
+        const diffX = targetPos.x - originPos.x;
+        const atan = Math.atan2(diffY, diffX);
+        const rads = atan * 180;
+        const degrees = rads / Math.PI;
+
+        return this.clampDegrees(degrees + 90);
     },
 
     steerTowardsHeading(current, target, maxTurn) {

@@ -1,9 +1,11 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
+import HelmControl from '../components/HelmControl.vue';
+
 import Situation from '../views/Situation.vue';
 import Navigation from '../views/Navigation.vue';
-import HelmControl from '@/components/HelmControl.vue';
+import Helm from '../views/Helm.vue';
 import Combat from '../views/Combat.vue';
 import Sensors from '../views/Sensors.vue';
 import FlightOps from '../views/FlightOps.vue';
@@ -23,6 +25,14 @@ const routes = [
         name: 'Nav',
         components: {
             default: Navigation,
+            footer: HelmControl,
+        },
+    },
+    {
+        path: '/game/helm',
+        name: 'Helm',
+        components: {
+            default: Helm,
             footer: HelmControl,
         },
     },
