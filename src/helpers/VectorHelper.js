@@ -19,6 +19,16 @@ export default {
         };
     },
 
+    /**
+     * Calculates and returns the angle in degrees from the origin position to the target position
+     * @param {Object} originPos the location the calculating entity is in
+     * @param {Object} targetPos the location the calculating entity wants to face or avoid
+     * @returns {Number} the angle (in degrees) from the originPos to the targetPos
+     */
+    getHeadingInDegrees(originPos, targetPos) {
+        return (Math.atan2(targetPos.y - originPos.y, targetPos.x - originPos.x) * 180) / Math.PI;
+    },
+
     steerTowardsHeading(current, target, maxTurn) {
         if (current === target) return current;
 
