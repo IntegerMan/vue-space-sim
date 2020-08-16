@@ -43,30 +43,56 @@ export default {
         return _.concat([], stationTasks, jumpTasks);
     },
 
+    /**
+     * Finds the specified origin within the sector and returns it
+     * @param {Object} sector the sector to search for the referenced origin
+     * @param {Object} origin the origin associated with the task. This is set in aggregateSectorTasks.
+     * @returns {Object | null} the requested origin, or null if no origin could be found
+     */
+    findOrigin(sector, origin) {
+        switch (origin.type) {
+            case 'STATION':
+                return sector.stations.find(s => s.id === origin.id);
+            case 'JUMP':
+                return sector.jumpPoints.find(j => j.id === origin.id);
+            default:
+                return null;
+        }
+    },
+
     buildInitialContacts(sector, player) {
         const initialNPCs = [];
-        const tasks = this.aggregateSectorTasks(sector);
-        console.log(tasks);
 
-        for (let i = 0; i < 5; i++) {
-            // TODO: Base the count on sector density
-            // TODO: Figure out an origin
+        let i = 1;
+
+        // TODO: Base the count on sector density
+        _.take(_.shuffle(this.aggregateSectorTasks(sector)), 5).forEach(task => {
+            const origin = this.findOrigin(sector, task.origin);
+
             // TODO: Figure out a destination
-            const pos = RandomService.randomPos(sector); // TODO: Spawn near a station or jump point, or halfway between the two
-            const ship = ShipService.createShip(
-                s => {
-                    s.heading = RandomService.randomDegree();
-                    s.desiredHeading = s.heading;
-                    s.name = 'Scout'; // TODO: should have a valid name
-                    s.id = 'CON-' + i;
-                },
-                RandomService.randomEnum(Classification), // TODO: Should have an appropriate classification
-                RandomService.randomEnum(ContactType), // TODO: Should have an appropriate contact type
-                // TODO: Should have an appropriate mission registered
-                pos
-            );
-            initialNPCs.push(ship);
-        }
+
+            if (!origin) {
+                console.warn('Could not find task origin in sector ' + sector.id, task.origin);
+            } else {
+                console.log(task, origin);
+
+                const pos = RandomService.displace(origin.pos, 50);
+
+                const ship = ShipService.createShip(
+                    s => {
+                        s.heading = RandomService.randomDegree();
+                        s.desiredHeading = s.heading;
+                        s.name = 'Scout'; // TODO: should have a valid name
+                        s.id = 'CON-' + i++;
+                    },
+                    RandomService.randomEnum(Classification), // TODO: Should have an appropriate classification
+                    RandomService.randomEnum(ContactType), // TODO: Should have an appropriate contact type
+                    // TODO: Should have an appropriate mission registered
+                    pos
+                );
+                initialNPCs.push(ship);
+            }
+        });
 
         const contacts = _.concat(sector.stations, ...sector.jumpPoints, player, ...initialNPCs);
 

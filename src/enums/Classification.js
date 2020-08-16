@@ -1,4 +1,4 @@
-const Classification = {
+export default {
     UNCLASSIFIED: 0,
     HOSTILE: 1,
     FRIENDLY: 2,
@@ -6,5 +6,3 @@ const Classification = {
     UNKNOWN: 4,
     NEUTRAL: 5,
 };
-
-export default Classification;
