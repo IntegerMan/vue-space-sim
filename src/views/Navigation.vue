@@ -21,7 +21,7 @@ export default {
     components: { SituationGrid },
     computed: {
         mapMode() {
-            return MapMode.HELM;
+            return MapMode.NAV;
         },
     },
     methods: {
