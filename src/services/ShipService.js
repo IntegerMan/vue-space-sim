@@ -93,6 +93,7 @@ export default {
                 s.isPlayer = true;
                 s.name = 'Concordia';
                 s.code = 'CVS-65';
+                s.id = 'PLAYER';
             },
             Classification.FRIENDLY,
             ContactType.CARRIER,
