@@ -32,6 +32,10 @@ export default {
                 { root: true }
             );
         },
+        setNavTarget(context, pos) {
+            const ship = context.rootGetters.playerShip;
+            context.commit('SET_NAV_TARGET', { contactId: ship.id, value: pos }, { root: true });
+        },
         setThrottle(context, throttle) {
             const ship = context.rootGetters.playerShip;
             context.commit(

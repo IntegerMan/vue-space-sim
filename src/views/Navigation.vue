@@ -26,7 +26,7 @@ export default {
     },
     methods: {
         handleClick(pos) {
-            this.$store.dispatch('helm/setHeadingToFacePos', pos);
+            this.$store.dispatch('helm/setNavTarget', pos);
         },
     },
 };

@@ -58,5 +58,9 @@ export default new Vuex.Store({
             const contact = state.contacts.find(c => c.id === payload.contactId);
             contact.desiredThrottle = payload.value;
         },
+        SET_NAV_TARGET(state, payload) {
+            const contact = state.contacts.find(c => c.id === payload.contactId);
+            contact.navTarget = payload.value;
+        },
     },
 });

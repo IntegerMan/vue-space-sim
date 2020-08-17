@@ -5,7 +5,7 @@
             :viewBox="'0 0 ' + viewPortSize.width + ' ' + viewPortSize.height"
             preserveAspectRatio="xMinYMin meet"
             shape-rendering="auto"
-            @click="handleClick($event)"
+            @click.prevent="handleClick($event)"
         >
             <g id="gridLines" :stroke="lineStroke" :stroke-width="2" stroke-dasharray="2,5">
                 <line
