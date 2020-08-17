@@ -87,49 +87,63 @@ export default {
         return null;
     },
 
+    /**
+     * Builds and returns a ship for the specified task in the sector.
+     * @param {Object} sector the sector of space within the game world
+     * @param {*} task the AI mission that the ship will fulfill
+     * @returns {Object | null} the ship that was generated or null if there was an error generating
+     */
+    generateShipForTask(sector, task) {
+        // Look up relevant information
+        const origin = this.findOrigin(sector, task.origin);
+        const destination = this.findDestination(sector, task);
+
+        if (!origin) {
+            console.warn('Could not find task origin in sector ' + sector.id, task.origin);
+            return null;
+        }
+
+        let pos, heading;
+
+        if (destination) {
+            heading = VectorHelper.getHeadingInDegrees(origin.pos, destination.pos);
+            pos = VectorHelper.calculateNewPosition(origin.pos, heading, 50);
+        } else {
+            console.warn('No destination detected for task', task);
+            pos = RandomService.displace(origin.pos, 50);
+            heading = VectorHelper.getHeadingInDegrees(origin.pos, pos); // Aim away from launch station
+        }
+
+        const ship = ShipService.createShip(
+            s => {
+                s.heading = heading;
+                s.desiredHeading = heading;
+                s.name = 'Scout'; // TODO: should have a valid name
+
+                if (destination) {
+                    s.navTarget = destination.pos;
+                }
+            },
+            RandomService.randomEnum(Classification), // TODO: Should have an appropriate classification
+            RandomService.randomEnum(ContactType), // TODO: Should have an appropriate contact type
+            // TODO: Should have an appropriate mission registered
+            pos
+        );
+        return ship;
+    },
+
     buildInitialContacts(sector, player) {
         const initialNPCs = [];
 
-        let i = 1;
+        let nextId = 1;
 
         const numTasksToGenerate = 5; // TODO: Base the count on sector density
 
         // TODO: This way of chaining things together is ugly
         _.take(_.shuffle(this.aggregateSectorTasks(sector)), numTasksToGenerate).forEach(task => {
-            // TODO: This should really be its own function
-
-            // Look up relevant information
-            const origin = this.findOrigin(sector, task.origin);
-            const destination = this.findDestination(sector, task);
-
-            if (!origin) {
-                console.warn('Could not find task origin in sector ' + sector.id, task.origin);
-            } else {
-                console.log(task, origin, destination);
-
-                let pos, heading;
-
-                if (destination) {
-                    heading = VectorHelper.getHeadingInDegrees(origin.pos, destination.pos);
-                    pos = VectorHelper.calculateNewPosition(origin.pos, heading, 50);
-                } else {
-                    console.warn('No destination detected for task', task);
-                    pos = RandomService.displace(origin.pos, 50);
-                    heading = VectorHelper.getHeadingInDegrees(origin.pos, pos); // Aim away from launch station
-                }
-
-                const ship = ShipService.createShip(
-                    s => {
-                        s.heading = heading;
-                        s.desiredHeading = heading;
-                        s.name = 'Scout'; // TODO: should have a valid name
-                        s.id = 'CON-' + i++;
-                    },
-                    RandomService.randomEnum(Classification), // TODO: Should have an appropriate classification
-                    RandomService.randomEnum(ContactType), // TODO: Should have an appropriate contact type
-                    // TODO: Should have an appropriate mission registered
-                    pos
-                );
+            const ship = this.generateShipForTask(sector, task);
+            if (ship) {
+                ship.id = nextId++;
                 initialNPCs.push(ship);
             }
         });

@@ -78,6 +78,7 @@ export default {
             contact.contactType = shipType;
             contact.throttle = 25;
             contact.desiredThrottle = contact.throttle;
+            contact.navTarget = undefined;
 
             if (configureFunc) {
                 configureFunc(contact);
