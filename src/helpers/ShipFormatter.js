@@ -2,6 +2,11 @@ import Classification from '@/enums/Classification.js';
 import ColorLiterals from '@/helpers/ColorLiterals.js';
 
 export default {
+    /**
+     * Calculates and returns a Bulma CSS class for the given contact
+     * @param {Object} contact the contact to generate a class string for
+     * @returns {String} a CSS class string intended for displaying on the map
+     */
     calculateColorClass(contact) {
         switch (contact.classification) {
             case Classification.FRIENDLY:
@@ -16,6 +21,12 @@ export default {
                 return 'has-text-warning';
         }
     },
+
+    /**
+     * Calculates and returns a hex string for the given contact
+     * @param {Object} contact the contact to generate a hex string for
+     * @returns {String} a color hex string intended for displaying on the map
+     */
     calculateColorHex(contact) {
         switch (contact.classification) {
             case Classification.FRIENDLY:

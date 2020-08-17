@@ -25,6 +25,20 @@
                     :x2="viewPortSize.width"
                 />
             </g>
+            <!-- Render Navigational Paths -->
+            <g v-if="navPaths.length" id="navPaths">
+                <line
+                    v-for="(path, index) of navPaths"
+                    :key="'navPath' + index"
+                    :y1="path.y1"
+                    :y2="path.y2"
+                    :x1="path.x1"
+                    :x2="path.x2"
+                    :stroke="path.stroke"
+                    stroke-width="2"
+                    opacity="0.5"
+                />
+            </g>
             <ContactSVGRenderer
                 v-for="contact of contacts"
                 :key="contact.id"
@@ -41,6 +55,8 @@
 import ContactSVGRenderer from '@/components/ContactSVGRenderer.vue';
 import ShipFormatter from '@/helpers/ShipFormatter.js';
 import ColorLiterals from '@/helpers/ColorLiterals.js';
+import MapMode from '../enums/MapMode';
+import Classification from '../enums/Classification';
 
 export default {
     name: 'SituationGrid',
@@ -66,6 +82,32 @@ export default {
     computed: {
         contacts() {
             return this.$store.getters.contactsRelativeToPlayer;
+        },
+        navPaths() {
+            return this.contacts
+                .filter(c => c.navTarget)
+                .filter(c => {
+                    switch (this.mapMode) {
+                        case MapMode.DEBUG:
+                            return true;
+                        case MapMode.NAV:
+                        case MapMode.FLIGHTOPS:
+                            return c.classification === Classification.FRIENDLY;
+                        case MapMode.HELM:
+                            return c.isPlayer;
+                        default:
+                            return false;
+                    }
+                })
+                .map(c => {
+                    return {
+                        x1: c.pos.x - this.offset.x,
+                        y1: c.pos.y - this.offset.y,
+                        x2: c.navTarget.x - this.offset.x,
+                        y2: c.navTarget.y - this.offset.y,
+                        stroke: ShipFormatter.calculateColorHex(c),
+                    };
+                });
         },
         sector() {
             return this.$store.getters['galaxy/currentSector'];
