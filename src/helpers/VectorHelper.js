@@ -11,6 +11,18 @@ export default {
         return { x: pos.x + modX, y: pos.y - modY };
     },
 
+    /**
+     * Calculates and returns the distance between two points
+     *
+     * @param {Object} pos1 the first point
+     * @param {Object} pos2 the second point
+     * @returns {Number} the distance between the two points
+     */
+    calculateDistance(pos1, pos2) {
+        // Pythagorean Theorum: a^2 + b^2 = c^2. Solving for c.
+        return Math.sqrt((pos1.x - pos2.x) ** 2 + (pos1.y - pos2.y) ** 2);
+    },
+
     translateRelativeToPos(contact, pos, viewPortSize) {
         return {
             ...contact,

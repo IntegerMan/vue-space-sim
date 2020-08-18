@@ -13,8 +13,7 @@ const simulation = {
             commit('SET_SPEED', 1);
         },
         advance(context) {
-            const newContacts = context.rootState.contacts.map(c => SimulationService.simulate(c));
-
+            const newContacts = SimulationService.simulateAll(context.rootState.contacts);
             context.commit('UPDATE_CONTACTS', newContacts, { root: true });
         },
         advanceOne({ dispatch }) {
