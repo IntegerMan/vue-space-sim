@@ -100,4 +100,18 @@ export default {
             pos
         );
     },
+    /**
+     * Determines whether or not the specified contact is expected to move about the map
+     * @param {Object} contact the contact to evaluate
+     * @returns {Boolean} whether or not the contact should move around the map
+     */
+    isMobile(contact) {
+        switch (contact.contactType) {
+            case ContactType.JUMP_POINT:
+            case ContactType.STATION:
+                return false;
+            default:
+                return true;
+        }
+    },
 };

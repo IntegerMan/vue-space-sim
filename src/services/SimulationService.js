@@ -2,6 +2,7 @@ import _ from 'lodash/fp';
 
 import VectorHelper from '../helpers/VectorHelper.js';
 import ShipDefinitionService from './ShipDefinitionService';
+import ShipService from './ShipService';
 
 export default {
     /**
@@ -10,7 +11,7 @@ export default {
      * @returns {Object[]} the new contacts
      */
     simulateAll(contacts) {
-        return contacts.map(c => this.simulate(c));
+        return _.compact(contacts.map(c => this.simulate(c)));
     },
     /**
      * Simulates an individual contact and returns the new version of that contact
@@ -18,9 +19,12 @@ export default {
      * @returns {Object} the updated contact
      */
     simulate(contact) {
-        return _.compose(this.adjustSystems, this.updatePosition)(contact);
+        const simFunc = _.compose(this.adjustSystems, this.updatePosition);
+        return simFunc(contact);
     },
     adjustSystems(contact) {
+        if (!contact) return null;
+
         return {
             ...contact,
             heading: VectorHelper.steerTowardsHeading(
@@ -36,6 +40,8 @@ export default {
         };
     },
     updatePosition(contact) {
+        if (!contact) return null;
+
         // Advance the ship given the current position, thrust, and heading
         const newPos = VectorHelper.calculateNewPosition(
             contact.pos,
@@ -45,10 +51,16 @@ export default {
 
         // Check to see if we've reached our current nav target
         let targetPos = contact.navTarget;
-        if (targetPos && VectorHelper.calculateDistance(contact.pos, targetPos) < 1) {
+        if (targetPos && VectorHelper.calculateDistance(contact.pos, targetPos) <= 5) {
             targetPos = undefined;
         }
 
+        // If we don't have a navigational target anymore, we must have arrived at our destination. Land / jump.
+        if (!contact.isPlayer && !targetPos && ShipService.isMobile(contact)) {
+            return null;
+        }
+
+        // Return a modified version of the ship
         return {
             ...contact,
             pos: newPos,
