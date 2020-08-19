@@ -3,6 +3,9 @@
         "id": "SEC-1",
         "name": "Start Sector",
         "owner": "CIVILIAN",
+        "initialAiShips": 5,
+        "maxAiShips": 10,
+        "minTimeBetweenShipSpawn": 10,
         "size": { "x": 2000, "y": 2000 },
         "stations": [
             {

@@ -110,7 +110,7 @@ export default {
                 });
         },
         sector() {
-            return this.$store.getters['galaxy/currentSector'];
+            return this.$store.getters.currentSector;
         },
         offset() {
             if (this.centerOnPlayer) {

@@ -27,8 +27,8 @@ This project is a hobby project attempting to create some form of a light scienc
 -   [ ] Render asteroids
 -   [ ] Render nebulae
 -   [ ] Render stations
--   [ ] Render nav markers
--   [ ] Render jump points
+-   [x] Render nav markers
+-   [x] Render jump points
 -   [x] Grid lines should be relative to the system, not the player
 -   [x] Allow different views to have different zoom settings
 -   [ ] Zoom in and out of the map
@@ -42,7 +42,7 @@ This project is a hobby project attempting to create some form of a light scienc
 -   [x] Simulating should cause ships to move around
 -   [ ] AI Ships should flee from projectiles when appropriate
 -   [ ] AI Ships should pursue prey when appropriate
--   [ ] AI Ships should navigate towards their nav point when not in combat
+-   [/] AI Ships should navigate towards their nav point when not in combat
 
 ### Combat
 
@@ -86,6 +86,41 @@ This project is a hobby project attempting to create some form of a light scienc
 -   [ ] Introduce a Web API
 -   [ ] Recreate simulation logic in F#
 -   [ ] Add in SignalR Communications
+-   [ ] Allow multiple instances on one machine
+
+## Factions
+
+### The Expedition
+
+Established first outpost for scientific survey. Interested in westward expansion.
+
+Favors a capital ship mentality with high end ships that are highly modular and make their presence known.
+
+### The Expanse
+
+The old world expanding into the new. Directly opposed with The Expedition, and in favor of raw resource exploitation of the new world.
+
+### Refuge
+
+A gathering of military forces who have formed their own state and just want isolation. Hyper-focused on military discipline and technology while becoming self-sufficient.
+
+Favors an active defense strategy with rigorous patrols and active sensors and layers of defense.
+
+Military technology is built around expendable munitions.
+
+## Training Missions
+
+## Mission 1: Helm Training
+
+## Mission 2: Combat
+
+## Mission 3: Navigation & Sensors
+
+## Mission 4: Flight Operations
+
+## Mission 5: Engineering
+
+## Mission 6: End-to-end Training
 
 ## Project setup
 

@@ -1,6 +1,5 @@
 import Classification from '../enums/Classification.js';
 import ContactType from '../enums/ContactType.js';
-import Sector from '../enums/Sector.js';
 import VectorHelper from '../helpers/VectorHelper.js';
 
 import SectorData from '../assets/data/Sectors.json';
@@ -11,15 +10,16 @@ import RandomService from './RandomService.js';
 import _ from 'lodash';
 
 export default {
-    buildSectors() {
-        return [this.loadSector(Sector.START_SECTOR)];
-    },
-
     loadSector(sectorId) {
         const sector = SectorData.find(s => s.id === sectorId);
+
         if (!sector) {
             console.warn('Could not find sector', sectorId, SectorData);
+            return null;
         }
+
+        sector.contacts = [];
+        sector.timeBetweenShipSpawn = sector.minTimeBetweenShipSpawn;
 
         sector.stations.forEach(s => ShipService.configureStation(s));
         sector.jumpPoints.forEach(j => ShipService.configureJumpPoint(j));
@@ -119,6 +119,7 @@ export default {
                 s.heading = heading;
                 s.desiredHeading = heading;
                 s.name = 'Scout'; // TODO: should have a valid name
+                s.id = Math.round(Math.random() * 8999) + 1000; // TODO: Not guaranteed to be unique
 
                 if (destination) {
                     s.navTarget = destination.pos;
@@ -132,22 +133,24 @@ export default {
         return ship;
     },
 
+    /**
+     * Identifies all tasks in the sector, then randomly sorts them and returns up to maxTasks
+     * tasks in an array
+     *
+     * @param {Object} sector
+     * @param {Number} maxTasks
+     * @returns {Object[]} the tasks to return, in random order
+     */
+    getRandomTasksForSector(sector, maxTasks) {
+        return _.take(_.shuffle(this.aggregateSectorTasks(sector)), maxTasks);
+    },
+
     buildInitialContacts(sector, player) {
-        const initialNPCs = [];
+        sector.contacts.push(player);
 
-        let nextId = 1;
-
-        const numTasksToGenerate = 5; // TODO: Base the count on sector density
-
-        // TODO: This way of chaining things together is ugly
-        _.take(_.shuffle(this.aggregateSectorTasks(sector)), numTasksToGenerate).forEach(task => {
-            const ship = this.generateShipForTask(sector, task);
-            if (ship) {
-                ship.id = nextId++;
-                initialNPCs.push(ship);
-            }
-        });
-
-        return _.concat(initialNPCs, ...sector.stations, ...sector.jumpPoints, player);
+        this.getRandomTasksForSector(sector, sector.initialAiShips)
+            .map(task => this.generateShipForTask(sector, task))
+            .filter(s => s)
+            .forEach(contact => sector.contacts.push(contact));
     },
 };

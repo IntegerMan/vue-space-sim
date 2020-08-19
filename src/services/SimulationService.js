@@ -2,16 +2,42 @@ import _ from 'lodash/fp';
 
 import VectorHelper from '../helpers/VectorHelper.js';
 import ShipDefinitionService from './ShipDefinitionService';
+import SectorService from './SectorService';
 import ShipService from './ShipService';
 
 export default {
     /**
-     * Simulates all contacts and returns a new array of contacts
-     * @param {Object[]} contacts the current contacts
-     * @returns {Object[]} the new contacts
+     * Simulates the sector and returns a new version of that sector
+     * @param {Object} sector the sector the contacts are in
+     * @returns {Object} the new sector
      */
-    simulateAll(contacts) {
-        return _.compact(contacts.map(c => this.simulate(c)));
+    simulateAll(sector) {
+        const newSector = {
+            ...sector,
+            contacts: _.compact(sector.contacts.map(c => this.simulate(c))),
+        };
+
+        if (sector.timeBetweenShipSpawn <= 0) {
+            console.log('Now eligible to spawn a new ship');
+            const numShips = newSector.contacts.filter(c => ShipService.isMobile(c)).length;
+
+            if (numShips < newSector.maxAiShips) {
+                SectorService.getRandomTasksForSector(newSector, 1)
+                    .map(task => SectorService.generateShipForTask(newSector, task))
+                    .filter(s => s)
+                    .forEach(newContact => {
+                        console.log('New Contact created', newContact);
+                        newSector.contacts.push(newContact);
+                        newSector.timeBetweenShipSpawn = sector.minTimeBetweenShipSpawn;
+                    });
+
+                console.log('New ship should have spawned', newSector);
+            }
+        } else {
+            newSector.timeBetweenShipSpawn -= 1;
+        }
+
+        return newSector;
     },
     /**
      * Simulates an individual contact and returns the new version of that contact
@@ -43,10 +69,11 @@ export default {
         if (!contact) return null;
 
         // Advance the ship given the current position, thrust, and heading
+        const throttlePercent = contact.throttle / 100;
         const newPos = VectorHelper.calculateNewPosition(
             contact.pos,
             contact.heading,
-            (contact.throttle / 100) * ShipDefinitionService.getMaxThrust(contact)
+            throttlePercent * ShipDefinitionService.getMaxThrust(contact)
         );
 
         // Check to see if we've reached our current nav target

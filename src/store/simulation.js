@@ -13,8 +13,9 @@ const simulation = {
             commit('SET_SPEED', 1);
         },
         advance(context) {
-            const newContacts = SimulationService.simulateAll(context.rootState.contacts);
-            context.commit('UPDATE_CONTACTS', newContacts, { root: true });
+            const sector = context.rootGetters.currentSector;
+            const newSector = SimulationService.simulateAll(sector);
+            context.commit('SET_SECTOR', newSector, { root: true });
         },
         advanceOne({ dispatch }) {
             dispatch('pause');
