@@ -18,7 +18,7 @@ export default {
             return null;
         }
 
-        sector.contacts = [];
+        sector.ships = [];
         sector.timeBetweenShipSpawn = sector.minTimeBetweenShipSpawn;
 
         sector.stations.forEach(s => ShipService.configureStation(s));
@@ -146,11 +146,11 @@ export default {
     },
 
     buildInitialContacts(sector, player) {
-        sector.contacts.push(player);
+        sector.ships.push(player);
 
         this.getRandomTasksForSector(sector, sector.initialAiShips)
             .map(task => this.generateShipForTask(sector, task))
             .filter(s => s)
-            .forEach(contact => sector.contacts.push(contact));
+            .forEach(contact => sector.ships.push(contact));
     },
 };

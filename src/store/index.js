@@ -27,11 +27,11 @@ export default new Vuex.Store({
             return state.sector;
         },
         playerShip(state, getters) {
-            return getters.currentSector.contacts.find(c => c.isPlayer);
+            return getters.currentSector.ships.find(c => c.isPlayer);
         },
         mapEntities(state, getters) {
             const sector = getters.currentSector;
-            return _.concat(sector.contacts, ...sector.jumpPoints, ...sector.stations);
+            return _.concat(sector.ships, ...sector.jumpPoints, ...sector.stations);
         },
         contactsRelativeToPlayer(state, getters) {
             const player = getters.playerShip;
@@ -59,15 +59,15 @@ export default new Vuex.Store({
             state.sector = sector;
         },
         SET_DESIRED_HEADING(state, payload) {
-            const contact = state.sector.contacts.find(c => c.id === payload.contactId);
+            const contact = state.sector.ships.find(c => c.id === payload.contactId);
             contact.desiredHeading = payload.value;
         },
         SET_DESIRED_THROTTLE(state, payload) {
-            const contact = state.sector.contacts.find(c => c.id === payload.contactId);
+            const contact = state.sector.ships.find(c => c.id === payload.contactId);
             contact.desiredThrottle = payload.value;
         },
         SET_NAV_TARGET(state, payload) {
-            const contact = state.sector.contacts.find(c => c.id === payload.contactId);
+            const contact = state.sector.ships.find(c => c.id === payload.contactId);
             contact.navTarget = payload.value;
         },
     },

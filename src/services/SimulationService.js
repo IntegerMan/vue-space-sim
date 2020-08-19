@@ -14,24 +14,21 @@ export default {
     simulateAll(sector) {
         const newSector = {
             ...sector,
-            contacts: _.compact(sector.contacts.map(c => this.simulate(c))),
+            ships: _.compact(sector.ships.map(c => this.simulate(c))),
         };
 
         if (sector.timeBetweenShipSpawn <= 0) {
-            console.log('Now eligible to spawn a new ship');
-            const numShips = newSector.contacts.filter(c => ShipService.isMobile(c)).length;
+            const numShips = newSector.ships.filter(s => !s.isPlayer).length;
 
             if (numShips < newSector.maxAiShips) {
                 SectorService.getRandomTasksForSector(newSector, 1)
                     .map(task => SectorService.generateShipForTask(newSector, task))
                     .filter(s => s)
-                    .forEach(newContact => {
-                        console.log('New Contact created', newContact);
-                        newSector.contacts.push(newContact);
+                    .forEach(s => {
+                        console.debug('New Contact created', s);
+                        newSector.ships.push(s);
                         newSector.timeBetweenShipSpawn = sector.minTimeBetweenShipSpawn;
                     });
-
-                console.log('New ship should have spawned', newSector);
             }
         } else {
             newSector.timeBetweenShipSpawn -= 1;
