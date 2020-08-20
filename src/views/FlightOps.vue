@@ -1,7 +1,7 @@
 <template>
     <div class="has-text-light">
         <h1 class="title has-text-light">Flight Ops</h1>
-        <situation-grid :mapMode="mapMode" :zoom="0.75" />
+        <situation-grid :mapMode="mapMode" :zoom="0.75" :contacts="contacts" />
     </div>
 </template>
 
@@ -15,6 +15,9 @@ export default {
     computed: {
         mapMode() {
             return MapMode.FLIGHTOPS;
+        },
+        contacts() {
+            return this.$store.getters.playerContacts;
         },
     },
 };

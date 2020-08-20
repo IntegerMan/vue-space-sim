@@ -3,7 +3,12 @@
         <h1 class="title has-text-light">
             Helm
         </h1>
-        <situation-grid :mapMode="mapMode" :zoom="1.5" @LocationClick="handleClick($event)" />
+        <situation-grid
+            :mapMode="mapMode"
+            :zoom="1.5"
+            @LocationClick="handleClick($event)"
+            :contacts="contacts"
+        />
     </div>
 </template>
 
@@ -17,6 +22,9 @@ export default {
     computed: {
         mapMode() {
             return MapMode.HELM;
+        },
+        contacts() {
+            return this.$store.getters.playerContacts;
         },
     },
     methods: {

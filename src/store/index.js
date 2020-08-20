@@ -1,14 +1,13 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
 
-import _ from 'lodash';
-
 import simulation from './simulation.js';
 import helm from './helm.js';
 
-import VectorHelper from '../helpers/VectorHelper.js';
 import SectorService from '../services/SectorService.js';
 import ShipService from '../services/ShipService.js';
+
+import _ from 'lodash';
 
 import Sector from '../enums/Sector';
 
@@ -29,18 +28,12 @@ export default new Vuex.Store({
         playerShip(state, getters) {
             return getters.currentSector.ships.find(c => c.isPlayer);
         },
-        mapEntities(state, getters) {
+        playerContacts(state, getters) {
+            return ShipService.calculateVisibleContacts(getters.currentSector, getters.playerShip);
+        },
+        allEntities(state, getters) {
             const sector = getters.currentSector;
             return _.concat(sector.ships, ...sector.jumpPoints, ...sector.stations);
-        },
-        contactsRelativeToPlayer(state, getters) {
-            const player = getters.playerShip;
-            const playerPos = player.pos;
-            const viewPortSize = { x: 1000, y: 1000 }; // TODO: This should live elsewhere
-
-            return getters.mapEntities.map(c =>
-                VectorHelper.translateRelativeToPos(c, playerPos, viewPortSize)
-            );
         },
     },
     actions: {

@@ -1,7 +1,7 @@
 <template>
     <div class="has-text-light">
         <h1 class="title has-text-light">Debug View</h1>
-        <situation-grid :mapMode="mapMode" :zoom="0.65" />
+        <situation-grid :mapMode="mapMode" :zoom="0.65" :contacts="contacts" />
     </div>
 </template>
 
@@ -15,6 +15,9 @@ export default {
     computed: {
         mapMode() {
             return MapMode.DEBUG;
+        },
+        contacts() {
+            return this.$store.getters.allEntities;
         },
     },
 };

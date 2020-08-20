@@ -7,6 +7,7 @@
             :mapMode="mapMode"
             :zoom="0.5"
             :centerOnPlayer="false"
+            :contacts="contacts"
             @LocationClick="handleClick($event)"
         />
     </div>
@@ -22,6 +23,9 @@ export default {
     computed: {
         mapMode() {
             return MapMode.NAV;
+        },
+        contacts() {
+            return this.$store.getters.playerContacts;
         },
     },
     methods: {

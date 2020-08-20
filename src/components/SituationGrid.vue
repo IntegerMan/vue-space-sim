@@ -39,6 +39,8 @@
                     opacity="0.5"
                 />
             </g>
+
+            <!-- Render actual contacts -->
             <ContactSVGRenderer
                 v-for="contact of contacts"
                 :key="contact.id"
@@ -70,6 +72,10 @@ export default {
             type: Boolean,
             default: true,
         },
+        contacts: {
+            type: Array,
+            required: true,
+        },
     },
     data() {
         return {
@@ -80,9 +86,6 @@ export default {
         ContactSVGRenderer,
     },
     computed: {
-        contacts() {
-            return this.$store.getters.contactsRelativeToPlayer;
-        },
         navPaths() {
             return this.contacts
                 .filter(c => c.navTarget)

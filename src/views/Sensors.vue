@@ -3,7 +3,7 @@
         <h1 class="title has-text-light">
             Sensors
         </h1>
-        <situation-grid :mapMode="mapMode" :zoom="1" />
+        <situation-grid :mapMode="mapMode" :zoom="1" :contacts="contacts" />
     </div>
 </template>
 
@@ -17,6 +17,9 @@ export default {
     computed: {
         mapMode() {
             return MapMode.SENSORS;
+        },
+        contacts() {
+            return this.$store.getters.playerContacts;
         },
     },
 };

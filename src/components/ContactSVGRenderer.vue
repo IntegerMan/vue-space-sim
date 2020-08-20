@@ -3,6 +3,15 @@
     <g :transform="'translate(' + effectivePos.x + ' ' + effectivePos.y + ')'">
         <title>{{ tooltip }}</title>
 
+        <!-- Sensor Radius -->
+        <circle
+            v-if="showSensorRadius"
+            :r="contact.sensorRange"
+            :stroke="stroke"
+            :stroke-width="2"
+            fill="transparent"
+        />
+
         <!-- Heading indicator arrow -->
         <g :transform="`rotate(${contact.heading})`" trasform-origin="0 0" v-if="showHeading">
             <line
@@ -117,6 +126,16 @@ export default {
                     return true;
                 default:
                     return true;
+            }
+        },
+        showSensorRadius() {
+            switch (this.mapMode) {
+                case MapMode.NAV:
+                case MapMode.SENSORS:
+                case MapMode.DEBUG:
+                    return this.contact.isPlayer;
+                default:
+                    return false;
             }
         },
         isPlayer() {

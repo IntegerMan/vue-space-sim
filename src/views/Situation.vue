@@ -4,7 +4,7 @@
             Situation
         </h1>
 
-        <situation-grid :mapMode="mapMode" :zoom="1" />
+        <situation-grid :mapMode="mapMode" :zoom="1" :contacts="contacts" />
     </div>
 </template>
 
@@ -18,6 +18,9 @@ export default {
     computed: {
         mapMode() {
             return MapMode.SITUATION;
+        },
+        contacts() {
+            return this.$store.getters.playerContacts;
         },
     },
 };

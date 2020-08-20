@@ -1,5 +1,7 @@
 import ContactType from '../enums/ContactType';
 import Classification from '../enums/Classification';
+import VectorHelper from '../helpers/VectorHelper';
+import _ from 'lodash';
 
 export default {
     createContact(configureFunc, classification, pos) {
@@ -79,6 +81,7 @@ export default {
             contact.throttle = 25;
             contact.desiredThrottle = contact.throttle;
             contact.navTarget = undefined;
+            contact.sensorRange = 350; // TODO: Grab from ShipDefinitionService
 
             if (configureFunc) {
                 configureFunc(contact);
@@ -113,5 +116,13 @@ export default {
             default:
                 return true;
         }
+    },
+    calculateVisibleContacts(sector, scanningObject) {
+        const centerPos = scanningObject.pos;
+        const range = scanningObject.sensorRange;
+
+        const entities = _.concat(sector.ships, ...sector.jumpPoints, ...sector.stations);
+
+        return entities.filter(c => VectorHelper.calculateDistance(centerPos, c.pos) <= range);
     },
 };
