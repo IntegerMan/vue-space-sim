@@ -133,6 +133,7 @@ export default {
                 case MapMode.NAV:
                 case MapMode.SENSORS:
                 case MapMode.DEBUG:
+                case MapMode.SITUATION:
                     return this.contact.isPlayer;
                 default:
                     return false;

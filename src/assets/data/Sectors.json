@@ -72,6 +72,20 @@
                 ]
             }
         ],
+        "hazards": [
+            {
+                "type": "HAZARD",
+                "hazardType": "NEBULA",
+                "pos": { "x": 1600, "y": 1600 },
+                "size": 100
+            },
+            {
+                "type": "HAZARD",
+                "hazardType": "NEBULA",
+                "pos": { "x": 1400, "y": 1700 },
+                "size": 80
+            }
+        ],
         "jumpPoints": [
             {
                 "id": "JMP-1",

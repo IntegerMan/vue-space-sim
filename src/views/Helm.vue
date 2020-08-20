@@ -8,6 +8,7 @@
             :zoom="1.5"
             @LocationClick="handleClick($event)"
             :contacts="contacts"
+            :hazards="hazards"
         />
     </div>
 </template>
@@ -25,6 +26,9 @@ export default {
         },
         contacts() {
             return this.$store.getters.playerContacts;
+        },
+        hazards() {
+            return this.$store.getters.currentSector.hazards;
         },
     },
     methods: {

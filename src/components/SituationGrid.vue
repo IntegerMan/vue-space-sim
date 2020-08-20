@@ -40,6 +40,18 @@
                 />
             </g>
 
+            <g v-if="hazards.length" id="hazards">
+                <circle
+                    v-for="hazard of hazards"
+                    :key="hazard.pos"
+                    :r="hazard.size"
+                    :cx="hazard.pos.x - offset.x"
+                    :cy="hazard.pos.y - offset.y"
+                    fill="#9932CC"
+                    opacity="0.35"
+                />
+            </g>
+
             <!-- Render actual contacts -->
             <ContactSVGRenderer
                 v-for="contact of contacts"
@@ -75,6 +87,10 @@ export default {
         contacts: {
             type: Array,
             required: true,
+        },
+        hazards: {
+            type: Array,
+            default: () => [],
         },
     },
     data() {

@@ -36,6 +36,7 @@ export default {
     configureStation(obj) {
         this.configureStatic(obj);
 
+        obj.type = 'STATION';
         obj.contactType = ContactType.STATION;
         obj.size = this.parseTier(obj);
         obj.classification = this.parseOwner(obj);
@@ -44,6 +45,7 @@ export default {
         this.configureStatic(obj);
 
         obj.name = obj.name || 'Jump Point';
+        obj.type = 'JUMP_POINT';
         obj.contactType = ContactType.JUMP_POINT;
         obj.size = 25;
         obj.classification = Classification.NEUTRAL;
@@ -77,6 +79,7 @@ export default {
 
     createShip(configureFunc, classification, shipType, pos) {
         const shipFunc = contact => {
+            contact.type = 'SHIP';
             contact.contactType = shipType;
             contact.throttle = 25;
             contact.desiredThrottle = contact.throttle;
@@ -109,9 +112,10 @@ export default {
      * @returns {Boolean} whether or not the contact should move around the map
      */
     isMobile(contact) {
-        switch (contact.contactType) {
-            case ContactType.JUMP_POINT:
-            case ContactType.STATION:
+        switch (contact.type) {
+            case 'JUMP_POINT':
+            case 'STATION':
+            case 'HAZARD':
                 return false;
             default:
                 return true;
