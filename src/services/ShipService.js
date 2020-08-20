@@ -117,12 +117,20 @@ export default {
                 return true;
         }
     },
+    /**
+     * Calculates contacts that should be visible given the scanning ship or station's sensors
+     * @param {Object} sector the current sector
+     * @param {Object} scanningObject the object doing the scanning
+     * @returns {Object[]} all visible objects
+     */
     calculateVisibleContacts(sector, scanningObject) {
         const centerPos = scanningObject.pos;
         const range = scanningObject.sensorRange;
 
         const entities = _.concat(sector.ships, ...sector.jumpPoints, ...sector.stations);
 
-        return entities.filter(c => VectorHelper.calculateDistance(centerPos, c.pos) <= range);
+        return entities.filter(
+            c => !this.isMobile(c) || VectorHelper.calculateDistance(centerPos, c.pos) <= range
+        );
     },
 };
