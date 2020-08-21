@@ -2,6 +2,7 @@ import ContactType from '../enums/ContactType';
 import Classification from '../enums/Classification';
 import VectorHelper from '../helpers/VectorHelper';
 import _ from 'lodash';
+import ShipDefinitionService from './ShipDefinitionService';
 
 export default {
     createContact(configureFunc, classification, pos) {
@@ -84,7 +85,7 @@ export default {
             contact.throttle = 25;
             contact.desiredThrottle = contact.throttle;
             contact.navTarget = undefined;
-            contact.sensorRange = 350; // TODO: Grab from ShipDefinitionService
+            contact.components = ShipDefinitionService.buildComponentsForShipType(shipType);
 
             if (configureFunc) {
                 configureFunc(contact);
@@ -104,6 +105,16 @@ export default {
             Classification.FRIENDLY,
             ContactType.CARRIER,
             pos
+        );
+    },
+    getComponentsOfType(components, type) {
+        const matches = components.filter(c => c.type === type);
+
+        return _.concat(
+            matches,
+            ...components
+                .filter(c => c.children && c.children.length)
+                .map(c => this.getComponentsOfType(c.children, type))
         );
     },
     /**

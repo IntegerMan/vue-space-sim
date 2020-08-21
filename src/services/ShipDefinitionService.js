@@ -57,4 +57,26 @@ export default {
     getMaxAcceleration(contact) {
         return 15;
     },
+    /**
+     * Builds and returns the array of components that belong in a ship of a given
+     * ship type.
+     * @param {Number} _shipType the type of ship
+     * @returns {Array} the components belonging to the ship
+     */
+    buildComponentsForShipType(_shipType) {
+        return [
+            {
+                type: 'CORE',
+                maxHealth: 10,
+                health: 10,
+                children: [
+                    { type: 'ENGINE', maxHealth: 5, health: 5 },
+                    { type: 'RCS', maxHealth: 3, health: 3 },
+                    { type: 'JUMP_DRIVE', maxHealth: 5, health: 5 },
+                    { type: 'CPU', maxHealth: 5, health: 5 },
+                    { type: 'SENSORS', maxHealth: 3, health: 3, range: 350 },
+                ],
+            },
+        ];
+    },
 };
