@@ -6,7 +6,7 @@
         <!-- Sensor Radius -->
         <circle
             v-if="showSensorRadius"
-            :r="contact.sensorRange"
+            :r="sensorRange"
             :stroke="stroke"
             :stroke-width="2"
             fill="transparent"
@@ -72,6 +72,7 @@ import MapMode from '../enums/MapMode.js';
 import Classification from '../enums/Classification.js';
 import ContactType from '../enums/ContactType.js';
 import ContactSVGIcon from '../components/ContactSVGIcon.vue';
+import ShipService from '../services/ShipService.js';
 
 export default {
     name: 'ContactSVGRenderer',
@@ -138,6 +139,9 @@ export default {
                 default:
                     return false;
             }
+        },
+        sensorRange() {
+            return ShipService.calculateSensorRange(this.contact);
         },
         isPlayer() {
             return this.contact.id === this.$store.getters.playerShip.id;

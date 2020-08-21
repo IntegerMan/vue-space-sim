@@ -109,13 +109,9 @@ export default {
     },
     getComponentsOfType(components, type) {
         const matches = components.filter(c => c.type === type);
+        const parents = components.filter(c => c.children && c.children.length);
 
-        return _.concat(
-            matches,
-            ...components
-                .filter(c => c.children && c.children.length)
-                .map(c => this.getComponentsOfType(c.children, type))
-        );
+        return _.concat(matches, ...parents.map(p => this.getComponentsOfType(p.children, type)));
     },
     /**
      * Determines whether or not the specified contact is expected to move about the map
@@ -132,6 +128,12 @@ export default {
                 return true;
         }
     },
+    calculateSensorRange(scanningObject) {
+        return this.getComponentsOfType(scanningObject.components, 'SENSORS').reduce(
+            (priorBest, comp) => Math.max(comp.range, priorBest),
+            0
+        );
+    },
     /**
      * Calculates contacts that should be visible given the scanning ship or station's sensors
      * @param {Object} sector the current sector
@@ -140,7 +142,7 @@ export default {
      */
     calculateVisibleContacts(sector, scanningObject) {
         const centerPos = scanningObject.pos;
-        const range = scanningObject.sensorRange;
+        const range = this.calculateSensorRange(scanningObject);
 
         const entities = _.concat(sector.ships, ...sector.jumpPoints, ...sector.stations);
 
