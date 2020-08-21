@@ -63,7 +63,8 @@ export default {
      * @param {Number} _shipType the type of ship
      * @returns {Array} the components belonging to the ship
      */
-    buildComponentsForShipType(_shipType) {
+    // eslint-disable-next-line no-unused-vars
+    buildComponentsForShipType(shipType) {
         return [
             {
                 type: 'CORE',

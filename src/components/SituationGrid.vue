@@ -43,7 +43,7 @@
             <g v-if="hazards.length" id="hazards">
                 <circle
                     v-for="hazard of hazards"
-                    :key="hazard.pos"
+                    :key="hazard.pos.x + ',' + hazard.pos.y"
                     :r="hazard.size"
                     :cx="hazard.pos.x - offset.x"
                     :cy="hazard.pos.y - offset.y"
