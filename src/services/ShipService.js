@@ -3,6 +3,7 @@ import Classification from '../enums/Classification';
 import VectorHelper from '../helpers/VectorHelper';
 import _ from 'lodash';
 import ShipDefinitionService from './ShipDefinitionService';
+import ComponentService from './ComponentService';
 
 export default {
     createContact(configureFunc, classification, pos) {
@@ -107,12 +108,6 @@ export default {
             pos
         );
     },
-    getComponentsOfType(components, type) {
-        const matches = components.filter(c => c.type === type);
-        const parents = components.filter(c => c.children && c.children.length);
-
-        return _.concat(matches, ...parents.map(p => this.getComponentsOfType(p.children, type)));
-    },
     /**
      * Determines whether or not the specified contact is expected to move about the map
      * @param {Object} contact the contact to evaluate
@@ -129,9 +124,9 @@ export default {
         }
     },
     calculateSensorRange(scanningObject) {
-        return this.getComponentsOfType(scanningObject.components, 'SENSORS').reduce(
-            (priorBest, comp) => Math.max(comp.range, priorBest),
-            0
+        return ComponentService.getLargestValue(
+            ComponentService.getComponentsOfType(scanningObject.components, 'SENSORS'),
+            c => c.range
         );
     },
     /**
