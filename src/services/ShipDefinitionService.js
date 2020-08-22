@@ -1,36 +1,4 @@
-import ContactType from '../enums/ContactType';
-
 export default {
-    getMaxThrust(contact) {
-        switch (contact.contactType) {
-            case ContactType.DREADNAUGHT:
-                return 5;
-            case ContactType.FREIGHTER:
-                return 8;
-            case ContactType.CARRIER:
-                return 10;
-            case ContactType.CRUISER:
-                return 12;
-            case ContactType.RADIOLOGICAL:
-                return 13;
-            case ContactType.DESTROYER:
-                return 15;
-            case ContactType.LIGHT:
-                return 18;
-            case ContactType.FIGHTER:
-                return 25;
-            case ContactType.PIRATE:
-                return 25;
-            case ContactType.MISSILE:
-                return 35;
-            default:
-                return 0;
-        }
-    },
-    // eslint-disable-next-line no-unused-vars
-    getMaxAcceleration(contact) {
-        return 15;
-    },
     /**
      * Builds and returns the array of components that belong in a ship of a given
      * ship type.
@@ -46,7 +14,14 @@ export default {
                 health: 10,
                 isOn: null,
                 children: [
-                    { type: 'ENGINE', maxHealth: 5, health: 5, isOn: true },
+                    {
+                        type: 'ENGINE',
+                        maxHealth: 5,
+                        health: 5,
+                        maxThrust: 30,
+                        maxAcceleration: 5,
+                        isOn: true,
+                    },
                     { type: 'RCS', maxHealth: 3, health: 3, turnSpeed: 15, isOn: true },
                     { type: 'JUMP_DRIVE', maxHealth: 5, health: 5, isOn: false },
                     { type: 'CPU', maxHealth: 5, health: 5, isOn: true },

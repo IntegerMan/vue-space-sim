@@ -1,7 +1,6 @@
 import _ from 'lodash/fp';
 
 import VectorHelper from '../helpers/VectorHelper.js';
-import ShipDefinitionService from './ShipDefinitionService';
 import SectorService from './SectorService';
 import ShipService from './ShipService';
 import ComponentService from './ComponentService';
@@ -62,7 +61,10 @@ export default {
             throttle: VectorHelper.moveTowardsSetThrottle(
                 contact.throttle,
                 contact.desiredThrottle,
-                ShipDefinitionService.getMaxAcceleration(contact)
+                ComponentService.getLargestValue(
+                    ComponentService.getComponentsOfType(contact.components, 'ENGINE'),
+                    e => e.maxAcceleration
+                )
             ),
         };
     },
@@ -74,7 +76,11 @@ export default {
         const newPos = VectorHelper.calculateNewPosition(
             contact.pos,
             contact.heading,
-            throttlePercent * ShipDefinitionService.getMaxThrust(contact)
+            throttlePercent *
+                ComponentService.getLargestValue(
+                    ComponentService.getComponentsOfType(contact.components, 'ENGINE'),
+                    e => e.maxThrust
+                )
         );
 
         // Check to see if we've reached our current nav target
