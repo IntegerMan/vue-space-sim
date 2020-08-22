@@ -85,6 +85,22 @@ html {
     }
 }
 
+.vertical-display {
+    display: flex;
+    flex-direction: column;
+    align-content: space-evenly;
+    justify-content: space-evenly;
+
+    button {
+        margin-top: $m1;
+    }
+}
+
+.status-indicators {
+    justify-items: flex-start;
+    align-items: flex-start;
+}
+
 // Scrollbar Styling
 ::-webkit-scrollbar {
     width: $m2;

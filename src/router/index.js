@@ -1,7 +1,8 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
 
-import HelmControl from '../components/HelmControl.vue';
+import HelmControl from '../components/footers/HelmControl.vue';
+import SensorControl from '../components/footers/SensorControl.vue';
 
 import Situation from '../views/Situation.vue';
 import Navigation from '../views/Navigation.vue';
@@ -39,7 +40,10 @@ const routes = [
     {
         path: '/game/sensors',
         name: 'Sensors',
-        component: Sensors,
+        components: {
+            default: Sensors,
+            footer: SensorControl,
+        },
     },
     {
         path: '/game/combat',

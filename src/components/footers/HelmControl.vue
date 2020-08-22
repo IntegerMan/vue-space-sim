@@ -31,7 +31,7 @@
                     Match
                 </button>
             </div>
-            <div class="match-heading" v-else>
+            <div class="vertical-display match-heading" v-else>
                 <span class="tag is-dark">No Nav Target</span>
                 <button class="button is-primary is-rounded is-small" disabled>
                     Match
@@ -55,18 +55,24 @@
                 }"
             />
         </div>
+        <div class="control vertical-display status-indicators">
+            <component-indicator :owner="player" label="Thrusters" type="RCS" />
+            <component-indicator :owner="player" label="Engines" type="ENGINE" />
+        </div>
     </form>
 </template>
 
 <script>
 import KnobControl from 'vue-knob-control'; // Details can be found at https://github.com/kramer99/vue-knob-control
-import ColorLiterals from '../helpers/ColorLiterals.js';
-import VectorHelper from '../helpers/VectorHelper.js';
+import ColorLiterals from '../../helpers/ColorLiterals.js';
+import VectorHelper from '../../helpers/VectorHelper.js';
+import ComponentIndicator from '../ComponentIndicator.vue';
 
 export default {
     name: 'HelmControl',
     components: {
         KnobControl,
+        ComponentIndicator,
     },
     data() {
         return {
@@ -100,12 +106,14 @@ export default {
         navTarget() {
             return this.$store.getters.playerShip.navTarget;
         },
+        player() {
+            return this.$store.getters.playerShip;
+        },
         navMatched() {
-            const player = this.$store.getters.playerShip;
-            return player.desiredHeading === Math.round(this.requestedHeading);
+            return this.player.desiredHeading === Math.round(this.requestedHeading);
         },
         requestedHeading() {
-            const player = this.$store.getters.playerShip;
+            const player = this.player;
             return VectorHelper.getHeadingInDegrees(player.pos, player.navTarget);
         },
         headingColor() {
@@ -128,6 +136,7 @@ export default {
 .helm-control {
     display: flex;
     justify-content: space-around;
+    height: 100%;
 
     > .control {
         display: flex;
@@ -140,14 +149,6 @@ export default {
 }
 
 .match-heading {
-    display: flex;
-    flex-direction: column;
-    align-content: space-evenly;
-    justify-content: space-evenly;
     margin-left: $m2;
-
-    button {
-        margin-top: $m1;
-    }
 }
 </style>
