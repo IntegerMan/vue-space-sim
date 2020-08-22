@@ -101,6 +101,21 @@ html {
     align-items: flex-start;
 }
 
+.footer-control {
+    display: flex;
+    justify-content: space-around;
+    height: 100%;
+
+    > .control {
+        display: flex;
+        align-items: center;
+    }
+
+    label {
+        margin-right: $m1;
+    }
+}
+
 // Scrollbar Styling
 ::-webkit-scrollbar {
     width: $m2;

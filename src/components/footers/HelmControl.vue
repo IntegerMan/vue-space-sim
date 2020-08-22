@@ -1,5 +1,5 @@
 <template>
-    <form class="helm-control">
+    <form class="footer-control">
         <div class="control">
             <label class="label" for="txtHeading">Heading</label>
             <knob-control
@@ -132,21 +132,6 @@ export default {
 
 <style lang="scss" scoped>
 @import '@/assets/styles/variables.scss';
-
-.helm-control {
-    display: flex;
-    justify-content: space-around;
-    height: 100%;
-
-    > .control {
-        display: flex;
-        align-items: center;
-    }
-
-    label {
-        margin-right: $m1;
-    }
-}
 
 .match-heading {
     margin-left: $m2;
