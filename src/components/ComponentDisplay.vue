@@ -10,7 +10,6 @@
                 title="Toggle Component Power"
                 href="#"
                 class="card-header-icon"
-                aria-label="more options"
             >
                 <div class="tags has-addons">
                     <span class="tag is-dark">Status</span>
@@ -81,9 +80,3 @@ export default {
     },
 };
 </script>
-
-<style lang="scss" scoped>
-.card-section {
-    margin-top: 1rem;
-}
-</style>

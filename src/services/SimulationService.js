@@ -54,7 +54,7 @@ export default {
                 contact.heading,
                 contact.desiredHeading,
                 ComponentService.getLargestValue(
-                    ComponentService.getComponentsOfType(contact.components, 'RCS'),
+                    ComponentService.getActiveComponentsOfType(contact.components, 'RCS'),
                     r => r.turnSpeed
                 )
             ),
@@ -62,7 +62,7 @@ export default {
                 contact.throttle,
                 contact.desiredThrottle,
                 ComponentService.getLargestValue(
-                    ComponentService.getComponentsOfType(contact.components, 'ENGINE'),
+                    ComponentService.getActiveComponentsOfType(contact.components, 'ENGINE'),
                     e => e.maxAcceleration
                 )
             ),
@@ -78,7 +78,7 @@ export default {
             contact.heading,
             throttlePercent *
                 ComponentService.getLargestValue(
-                    ComponentService.getComponentsOfType(contact.components, 'ENGINE'),
+                    ComponentService.getActiveComponentsOfType(contact.components, 'ENGINE'),
                     e => e.maxThrust
                 )
         );

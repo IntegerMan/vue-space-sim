@@ -125,7 +125,7 @@ export default {
     },
     calculateSensorRange(scanningObject) {
         return ComponentService.getLargestValue(
-            ComponentService.getComponentsOfType(scanningObject.components, 'SENSORS'),
+            ComponentService.getActiveComponentsOfType(scanningObject.components, 'SENSORS'),
             c => c.range
         );
     },
