@@ -1,10 +1,17 @@
 <template>
-    <div class="card has-text-info has-background-light mt-2">
+    <div class="card has-text-info mt-2 has-background-light">
         <header class="card-header">
             <p class="card-header-title">
                 {{ titleText }}
             </p>
-            <a v-if="isTogglable" href="#" class="card-header-icon" aria-label="more options">
+            <a
+                v-if="isTogglable"
+                @click.prevent="toggleStatus()"
+                title="Toggle Component Power"
+                href="#"
+                class="card-header-icon"
+                aria-label="more options"
+            >
                 <div class="tags has-addons">
                     <span class="tag is-dark">Status</span>
                     <span v-if="isOn" class="tag is-success has-text-weight-bold">ON</span>
@@ -19,7 +26,11 @@
             <div class="card-section">
                 <span>Health: {{ healthPercent }}</span>
                 <progress
-                    class="progress is-success"
+                    class="progress"
+                    :class="{
+                        'is-success': isOn || !isTogglable,
+                        'is-dark': isOff,
+                    }"
                     :value="component.health"
                     :max="component.maxHealth"
                     >{{ healthPercent }}</progress
@@ -57,6 +68,15 @@ export default {
         },
         isOff() {
             return this.component.isOn === false;
+        },
+    },
+    methods: {
+        toggleStatus() {
+            const payload = {
+                contactId: this.$store.getters.playerShip.id,
+                component: this.component,
+            };
+            this.$store.dispatch('toggleComponent', payload);
         },
     },
 };

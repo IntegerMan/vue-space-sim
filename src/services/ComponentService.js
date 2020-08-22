@@ -47,4 +47,7 @@ export default {
     getLargestValue(components, func) {
         return components.reduce((priorBest, comp) => Math.max(func(comp), priorBest), 0);
     },
+    findComponentRecursive(components, target) {
+        return this.flattenedComponents(components).find(c => c === target);
+    },
 };

@@ -6,6 +6,7 @@ import helm from './helm.js';
 
 import SectorService from '../services/SectorService.js';
 import ShipService from '../services/ShipService.js';
+import ComponentService from '../services/ComponentService.js';
 
 import _ from 'lodash';
 
@@ -46,6 +47,9 @@ export default new Vuex.Store({
             SectorService.buildInitialContacts(sector, player);
             context.commit('SET_SECTOR', sector);
         },
+        toggleComponent(context, payload) {
+            context.commit('TOGGLE_COMPONENT', payload);
+        },
     },
     mutations: {
         SET_SECTOR(state, sector) {
@@ -62,6 +66,19 @@ export default new Vuex.Store({
         SET_NAV_TARGET(state, payload) {
             const contact = state.sector.ships.find(c => c.id === payload.contactId);
             contact.navTarget = payload.value;
+        },
+        TOGGLE_COMPONENT(state, payload) {
+            const contact = state.sector.ships.find(c => c.id === payload.contactId);
+            const targetComponent = ComponentService.findComponentRecursive(
+                contact.components,
+                payload.component
+            );
+
+            if (targetComponent) {
+                targetComponent.isOn = !targetComponent.isOn;
+            } else {
+                console.warn('Could not find component to toggle', payload);
+            }
         },
     },
 });
