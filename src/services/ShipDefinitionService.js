@@ -70,12 +70,13 @@ export default {
                 type: 'CORE',
                 maxHealth: 10,
                 health: 10,
+                isOn: null,
                 children: [
-                    { type: 'ENGINE', maxHealth: 5, health: 5 },
-                    { type: 'RCS', maxHealth: 3, health: 3 },
-                    { type: 'JUMP_DRIVE', maxHealth: 5, health: 5 },
-                    { type: 'CPU', maxHealth: 5, health: 5 },
-                    { type: 'SENSORS', maxHealth: 3, health: 3, range: 350 },
+                    { type: 'ENGINE', maxHealth: 5, health: 5, isOn: true },
+                    { type: 'RCS', maxHealth: 3, health: 3, isOn: true },
+                    { type: 'JUMP_DRIVE', maxHealth: 5, health: 5, isOn: false },
+                    { type: 'CPU', maxHealth: 5, health: 5, isOn: true },
+                    { type: 'SENSORS', maxHealth: 3, health: 3, range: 350, isOn: true },
                 ],
             },
         ];

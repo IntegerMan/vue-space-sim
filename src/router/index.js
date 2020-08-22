@@ -9,14 +9,14 @@ import Helm from '../views/Helm.vue';
 import Combat from '../views/Combat.vue';
 import Sensors from '../views/Sensors.vue';
 import FlightOps from '../views/FlightOps.vue';
-import Engineering from '../views/Engineering.vue';
+import Operations from '../views/Operations.vue';
 import Debug from '../views/Debug.vue';
 
 Vue.use(VueRouter);
 
 const routes = [
     {
-        path: '/game/sitrep',
+        path: '/game/situation',
         name: 'Situation',
         component: Situation,
     },
@@ -25,7 +25,7 @@ const routes = [
         name: 'Nav',
         components: {
             default: Navigation,
-            footer: HelmControl,
+            footer: null,
         },
     },
     {
@@ -63,9 +63,9 @@ const routes = [
         component: FlightOps,
     },
     {
-        path: '/game/engineering',
-        name: 'Engineering',
-        component: Engineering,
+        path: '/game/ops',
+        name: 'Operations',
+        component: Operations,
     },
     {
         path: '/',

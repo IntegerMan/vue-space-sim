@@ -4,9 +4,9 @@
         <nav-button class="is-fullwidth" :to="{ name: 'Helm' }">Helm</nav-button>
         <nav-button class="is-fullwidth" :to="{ name: 'Combat' }">Combat</nav-button>
         <nav-button class="is-fullwidth" :to="{ name: 'Nav' }">Navigation</nav-button>
-        <nav-button class="is-fullwidth" :to="{ name: 'Flight' }">Flight Ops</nav-button>
+        <nav-button class="is-fullwidth" :to="{ name: 'Operations' }">Operations</nav-button>
+        <nav-button class="is-fullwidth" :to="{ name: 'Flight' }">Flight</nav-button>
         <nav-button class="is-fullwidth" :to="{ name: 'Sensors' }">Sensors</nav-button>
-        <nav-button class="is-fullwidth" :to="{ name: 'Engineering' }">Engineering</nav-button>
         <nav-button class="is-fullwidth" :to="{ name: 'Debug' }">Debug View</nav-button>
     </nav>
 </template>

@@ -1,7 +1,7 @@
 <template>
     <section>
         <div class="has-text-light">
-            <h1 class="title has-text-light">Engineering</h1>
+            <h1 class="title has-text-light">Operations</h1>
         </div>
         <div class="component-container">
             <component-display
@@ -18,7 +18,7 @@ import ComponentDisplay from '../components/ComponentDisplay.vue';
 import ComponentService from '../services/ComponentService.js';
 
 export default {
-    name: 'Engineering',
+    name: 'Operations',
     components: {
         ComponentDisplay,
     },
@@ -30,3 +30,12 @@ export default {
     },
 };
 </script>
+
+<style scoped lang="scss">
+.component-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-auto-flow: row dense;
+    column-gap: 1rem;
+}
+</style>
