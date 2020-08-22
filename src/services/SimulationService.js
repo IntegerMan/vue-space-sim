@@ -4,6 +4,7 @@ import VectorHelper from '../helpers/VectorHelper.js';
 import ShipDefinitionService from './ShipDefinitionService';
 import SectorService from './SectorService';
 import ShipService from './ShipService';
+import ComponentService from './ComponentService';
 
 export default {
     /**
@@ -53,7 +54,10 @@ export default {
             heading: VectorHelper.steerTowardsHeading(
                 contact.heading,
                 contact.desiredHeading,
-                ShipDefinitionService.getMaxTurn(contact)
+                ComponentService.getLargestValue(
+                    ComponentService.getComponentsOfType(contact.components, 'RCS'),
+                    r => r.turnSpeed
+                )
             ),
             throttle: VectorHelper.moveTowardsSetThrottle(
                 contact.throttle,
