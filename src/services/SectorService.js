@@ -1,5 +1,4 @@
 import Classification from '../enums/Classification.js';
-import ContactType from '../enums/ContactType.js';
 import VectorHelper from '../helpers/VectorHelper.js';
 
 import SectorData from '../assets/data/Sectors.json';
@@ -118,7 +117,6 @@ export default {
             s => {
                 s.heading = heading;
                 s.desiredHeading = heading;
-                s.name = 'Scout'; // TODO: should have a valid name
                 s.id = Math.round(Math.random() * 8999) + 1000; // TODO: Not guaranteed to be unique
 
                 if (destination) {
@@ -126,7 +124,7 @@ export default {
                 }
             },
             RandomService.randomEnum(Classification), // TODO: Should have an appropriate classification
-            RandomService.randomEnum(ContactType), // TODO: Should have an appropriate contact type
+            task.shipType,
             // TODO: Should have an appropriate mission registered
             pos
         );

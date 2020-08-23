@@ -28,6 +28,39 @@ export default {
 
         return contact;
     },
+    createShip(configureFunc, classification, shipType, pos) {
+        const contact = ShipDefinitionService.buildFromTemplate(shipType);
+        contact.id = -1;
+        contact.isPlayer = false;
+        contact.type = 'SHIP';
+        contact.code = '';
+        contact.classification = classification;
+        contact.contactType = shipType;
+        contact.throttle = 25;
+        contact.desiredThrottle = contact.throttle;
+        contact.navTarget = undefined;
+        contact.heading = 0;
+        contact.desiredHeading = 0;
+        contact.pos = pos;
+
+        if (configureFunc) {
+            configureFunc(contact);
+        }
+
+        return contact;
+    },
+    createPlayer(pos) {
+        return this.createShip(
+            s => {
+                s.isPlayer = true;
+                s.code = 'CVS-65';
+                s.id = 'PLAYER';
+            },
+            Classification.FRIENDLY,
+            'CARRIER',
+            pos
+        );
+    },
     configureStatic(obj) {
         obj.code = obj.code || '';
         obj.heading = 0;
@@ -77,36 +110,6 @@ export default {
                 console.warn('Unknown size', obj);
                 return 30;
         }
-    },
-
-    createShip(configureFunc, classification, shipType, pos) {
-        const shipFunc = contact => {
-            contact.type = 'SHIP';
-            contact.contactType = shipType;
-            contact.throttle = 25;
-            contact.desiredThrottle = contact.throttle;
-            contact.navTarget = undefined;
-            contact.components = ShipDefinitionService.buildComponentsForShipType(shipType);
-
-            if (configureFunc) {
-                configureFunc(contact);
-            }
-        };
-
-        return this.createContact(shipFunc, classification, pos);
-    },
-    createPlayer(pos) {
-        return this.createShip(
-            s => {
-                s.isPlayer = true;
-                s.name = 'Concordia';
-                s.code = 'CVS-65';
-                s.id = 'PLAYER';
-            },
-            Classification.FRIENDLY,
-            ContactType.CARRIER,
-            pos
-        );
     },
     /**
      * Determines whether or not the specified contact is expected to move about the map

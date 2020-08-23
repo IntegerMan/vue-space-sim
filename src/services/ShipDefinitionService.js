@@ -1,33 +1,31 @@
+import Ships from '../assets/data/Ships.json';
+
 export default {
     /**
-     * Builds and returns the array of components that belong in a ship of a given
-     * ship type.
-     * @param {Number} _shipType the type of ship
-     * @returns {Array} the components belonging to the ship
+     * Finds and returns a ship template with a specified id
+     *
+     * @param {String} shipId the unique identifier for the ship template
+     * @returns {Object|null} the newly created ship
      */
-    // eslint-disable-next-line no-unused-vars
-    buildComponentsForShipType(shipType) {
-        return [
-            {
-                type: 'CORE',
-                maxHealth: 10,
-                health: 10,
-                isOn: null,
-                children: [
-                    {
-                        type: 'ENGINE',
-                        maxHealth: 5,
-                        health: 5,
-                        maxThrust: 30,
-                        maxAcceleration: 5,
-                        isOn: true,
-                    },
-                    { type: 'RCS', maxHealth: 3, health: 3, turnSpeed: 15, isOn: true },
-                    { type: 'JUMP_DRIVE', maxHealth: 5, health: 5, isOn: false },
-                    { type: 'CPU', maxHealth: 5, health: 5, isOn: true },
-                    { type: 'SENSORS', maxHealth: 3, health: 3, range: 350, isOn: true },
-                ],
-            },
-        ];
+    buildFromTemplate(shipId) {
+        const template = Ships.find(s => s.id === shipId);
+        if (!template) {
+            console.error('Could not find ship template ' + shipId);
+            return null;
+        }
+
+        return {
+            ...template,
+            components: template.components.map(c => this.initializeComponent({ ...c })),
+        };
+    },
+    initializeComponent(component) {
+        component.health = component.maxHealth;
+
+        if (component.children) {
+            component.children = component.children.map(c => this.initializeComponent({ ...c }));
+        }
+
+        return component;
     },
 };

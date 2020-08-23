@@ -89,7 +89,10 @@ html {
     display: flex;
     flex-direction: column;
     align-content: space-evenly;
-    justify-content: space-evenly;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    row-gap: 0.5rem;
+    column-gap: 0.5rem;
 
     button {
         margin-top: $m1;

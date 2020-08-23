@@ -1,0 +1,207 @@
+[
+    {
+        "id": "SCOUT",
+        "name": "Scout",
+        "size": 6,
+        "components": [
+            {
+                "type": "CORE",
+                "maxHealth": 3,
+                "isOn": null,
+                "children": [
+                    {
+                        "type": "ENGINE",
+                        "maxHealth": 5,
+                        "maxThrust": 35,
+                        "maxAcceleration": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "RCS",
+                        "maxHealth": 3,
+                        "turnSpeed": 25,
+                        "isOn": true
+                    },
+                    {
+                        "type": "JUMP_DRIVE",
+                        "maxHealth": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "CPU",
+                        "maxHealth": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "SENSORS",
+                        "maxHealth": 3,
+                        "range": 350,
+                        "isOn": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "FIGHTER",
+        "name": "Fighter",
+        "size": 9,
+        "components": [
+            {
+                "type": "CORE",
+                "maxHealth": 5,
+                "isOn": null,
+                "children": [
+                    {
+                        "type": "ENGINE",
+                        "maxHealth": 5,
+                        "maxThrust": 30,
+                        "maxAcceleration": 9,
+                        "isOn": true
+                    },
+                    {
+                        "type": "RCS",
+                        "maxHealth": 3,
+                        "turnSpeed": 20,
+                        "isOn": true
+                    },
+                    {
+                        "type": "CPU",
+                        "maxHealth": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "SENSORS",
+                        "maxHealth": 3,
+                        "range": 100,
+                        "isOn": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "CARRIER",
+        "name": "Carrier",
+        "size": 25,
+        "components": [
+            {
+                "type": "CORE",
+                "maxHealth": 15,
+                "isOn": null,
+                "children": [
+                    {
+                        "type": "ENGINE",
+                        "maxHealth": 5,
+                        "maxThrust": 20,
+                        "maxAcceleration": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "RCS",
+                        "maxHealth": 3,
+                        "turnSpeed": 12,
+                        "isOn": true
+                    },
+                    {
+                        "type": "JUMP_DRIVE",
+                        "maxHealth": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "CPU",
+                        "maxHealth": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "SENSORS",
+                        "maxHealth": 3,
+                        "range": 350,
+                        "isOn": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "FREIGHTER",
+        "name": "Freighter",
+        "size": 20,
+        "components": [
+            {
+                "type": "CORE",
+                "maxHealth": 10,
+                "isOn": null,
+                "children": [
+                    {
+                        "type": "ENGINE",
+                        "maxHealth": 5,
+                        "maxThrust": 10,
+                        "maxAcceleration": 2,
+                        "isOn": true
+                    },
+                    {
+                        "type": "RCS",
+                        "maxHealth": 3,
+                        "turnSpeed": 8,
+                        "isOn": true
+                    },
+                    {
+                        "type": "JUMP_DRIVE",
+                        "maxHealth": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "CPU",
+                        "maxHealth": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "SENSORS",
+                        "maxHealth": 3,
+                        "range": 100,
+                        "isOn": true
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "id": "UTILITY",
+        "name": "Utility",
+        "size": 12,
+        "components": [
+            {
+                "type": "CORE",
+                "maxHealth": 3,
+                "isOn": null,
+                "children": [
+                    {
+                        "type": "ENGINE",
+                        "maxHealth": 5,
+                        "maxThrust": 10,
+                        "maxAcceleration": 3,
+                        "isOn": true
+                    },
+                    {
+                        "type": "RCS",
+                        "maxHealth": 3,
+                        "turnSpeed": 10,
+                        "isOn": true
+                    },
+                    {
+                        "type": "CPU",
+                        "maxHealth": 5,
+                        "isOn": true
+                    },
+                    {
+                        "type": "SENSORS",
+                        "maxHealth": 3,
+                        "range": 100,
+                        "isOn": true
+                    }
+                ]
+            }
+        ]
+    }
+]
