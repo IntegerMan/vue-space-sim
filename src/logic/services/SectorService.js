@@ -1,7 +1,7 @@
 import Classification from '../enums/Classification.js';
 import VectorHelper from '../helpers/VectorHelper.js';
 
-import SectorData from '../assets/data/Sectors.json';
+import SectorData from '../../assets/data/Sectors.json';
 
 import ShipService from './ShipService.js';
 import RandomService from './RandomService.js';

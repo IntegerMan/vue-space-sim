@@ -15,7 +15,7 @@
 
 <script>
 import ComponentDisplay from '../components/ComponentDisplay.vue';
-import ComponentService from '../services/ComponentService.js';
+import ComponentService from '../logic/services/ComponentService.js';
 
 export default {
     name: 'Operations',

@@ -9,7 +9,7 @@
 </template>
 
 <script>
-import ComponentService from '../services/ComponentService.js';
+import ComponentService from '../logic/services/ComponentService.js';
 
 export default {
     props: {

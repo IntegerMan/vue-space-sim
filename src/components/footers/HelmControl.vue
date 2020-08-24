@@ -64,8 +64,8 @@
 
 <script>
 import KnobControl from 'vue-knob-control'; // Details can be found at https://github.com/kramer99/vue-knob-control
-import ColorLiterals from '../../helpers/ColorLiterals.js';
-import VectorHelper from '../../helpers/VectorHelper.js';
+import ColorLiterals from '../../logic/helpers/ColorLiterals.js';
+import VectorHelper from '../../logic/helpers/VectorHelper.js';
 import ComponentIndicator from '../ComponentIndicator.vue';
 
 export default {

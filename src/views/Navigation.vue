@@ -16,7 +16,7 @@
 
 <script>
 import SituationGrid from '@/components/SituationGrid.vue';
-import MapMode from '@/enums/MapMode.js';
+import MapMode from '../logic/enums/MapMode.js';
 
 export default {
     name: 'Navigation',

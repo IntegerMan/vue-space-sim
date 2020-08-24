@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import ShipFormatter from '../helpers/ShipFormatter.js';
-import ContactType from '../enums/ContactType.js';
+import ShipFormatter from '../logic/helpers/ShipFormatter.js';
+import ContactType from '../logic/enums/ContactType.js';
 import FontAwesomeSVGRenderer from '../components/FontAwesomeSVGRenderer.vue';
 
 export default {

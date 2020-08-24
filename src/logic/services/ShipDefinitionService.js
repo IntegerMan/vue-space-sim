@@ -1,4 +1,4 @@
-import Ships from '../assets/data/Ships.json';
+import Ships from '../../assets/data/Ships.json';
 
 export default {
     /**

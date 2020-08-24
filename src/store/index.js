@@ -4,13 +4,13 @@ import Vuex from 'vuex';
 import simulation from './simulation.js';
 import helm from './helm.js';
 
-import SectorService from '../services/SectorService.js';
-import ShipService from '../services/ShipService.js';
-import ComponentService from '../services/ComponentService.js';
+import SectorService from '../logic/services/SectorService.js';
+import ShipService from '../logic/services/ShipService.js';
+import ComponentService from '../logic/services/ComponentService.js';
 
 import _ from 'lodash';
 
-import Sector from '../enums/Sector';
+import Sector from '../logic/enums/Sector';
 
 Vue.use(Vuex);
 

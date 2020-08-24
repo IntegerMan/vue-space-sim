@@ -67,10 +67,10 @@
 
 <script>
 import ContactSVGRenderer from '@/components/ContactSVGRenderer.vue';
-import ShipFormatter from '@/helpers/ShipFormatter.js';
-import ColorLiterals from '@/helpers/ColorLiterals.js';
-import MapMode from '../enums/MapMode';
-import Classification from '../enums/Classification';
+import ShipFormatter from '../logic/helpers/ShipFormatter.js';
+import ColorLiterals from '../logic/helpers/ColorLiterals.js';
+import MapMode from '../logic/enums/MapMode';
+import Classification from '../logic/enums/Classification';
 
 export default {
     name: 'SituationGrid',

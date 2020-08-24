@@ -1,4 +1,4 @@
-import SimulationService from '../services/SimulationService.js';
+import SimulationService from '../logic/services/SimulationService.js';
 
 const simulation = {
     namespaced: true,

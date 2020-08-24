@@ -1,5 +1,5 @@
-import Classification from '@/enums/Classification.js';
-import ColorLiterals from '@/helpers/ColorLiterals.js';
+import Classification from '../enums/Classification.js';
+import ColorLiterals from './ColorLiterals.js';
 
 export default {
     /**

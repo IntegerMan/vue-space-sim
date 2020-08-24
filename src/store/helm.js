@@ -1,4 +1,4 @@
-import VectorHelper from '../helpers/VectorHelper';
+import VectorHelper from '../logic/helpers/VectorHelper';
 
 export default {
     namespaced: true,

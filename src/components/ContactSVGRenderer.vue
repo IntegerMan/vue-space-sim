@@ -66,13 +66,13 @@
 </template>
 
 <script>
-import VectorHelper from '../helpers/VectorHelper.js';
-import ShipFormatter from '../helpers/ShipFormatter.js';
-import MapMode from '../enums/MapMode.js';
-import Classification from '../enums/Classification.js';
-import ContactType from '../enums/ContactType.js';
+import VectorHelper from '../logic/helpers/VectorHelper.js';
+import ShipFormatter from '../logic/helpers/ShipFormatter.js';
+import MapMode from '../logic/enums/MapMode.js';
+import Classification from '../logic/enums/Classification.js';
+import ContactType from '../logic/enums/ContactType.js';
 import ContactSVGIcon from '../components/ContactSVGIcon.vue';
-import ShipService from '../services/ShipService.js';
+import ShipService from '../logic/services/ShipService.js';
 
 export default {
     name: 'ContactSVGRenderer',
