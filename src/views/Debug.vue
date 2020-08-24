@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import SituationGrid from '../components/SituationGrid.vue';
+import SituationGrid from '../components/situation-grid/SituationGrid.vue';
 import MapMode from '../logic/enums/MapMode.js';
 
 export default {

@@ -66,11 +66,11 @@
 </template>
 
 <script>
-import ContactSVGRenderer from '@/components/ContactSVGRenderer.vue';
-import ShipFormatter from '../logic/helpers/ShipFormatter.js';
-import ColorLiterals from '../logic/helpers/ColorLiterals.js';
-import MapMode from '../logic/enums/MapMode';
-import Classification from '../logic/enums/Classification';
+import ContactSVGRenderer from './ContactSVGRenderer.vue';
+import ShipFormatter from '../../logic/helpers/ShipFormatter.js';
+import ColorLiterals from '../../logic/helpers/ColorLiterals.js';
+import MapMode from '../../logic/enums/MapMode';
+import Classification from '../../logic/enums/Classification';
 
 export default {
     name: 'SituationGrid',

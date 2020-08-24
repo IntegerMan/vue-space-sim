@@ -25,9 +25,9 @@
 </template>
 
 <script>
-import ShipFormatter from '../logic/helpers/ShipFormatter.js';
-import ContactType from '../logic/enums/ContactType.js';
-import FontAwesomeSVGRenderer from '../components/FontAwesomeSVGRenderer.vue';
+import ShipFormatter from '../../logic/helpers/ShipFormatter.js';
+import ContactType from '../../logic/enums/ContactType.js';
+import FontAwesomeSVGRenderer from './FontAwesomeSVGRenderer.vue';
 
 export default {
     name: 'ContactSVGIcon',
