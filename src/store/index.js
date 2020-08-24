@@ -3,6 +3,7 @@ import Vuex from 'vuex';
 
 import simulation from './simulation.js';
 import helm from './helm.js';
+import combat from './combat.js';
 
 import SectorService from '../logic/services/SectorService.js';
 import ShipService from '../logic/services/ShipService.js';
@@ -18,6 +19,7 @@ export default new Vuex.Store({
     modules: {
         simulation,
         helm,
+        combat,
     },
     state: {
         sector: null,

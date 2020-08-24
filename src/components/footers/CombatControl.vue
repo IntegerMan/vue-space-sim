@@ -59,7 +59,7 @@ export default {
     },
     methods: {
         fire() {
-            // TODO
+            this.$store.dispatch('combat/fire');
         },
     },
     computed: {
