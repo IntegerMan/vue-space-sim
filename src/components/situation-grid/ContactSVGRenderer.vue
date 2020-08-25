@@ -7,7 +7,7 @@
         <circle
             v-if="showSensorRadius"
             :r="sensorRange"
-            :stroke="stroke"
+            :stroke="standardColor"
             :stroke-width="2"
             fill="transparent"
         />
@@ -18,11 +18,11 @@
                 :y1="-radius"
                 :y2="-radius - throttleMagnitude - 3"
                 :stroke-width="2"
-                :stroke="stroke"
+                :stroke="standardColor"
             />
             <polygon
                 points="-7,0 7,0 0,-7"
-                :fill="stroke"
+                :fill="standardColor"
                 :transform="`translate(0 ${-radius - throttleMagnitude})`"
             />
             <line :y1="radius" :y2="radius + 5" :stroke-width="2" :stroke="stroke" />
@@ -32,7 +32,7 @@
             v-if="showDesiredHeading"
             :transform="`rotate(${contact.desiredHeading})`"
             :stroke-width="2"
-            :stroke="fill"
+            :stroke="contactColor"
         >
             <line :y1="-radius" :y2="-radius - desiredThrottleMagnitude - 3" />
             <polygon
@@ -41,14 +41,29 @@
             />
         </g>
 
+        <!-- Navigational Path -->
+        <line
+            v-if="showNavPath"
+            :id="'navPath-' + contact.id"
+            :y1="0"
+            :x1="0"
+            :x2="navTarget.x"
+            :y2="navTarget.y"
+            :stroke="contactColor"
+            stroke-width="2"
+            opacity="0.5"
+        />
+
+        <!-- Current Aim -->
         <line
             v-if="showAimPoint"
+            :id="'aimPoint-' + contact.id"
             :y1="-radius"
             :x1="0"
             :y2="-450"
             :x2="0"
             :transform="`rotate(${aimPointHeading})`"
-            stroke="#ff0000"
+            :stroke="primaryColor"
             stroke-width="2"
         />
 
@@ -65,12 +80,12 @@
             <ContactSVGIcon :contact="contact" :mapMode="mapMode" />
         </svg>
         <!-- The bounding circle -->
-        <circle :r="radius" :stroke="stroke" :stroke-width="2" fill="transparent" />
+        <circle :r="radius" :stroke="standardColor" :stroke-width="2" fill="transparent" />
         <!-- Legend -->
         <text
             v-if="showLegend"
             :y="radius + fontSize"
-            :stroke="fill"
+            :stroke="contactColor"
             text-anchor="middle"
             v-text="tooltip"
         />
@@ -85,6 +100,7 @@ import Classification from '../../logic/enums/Classification.js';
 import ContactType from '../../logic/enums/ContactType.js';
 import ContactSVGIcon from './ContactSVGIcon.vue';
 import ShipService from '../../logic/services/ShipService.js';
+import ColorLiterals from '../../logic/helpers/ColorLiterals.js';
 
 export default {
     name: 'ContactSVGRenderer',
@@ -104,6 +120,32 @@ export default {
         ContactSVGIcon,
     },
     computed: {
+        showNavPath() {
+            if (!this.contact.navTarget) {
+                return false;
+            }
+
+            switch (this.mapMode) {
+                case MapMode.DEBUG:
+                    return true;
+                case MapMode.NAV:
+                case MapMode.FLIGHTOPS:
+                    return this.contact.classification === Classification.FRIENDLY;
+                case MapMode.HELM:
+                    return this.contact.isPlayer;
+                default:
+                    return false;
+            }
+        },
+        navTarget() {
+            if (!this.contact.navTarget) {
+                return null;
+            }
+            return {
+                x: this.contact.navTarget.x - this.contact.pos.x,
+                y: this.contact.navTarget.y - this.contact.pos.y,
+            };
+        },
         showAimPoint() {
             switch (this.mapMode) {
                 case MapMode.DEBUG:
@@ -122,11 +164,14 @@ export default {
         effectivePos() {
             return { x: this.contact.pos.x - this.offset.x, y: this.contact.pos.y - this.offset.y };
         },
-        stroke() {
-            return ShipFormatter.calculateStrokeHex(this.contact);
+        standardColor() {
+            return ColorLiterals.text;
         },
-        fill() {
+        contactColor() {
             return ShipFormatter.calculateColorHex(this.contact);
+        },
+        primaryColor() {
+            return ColorLiterals.primary;
         },
         radius() {
             return this.contact.size * this.zoom;

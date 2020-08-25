@@ -7,38 +7,7 @@
             shape-rendering="auto"
             @click.prevent="handleClick($event)"
         >
-            <g id="gridLines" :stroke="lineStroke" :stroke-width="2" stroke-dasharray="2,5">
-                <line
-                    v-for="x of verticalGridLines"
-                    :key="'vertLine' + x"
-                    :x1="x"
-                    :x2="x"
-                    :y1="0"
-                    :y2="viewPortSize.height"
-                />
-                <line
-                    v-for="y of horizontalGridLines"
-                    :key="'horizLine' + y"
-                    :y1="y"
-                    :y2="y"
-                    :x1="0"
-                    :x2="viewPortSize.width"
-                />
-            </g>
-            <!-- Render Navigational Paths -->
-            <g v-if="navPaths.length" id="navPaths">
-                <line
-                    v-for="(path, index) of navPaths"
-                    :key="'navPath' + index"
-                    :y1="path.y1"
-                    :y2="path.y2"
-                    :x1="path.x1"
-                    :x2="path.x2"
-                    :stroke="path.stroke"
-                    stroke-width="2"
-                    opacity="0.5"
-                />
-            </g>
+            <grid-line-generator :offset="offset" :viewPortSize="viewPortSize" />
 
             <g v-if="hazards.length" id="hazards">
                 <circle
@@ -66,11 +35,9 @@
 </template>
 
 <script>
+import GridLineGenerator from './GridLineGenerator.vue';
 import ContactSVGRenderer from './ContactSVGRenderer.vue';
 import ShipFormatter from '../../logic/helpers/ShipFormatter.js';
-import ColorLiterals from '../../logic/helpers/ColorLiterals.js';
-import MapMode from '../../logic/enums/MapMode';
-import Classification from '../../logic/enums/Classification';
 
 export default {
     name: 'SituationGrid',
@@ -100,37 +67,12 @@ export default {
     },
     components: {
         ContactSVGRenderer,
+        GridLineGenerator,
     },
     computed: {
         playerPos() {
             const playerPos = this.$store.getters.playerShip.pos;
             return { x: playerPos.x - this.offset.x, y: playerPos.y - this.offset.y };
-        },
-        navPaths() {
-            return this.contacts
-                .filter(c => c.navTarget)
-                .filter(c => {
-                    switch (this.mapMode) {
-                        case MapMode.DEBUG:
-                            return true;
-                        case MapMode.NAV:
-                        case MapMode.FLIGHTOPS:
-                            return c.classification === Classification.FRIENDLY;
-                        case MapMode.HELM:
-                            return c.isPlayer;
-                        default:
-                            return false;
-                    }
-                })
-                .map(c => {
-                    return {
-                        x1: c.pos.x - this.offset.x,
-                        y1: c.pos.y - this.offset.y,
-                        x2: c.navTarget.x - this.offset.x,
-                        y2: c.navTarget.y - this.offset.y,
-                        stroke: ShipFormatter.calculateColorHex(c),
-                    };
-                });
         },
         sector() {
             return this.$store.getters.currentSector;
@@ -145,32 +87,6 @@ export default {
             } else {
                 return { x: 0, y: 0 };
             }
-        },
-        horizontalGridLines() {
-            const lines = [];
-
-            for (let y = 0; y <= Math.max(this.sector.size.y, this.viewPortSize.height); y++) {
-                if (Math.round(y) % this.gridSize === 0) {
-                    lines.push(Math.round(y - this.offset.y));
-                }
-            }
-            return lines;
-        },
-        verticalGridLines() {
-            const lines = [];
-
-            for (let x = 0; x <= Math.max(this.sector.size.x, this.viewPortSize.width); x++) {
-                if (Math.round(x) % this.gridSize === 0) {
-                    lines.push(Math.round(x - this.offset.x));
-                }
-            }
-            return lines;
-        },
-        lineStroke() {
-            return ColorLiterals.text;
-        },
-        gridSize() {
-            return 250;
         },
     },
     methods: {
