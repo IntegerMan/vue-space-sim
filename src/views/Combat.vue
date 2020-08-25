@@ -1,7 +1,13 @@
 <template>
     <div class="has-text-light">
         <h1 class="title has-text-light">Combat</h1>
-        <situation-grid :mapMode="mapMode" :zoom="1" :contacts="contacts" :hazards="hazards" />
+        <situation-grid
+            :mapMode="mapMode"
+            :zoom="1"
+            :contacts="contacts"
+            :hazards="hazards"
+            @LocationClick="handleClick($event)"
+        />
     </div>
 </template>
 
@@ -21,6 +27,11 @@ export default {
         },
         hazards() {
             return this.$store.getters.currentSector.hazards;
+        },
+    },
+    methods: {
+        handleClick(pos) {
+            this.$store.dispatch('combat/setAimPointToFacePos', pos);
         },
     },
 };

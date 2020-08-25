@@ -108,6 +108,32 @@ export default {
         return value;
     },
 
+    clampDegreeArc(value, minAcceptable, maxAcceptable) {
+        value = this.clampDegrees(value);
+        minAcceptable = this.clampDegrees(minAcceptable);
+        maxAcceptable = this.clampDegrees(maxAcceptable);
+
+        if (minAcceptable > maxAcceptable) {
+            if (value >= minAcceptable) {
+                return value;
+            }
+            if (value <= maxAcceptable) {
+                return value;
+            }
+
+            const diffMax = value - maxAcceptable;
+            const diffMin = minAcceptable - value;
+
+            if (diffMin > diffMax) {
+                return maxAcceptable;
+            } else {
+                return minAcceptable;
+            }
+        } else {
+            return Math.max(minAcceptable, Math.min(maxAcceptable, value));
+        }
+    },
+
     calculatePercentMagnitude(value, min, max) {
         const range = max - min;
         const pct = value / 100.0;
