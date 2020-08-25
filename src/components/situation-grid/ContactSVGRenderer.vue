@@ -25,7 +25,7 @@
                 :fill="standardColor"
                 :transform="`translate(0 ${-radius - throttleMagnitude})`"
             />
-            <line :y1="radius" :y2="radius + 5" :stroke-width="2" :stroke="stroke" />
+            <line :y1="radius" :y2="radius + 5" :stroke-width="2" :stroke="standardColor" />
         </g>
         <!-- Heading Indicator -->
         <g
@@ -54,13 +54,22 @@
             opacity="0.5"
         />
 
+        <!-- Aim Cone -->
+        <path
+            :d="arcData"
+            v-if="showAimPoint"
+            :stroke="primaryColor"
+            stroke-width="2"
+            opacity="0.5"
+        />
+
         <!-- Current Aim -->
         <line
             v-if="showAimPoint"
             :id="'aimPoint-' + contact.id"
             :y1="-radius"
             :x1="0"
-            :y2="-450"
+            :y2="-460"
             :x2="0"
             :transform="`rotate(${aimPointHeading})`"
             :stroke="primaryColor"
@@ -94,6 +103,7 @@
 
 <script>
 import VectorHelper from '../../logic/helpers/VectorHelper.js';
+import SvgHelper from '../../logic/helpers/SvgHelper.js';
 import ShipFormatter from '../../logic/helpers/ShipFormatter.js';
 import MapMode from '../../logic/enums/MapMode.js';
 import Classification from '../../logic/enums/Classification.js';
@@ -120,6 +130,21 @@ export default {
         ContactSVGIcon,
     },
     computed: {
+        arcData() {
+            return SvgHelper.describePieSlice(
+                0,
+                0,
+                450,
+                VectorHelper.clampDegrees(this.contact.heading - 15),
+                VectorHelper.clampDegrees(this.contact.heading + 15)
+            );
+        },
+        heading() {
+            return this.contact.heading;
+        },
+        aimOffset() {
+            return 15;
+        },
         showNavPath() {
             if (!this.contact.navTarget) {
                 return false;
