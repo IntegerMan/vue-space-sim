@@ -5,7 +5,7 @@
         </h1>
         <situation-grid
             :mapMode="mapMode"
-            :zoom="1.5"
+            :zoom="1"
             @LocationClick="handleClick($event)"
             :contacts="contacts"
             :hazards="hazards"

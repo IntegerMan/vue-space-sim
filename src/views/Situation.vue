@@ -4,7 +4,7 @@
             Situation
         </h1>
 
-        <situation-grid :mapMode="mapMode" :zoom="1" :contacts="contacts" :hazards="hazards" />
+        <situation-grid :mapMode="mapMode" :zoom="0.65" :contacts="contacts" :hazards="hazards" />
     </div>
 </template>
 

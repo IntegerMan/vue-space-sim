@@ -57,9 +57,10 @@
         <!-- Aim Cone -->
         <path
             :d="arcData"
-            v-if="showAimPoint"
+            v-if="showAimCone"
             :stroke="primaryColor"
             stroke-width="2"
+            fill="transparent"
             opacity="0.5"
         />
 
@@ -177,6 +178,19 @@ export default {
                 case MapMode.HELM:
                 case MapMode.COMBAT:
                     return this.contact === this.$store.getters.playerShip;
+                default:
+                    return false;
+            }
+        },
+        showAimCone() {
+            switch (this.mapMode) {
+                case MapMode.DEBUG:
+                    return true;
+                case MapMode.HELM:
+                case MapMode.COMBAT:
+                    return this.contact === this.$store.getters.playerShip;
+                case MapMode.SITUATION:
+                    return this.contact.isPlayer;
                 default:
                     return false;
             }
