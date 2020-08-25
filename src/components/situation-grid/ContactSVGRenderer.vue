@@ -40,6 +40,18 @@
                 :transform="`translate(0 ${-radius - desiredThrottleMagnitude})`"
             />
         </g>
+
+        <line
+            v-if="showAimPoint"
+            :y1="-radius"
+            :x1="0"
+            :y2="-450"
+            :x2="0"
+            :transform="`rotate(${aimPointHeading})`"
+            stroke="#ff0000"
+            stroke-width="2"
+        />
+
         <!-- Main iconography goes here -->
         <svg
             shape-rendering="auto"
@@ -92,6 +104,21 @@ export default {
         ContactSVGIcon,
     },
     computed: {
+        showAimPoint() {
+            switch (this.mapMode) {
+                case MapMode.DEBUG:
+                case MapMode.HELM:
+                case MapMode.COMBAT:
+                    return this.contact === this.$store.getters.playerShip;
+                default:
+                    return false;
+            }
+        },
+        aimPointHeading() {
+            let heading = this.contact.heading;
+            heading += this.$store.getters['combat/aimPoint'];
+            return heading;
+        },
         effectivePos() {
             return { x: this.contact.pos.x - this.offset.x, y: this.contact.pos.y - this.offset.y };
         },

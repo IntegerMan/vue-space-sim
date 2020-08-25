@@ -47,16 +47,6 @@ export default {
         KnobControl,
         ComponentIndicator,
     },
-    data() {
-        return {
-            aimPoint: 0,
-        };
-    },
-    watch: {
-        aimPoint: function(newVal) {
-            this.$store.dispatch('combat/setAimPoint', newVal);
-        },
-    },
     methods: {
         fire() {
             this.$store.dispatch('combat/fire');
@@ -78,9 +68,14 @@ export default {
         secondaryColor() {
             return ColorLiterals.background;
         },
-    },
-    created() {
-        this.aimPoint = this.$store.getters['combat/aimPoint'];
+        aimPoint: {
+            get() {
+                return this.$store.getters['combat/aimPoint'];
+            },
+            set(value) {
+                this.$store.dispatch('combat/setAimPoint', value);
+            },
+        },
     },
 };
 </script>

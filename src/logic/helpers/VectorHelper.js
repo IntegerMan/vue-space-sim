@@ -107,7 +107,18 @@ export default {
         }
         return value;
     },
+    preferNegativeDegrees(value) {
+        let newVal = value;
 
+        while (newVal > 180) {
+            newVal -= 360;
+        }
+        while (newVal <= -180) {
+            newVal += 360;
+        }
+
+        return newVal;
+    },
     clampDegreeArc(value, minAcceptable, maxAcceptable) {
         value = this.clampDegrees(value);
         minAcceptable = this.clampDegrees(minAcceptable);

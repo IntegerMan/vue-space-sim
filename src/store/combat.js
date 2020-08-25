@@ -12,16 +12,19 @@ export default {
     },
     actions: {
         setAimPoint(context, degreeDiff) {
-            context.commit('SET_AIMPOINT', degreeDiff);
+            context.commit('SET_AIMPOINT', VectorHelper.preferNegativeDegrees(degreeDiff));
         },
         setAimPointToFacePos(context, pos) {
             const ship = context.rootGetters.playerShip;
             const heading = VectorHelper.clampDegreeArc(
-                VectorHelper.getHeadingInDegrees(ship.pos, pos),
+                Math.round(VectorHelper.getHeadingInDegrees(ship.pos, pos)),
                 ship.heading - 15,
                 ship.heading + 15
             );
-            context.commit('SET_AIMPOINT', heading - ship.heading);
+            context.commit(
+                'SET_AIMPOINT',
+                VectorHelper.preferNegativeDegrees(heading - ship.heading)
+            );
         },
         fire(context) {
             const ship = context.rootGetters.playerShip;

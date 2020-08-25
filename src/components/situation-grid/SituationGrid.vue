@@ -40,16 +40,6 @@
                 />
             </g>
 
-            <line
-                v-if="showPlayerAimPoint"
-                :y1="playerPos.y"
-                :y2="aimPointPos.y"
-                :x1="playerPos.x"
-                :x2="aimPointPos.x"
-                stroke="#ff0000"
-                stroke-width="2"
-            />
-
             <g v-if="hazards.length" id="hazards">
                 <circle
                     v-for="hazard of hazards"
@@ -81,7 +71,6 @@ import ShipFormatter from '../../logic/helpers/ShipFormatter.js';
 import ColorLiterals from '../../logic/helpers/ColorLiterals.js';
 import MapMode from '../../logic/enums/MapMode';
 import Classification from '../../logic/enums/Classification';
-import VectorHelper from '../../logic/helpers/VectorHelper';
 
 export default {
     name: 'SituationGrid',
@@ -113,29 +102,9 @@ export default {
         ContactSVGRenderer,
     },
     computed: {
-        showPlayerAimPoint() {
-            switch (this.mapMode) {
-                case MapMode.DEBUG:
-                case MapMode.HELM:
-                case MapMode.COMBAT:
-                    return true;
-                default:
-                    return false;
-            }
-        },
         playerPos() {
             const playerPos = this.$store.getters.playerShip.pos;
             return { x: playerPos.x - this.offset.x, y: playerPos.y - this.offset.y };
-        },
-        aimPointPos() {
-            let heading = this.$store.getters.playerShip.heading;
-            heading += this.$store.getters['combat/aimPoint'];
-
-            return VectorHelper.calculateNewPosition(
-                this.playerPos,
-                VectorHelper.clampDegrees(heading),
-                450 / this.zoom
-            );
         },
         navPaths() {
             return this.contacts
