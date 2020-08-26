@@ -1,4 +1,5 @@
 import _ from 'lodash';
+import Components from '../../assets/data/Components.json';
 
 export default {
     getTitle(component) {
@@ -38,6 +39,7 @@ export default {
         }
     },
     flattenedComponents(components) {
+        if (!components) return [];
         const parents = components.filter(c => c.children && c.children.length);
         return _.concat(components, ...parents.map(p => this.flattenedComponents(p.children)));
     },
@@ -52,5 +54,19 @@ export default {
     },
     findComponentRecursive(components, target) {
         return this.flattenedComponents(components).find(c => c === target);
+    },
+    findComponentTemplate(componentId) {
+        for (let key in Components) {
+            const values = Components[key];
+
+            const match = values.find(c => c.id === componentId);
+
+            if (match) {
+                return match;
+            }
+        }
+
+        console.warn('Could not find component with Id ' + componentId, Components);
+        return null;
     },
 };

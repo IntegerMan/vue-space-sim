@@ -1,4 +1,5 @@
 import Ships from '../../assets/data/Ships.json';
+import ComponentService from './ComponentService.js';
 
 export default {
     /**
@@ -14,18 +15,26 @@ export default {
             return null;
         }
 
-        return {
+        const constructed = {
             ...template,
             components: template.components.map(c => this.initializeComponent({ ...c })),
         };
+
+        console.debug('Built ship ' + shipId, constructed);
+
+        return constructed;
     },
     initializeComponent(component) {
-        component.health = component.maxHealth;
+        const componentTemplate = ComponentService.findComponentTemplate(component.componentId);
+
+        const output = { ...componentTemplate };
+
+        output.health = componentTemplate.maxHealth;
 
         if (component.children) {
-            component.children = component.children.map(c => this.initializeComponent({ ...c }));
+            output.children = component.children.map(c => this.initializeComponent({ ...c }));
         }
 
-        return component;
+        return output;
     },
 };

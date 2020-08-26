@@ -25,7 +25,9 @@ export default {
     computed: {
         playerComponents() {
             const player = this.$store.getters.playerShip;
-            return ComponentService.flattenedComponents(player.components);
+            const components = ComponentService.flattenedComponents(player.components);
+
+            return components;
         },
     },
 };

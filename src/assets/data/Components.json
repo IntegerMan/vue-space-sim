@@ -1,0 +1,176 @@
+{
+    "cores": [
+        {
+            "id": "CORE_SCOUT",
+            "type": "CORE",
+            "maxHealth": 3,
+            "isOn": null
+        },
+        {
+            "id": "CORE_FIGHTER",
+            "type": "CORE",
+            "maxHealth": 5,
+            "isOn": null
+        },
+        {
+            "id": "CORE_UTILITY",
+            "type": "CORE",
+            "maxHealth": 8,
+            "isOn": null
+        },
+        {
+            "id": "CORE_FREIGHTER",
+            "type": "CORE",
+            "maxHealth": 15,
+            "isOn": null
+        },
+        {
+            "id": "CORE_CAPSHIP",
+            "type": "CORE",
+            "maxHealth": 25,
+            "isOn": null
+        }
+    ],
+    "engines": [
+        {
+            "id": "ENGINE_SCOUT",
+            "type": "ENGINE",
+            "maxHealth": 5,
+            "maxThrust": 35,
+            "maxAcceleration": 5,
+            "isOn": true
+        },
+        {
+            "id": "ENGINE_FIGHTER",
+            "type": "ENGINE",
+            "maxHealth": 5,
+            "maxThrust": 30,
+            "maxAcceleration": 9,
+            "isOn": true
+        },
+        {
+            "id": "ENGINE_UTILITY",
+            "type": "ENGINE",
+            "maxHealth": 5,
+            "maxThrust": 10,
+            "maxAcceleration": 3,
+            "isOn": true
+        },
+        {
+            "id": "ENGINE_FREIGHTER",
+            "type": "ENGINE",
+            "maxHealth": 10,
+            "maxThrust": 10,
+            "maxAcceleration": 2,
+            "isOn": true
+        },
+        {
+            "id": "ENGINE_CAPSHIP",
+            "type": "ENGINE",
+            "maxHealth": 20,
+            "maxThrust": 20,
+            "maxAcceleration": 5,
+            "isOn": true
+        }
+    ],
+    "thrusters": [
+        {
+            "id": "RCS_SCOUT",
+            "type": "RCS",
+            "maxHealth": 3,
+            "turnSpeed": 25,
+            "isOn": true
+        },
+        {
+            "id": "RCS_FIGHTER",
+            "type": "RCS",
+            "maxHealth": 3,
+            "turnSpeed": 20,
+            "isOn": true
+        },
+        {
+            "id": "RCS_FREIGHTER",
+            "type": "RCS",
+            "maxHealth": 5,
+            "turnSpeed": 8,
+            "isOn": true
+        },
+        {
+            "id": "RCS_CAPSHIP",
+            "type": "RCS",
+            "maxHealth": 5,
+            "turnSpeed": 12,
+            "isOn": true
+        }
+    ],
+    "jump_drives": [
+        {
+            "id": "JUMP_XS",
+            "type": "JUMP_DRIVE",
+            "maxHealth": 5,
+            "isOn": true
+        },
+        {
+            "id": "JUMP_LG",
+            "type": "JUMP_DRIVE",
+            "maxHealth": 15,
+            "isOn": true
+        }
+    ],
+    "processors": [
+        {
+            "id": "CPU_SCOUT",
+            "type": "CPU",
+            "maxHealth": 5,
+            "isOn": true
+        },
+        {
+            "id": "CPU_FIGHTER",
+            "type": "CPU",
+            "maxHealth": 5,
+            "isOn": true
+        },
+        {
+            "id": "CPU_CIVILIAN",
+            "type": "CPU",
+            "maxHealth": 3,
+            "isOn": true
+        },
+        {
+            "id": "CPU_CAPSHIP",
+            "type": "CPU",
+            "maxHealth": 10,
+            "isOn": true
+        }
+    ],
+    "sensors": [
+        {
+            "id": "SENSORS_SCOUT",
+            "type": "SENSORS",
+            "maxHealth": 3,
+            "range": 350,
+            "isOn": true
+        },
+        {
+            "id": "SENSORS_FIGHTER",
+            "type": "SENSORS",
+            "maxHealth": 5,
+            "range": 100,
+            "isOn": true
+        },
+        {
+            "id": "SENSORS_CIVILIAN",
+            "type": "SENSORS",
+            "maxHealth": 3,
+            "range": 100,
+            "isOn": true
+        },
+        {
+            "id": "SENSORS_CAPSHIP",
+            "type": "SENSORS",
+            "maxHealth": 10,
+            "range": 450,
+            "isOn": true
+        }
+    ]
+}

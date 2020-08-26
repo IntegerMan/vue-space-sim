@@ -5,38 +5,22 @@
         "size": 6,
         "components": [
             {
-                "type": "CORE",
-                "maxHealth": 3,
-                "isOn": null,
+                "componentId": "CORE_SCOUT",
                 "children": [
                     {
-                        "type": "ENGINE",
-                        "maxHealth": 5,
-                        "maxThrust": 35,
-                        "maxAcceleration": 5,
-                        "isOn": true
+                        "componentId": "ENGINE_SCOUT"
                     },
                     {
-                        "type": "RCS",
-                        "maxHealth": 3,
-                        "turnSpeed": 25,
-                        "isOn": true
+                        "componentId": "RCS_SCOUT"
                     },
                     {
-                        "type": "JUMP_DRIVE",
-                        "maxHealth": 5,
-                        "isOn": true
+                        "componentId": "JUMP_XS"
                     },
                     {
-                        "type": "CPU",
-                        "maxHealth": 5,
-                        "isOn": true
+                        "componentId": "CPU_SCOUT"
                     },
                     {
-                        "type": "SENSORS",
-                        "maxHealth": 3,
-                        "range": 350,
-                        "isOn": true
+                        "componentId": "SENSORS_SCOUT"
                     }
                 ]
             }
@@ -48,33 +32,19 @@
         "size": 9,
         "components": [
             {
-                "type": "CORE",
-                "maxHealth": 5,
-                "isOn": null,
+                "componentId": "CORE_FIGHTER",
                 "children": [
                     {
-                        "type": "ENGINE",
-                        "maxHealth": 5,
-                        "maxThrust": 30,
-                        "maxAcceleration": 9,
-                        "isOn": true
+                        "componentId": "ENGINE_FIGHTER"
                     },
                     {
-                        "type": "RCS",
-                        "maxHealth": 3,
-                        "turnSpeed": 20,
-                        "isOn": true
+                        "componentId": "RCS_FIGHTER"
                     },
                     {
-                        "type": "CPU",
-                        "maxHealth": 5,
-                        "isOn": true
+                        "componentId": "CPU_FIGHTER"
                     },
                     {
-                        "type": "SENSORS",
-                        "maxHealth": 3,
-                        "range": 100,
-                        "isOn": true
+                        "componentId": "SENSORS_FIGHTER"
                     }
                 ]
             }
@@ -86,38 +56,22 @@
         "size": 25,
         "components": [
             {
-                "type": "CORE",
-                "maxHealth": 15,
-                "isOn": null,
+                "componentId": "CORE_CAPSHIP",
                 "children": [
                     {
-                        "type": "ENGINE",
-                        "maxHealth": 5,
-                        "maxThrust": 20,
-                        "maxAcceleration": 5,
-                        "isOn": true
+                        "componentId": "ENGINE_CAPSHIP"
                     },
                     {
-                        "type": "RCS",
-                        "maxHealth": 3,
-                        "turnSpeed": 12,
-                        "isOn": true
+                        "componentId": "RCS_CAPSHIP"
                     },
                     {
-                        "type": "JUMP_DRIVE",
-                        "maxHealth": 5,
-                        "isOn": true
+                        "componentId": "JUMP_LG"
                     },
                     {
-                        "type": "CPU",
-                        "maxHealth": 5,
-                        "isOn": true
+                        "componentId": "CPU_CAPSHIP"
                     },
                     {
-                        "type": "SENSORS",
-                        "maxHealth": 3,
-                        "range": 350,
-                        "isOn": true
+                        "componentId": "SENSORS_CAPSHIP"
                     }
                 ]
             }
@@ -129,38 +83,22 @@
         "size": 20,
         "components": [
             {
-                "type": "CORE",
-                "maxHealth": 10,
-                "isOn": null,
+                "componentId": "CORE_FREIGHTER",
                 "children": [
                     {
-                        "type": "ENGINE",
-                        "maxHealth": 5,
-                        "maxThrust": 10,
-                        "maxAcceleration": 2,
-                        "isOn": true
+                        "componentId": "ENGINE_FREIGHTER"
                     },
                     {
-                        "type": "RCS",
-                        "maxHealth": 3,
-                        "turnSpeed": 8,
-                        "isOn": true
+                        "componentId": "RCS_FREIGHTER"
                     },
                     {
-                        "type": "JUMP_DRIVE",
-                        "maxHealth": 5,
-                        "isOn": true
+                        "componentId": "JUMP_LG"
                     },
                     {
-                        "type": "CPU",
-                        "maxHealth": 5,
-                        "isOn": true
+                        "componentId": "CPU_CIVILIAN"
                     },
                     {
-                        "type": "SENSORS",
-                        "maxHealth": 3,
-                        "range": 100,
-                        "isOn": true
+                        "componentId": "SENSORS_CIVILIAN"
                     }
                 ]
             }
@@ -172,33 +110,19 @@
         "size": 12,
         "components": [
             {
-                "type": "CORE",
-                "maxHealth": 3,
-                "isOn": null,
+                "componentId": "CORE_UTILITY",
                 "children": [
                     {
-                        "type": "ENGINE",
-                        "maxHealth": 5,
-                        "maxThrust": 10,
-                        "maxAcceleration": 3,
-                        "isOn": true
+                        "componentId": "ENGINE_UTILITY"
                     },
                     {
-                        "type": "RCS",
-                        "maxHealth": 3,
-                        "turnSpeed": 10,
-                        "isOn": true
+                        "componentId": "RCS_FREIGHTER"
                     },
                     {
-                        "type": "CPU",
-                        "maxHealth": 5,
-                        "isOn": true
+                        "componentId": "CPU_CIVILIAN"
                     },
                     {
-                        "type": "SENSORS",
-                        "maxHealth": 3,
-                        "range": 100,
-                        "isOn": true
+                        "componentId": "SENSORS_CIVILIAN"
                     }
                 ]
             }
