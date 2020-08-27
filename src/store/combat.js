@@ -5,10 +5,14 @@ export default {
     namespaced: true,
     state: {
         aimPoint: 0,
+        isFiring: false,
     },
     getters: {
         aimPoint(state) {
             return state.aimPoint;
+        },
+        isFiring(state) {
+            return state.isFiring;
         },
     },
     actions: {
@@ -28,13 +32,15 @@ export default {
             );
         },
         fire(context) {
-            const ship = context.rootGetters.playerShip;
-            console.log('Fire weapons invoked', ship);
+            context.commit('SET_IS_FIRING', !context.getters.isFiring);
         },
     },
     mutations: {
         SET_AIMPOINT(state, aimPoint) {
             state.aimPoint = aimPoint;
+        },
+        SET_IS_FIRING(state, firing) {
+            state.isFiring = firing;
         },
     },
 };

@@ -20,9 +20,11 @@
         <div class="control vertical-display" v-if="canFire">
             <!-- TODO: This should be a v-for for multi-weapon systems -->
             <span class="tag is-warning is-light" v-if="loading">Loading</span>
-            <span class="tag is-success" v-if="ready">Ready</span>
+            <span class="tag is-success" v-if="ready && !isFiring">Ready</span>
+            <span class="tag is-primary is-light" v-if="isFiring">Firing</span>
             <button
-                class="button is-danger is-rounded is-small"
+                class="button is-rounded is-small btn-fire is-danger"
+                :class="{ active: isFiring }"
                 title="Fire Weapons"
                 :disabled="!ready"
                 @click.prevent="fire()"
@@ -87,6 +89,9 @@ export default {
         loading() {
             return false;
         },
+        isFiring() {
+            return this.$store.getters['combat/isFiring'];
+        },
         aimPoint: {
             get() {
                 return this.$store.getters['combat/aimPoint'];
@@ -104,5 +109,9 @@ export default {
 
 .match-heading {
     margin-left: $m2;
+}
+
+.btn-fire.active {
+    font-weight: bold;
 }
 </style>
