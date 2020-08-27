@@ -61,6 +61,20 @@ export default {
             pos
         );
     },
+    createProjectile(owner, pos, heading = 0) {
+        const configureFunc = proj => {
+            proj.contactType = ContactType.MISSILE;
+            proj.owner = owner.id;
+            proj.heading = heading;
+            proj.desiredHeading = heading;
+            proj.throttle = 100;
+            proj.desiredThrottle = 100;
+            proj.name = '';
+            proj.code = 'v';
+            proj.navTarget = { x: -900, y: -900 }; // TODO: Blatant hack to avoid despawning
+        };
+        return this.createContact(configureFunc, owner.classification, pos);
+    },
     configureStatic(obj) {
         obj.code = obj.code || '';
         obj.heading = 0;
