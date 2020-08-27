@@ -13,9 +13,16 @@ const simulation = {
             commit('SET_SPEED', 1);
         },
         advance(context) {
+            const uiFlags = {
+                isFiring: context.rootGetters['combat/isFiring'],
+                aimPoint: context.rootGetters['combat/aimPoint'],
+            };
+
             const sector = context.rootGetters.currentSector;
-            const newSector = SimulationService.simulateAll(sector);
+            const newSector = SimulationService.simulateAll(sector, uiFlags);
+
             context.commit('SET_SECTOR', newSector, { root: true });
+            context.dispatch('simulationAdvanced', sector, { root: true });
         },
         advanceOne({ dispatch }) {
             dispatch('pause');

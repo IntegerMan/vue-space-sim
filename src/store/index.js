@@ -52,6 +52,9 @@ export default new Vuex.Store({
         toggleComponent(context, payload) {
             context.commit('TOGGLE_COMPONENT', payload);
         },
+        simulationAdvanced(context, newSector) {
+            context.dispatch('combat/simulationAdvanced', newSector);
+        },
     },
     mutations: {
         SET_SECTOR(state, sector) {

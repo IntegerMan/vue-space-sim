@@ -34,6 +34,11 @@ export default {
         fire(context) {
             context.commit('SET_IS_FIRING', !context.getters.isFiring);
         },
+        simulationAdvanced(context) {
+            if (context.state.isFiring) {
+                context.commit('SET_IS_FIRING', false);
+            }
+        },
     },
     mutations: {
         SET_AIMPOINT(state, aimPoint) {
