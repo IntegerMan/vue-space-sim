@@ -1,6 +1,6 @@
 <template>
     <form class="footer-control">
-        <div class="control">
+        <div class="control" v-if="canAim">
             <label class="label" for="txtAim">Aim Point</label>
             <knob-control
                 id="txtAim"
@@ -13,11 +13,12 @@
                     animationDuration: '5000',
                     animationFunction: 'linear',
                 }"
-                :min="-15"
-                :max="15"
+                :min="minAimPoint"
+                :max="maxAimPoint"
             />
         </div>
-        <div class="control vertical-display">
+        <div class="control vertical-display" v-if="canFire">
+            <!-- TODO: This should be a v-for for multi-weapon systems -->
             <span class="tag is-warning is-light" v-if="loading">Loading</span>
             <span class="tag is-success" v-if="ready">Ready</span>
             <button
@@ -32,6 +33,8 @@
         <div class="control vertical-display status-indicators">
             <component-indicator :owner="player" label="Sensors" type="SENSORS" />
             <component-indicator :owner="player" label="Computer" type="CPU" />
+            <!-- TODO: This should be a v-for for multi-weapon systems -->
+            <component-indicator :owner="player" label="Weapons" type="WEAPON" />
         </div>
     </form>
 </template>
@@ -40,6 +43,7 @@
 import KnobControl from 'vue-knob-control'; // Details can be found at https://github.com/kramer99/vue-knob-control
 import ComponentIndicator from '../ComponentIndicator.vue';
 import ColorLiterals from '../../logic/helpers/ColorLiterals.js';
+import CombatService from '../../logic/services/CombatService.js';
 
 export default {
     name: 'CombatControl',
@@ -56,17 +60,32 @@ export default {
         player() {
             return this.$store.getters.playerShip;
         },
-        ready() {
-            return true;
-        },
-        loading() {
-            return false;
-        },
         primaryColor() {
             return ColorLiterals.warning;
         },
         secondaryColor() {
             return ColorLiterals.background;
+        },
+        weapons() {
+            return CombatService.weapons(this.player);
+        },
+        minAimPoint() {
+            return CombatService.minAimPoint(this.player);
+        },
+        maxAimPoint() {
+            return CombatService.maxAimPoint(this.player);
+        },
+        canAim() {
+            return this.minAimPoint !== 0 || this.maxAimPoint !== 0;
+        },
+        canFire() {
+            return this.weapons.filter(c => c.isOn === true).length > 0;
+        },
+        ready() {
+            return this.weapons.filter(c => c.isOn === true).length > 0;
+        },
+        loading() {
+            return false;
         },
         aimPoint: {
             get() {

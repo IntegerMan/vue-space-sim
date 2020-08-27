@@ -111,6 +111,7 @@ import Classification from '../../logic/enums/Classification.js';
 import ContactType from '../../logic/enums/ContactType.js';
 import ContactSVGIcon from './ContactSVGIcon.vue';
 import ShipService from '../../logic/services/ShipService.js';
+import CombatService from '../../logic/services/CombatService.js';
 import ColorLiterals from '../../logic/helpers/ColorLiterals.js';
 
 export default {
@@ -135,16 +136,17 @@ export default {
             return SvgHelper.describePieSlice(
                 0,
                 0,
-                450,
-                VectorHelper.clampDegrees(this.contact.heading - 15),
-                VectorHelper.clampDegrees(this.contact.heading + 15)
+                CombatService.weaponRange(this.contact),
+                VectorHelper.clampDegrees(
+                    this.contact.heading + CombatService.minAimPoint(this.contact)
+                ),
+                VectorHelper.clampDegrees(
+                    this.contact.heading + CombatService.maxAimPoint(this.contact)
+                )
             );
         },
         heading() {
             return this.contact.heading;
-        },
-        aimOffset() {
-            return 15;
         },
         showNavPath() {
             if (!this.contact.navTarget) {

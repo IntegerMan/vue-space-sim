@@ -3,6 +3,10 @@ import Components from '../../assets/data/Components.json';
 
 export default {
     getTitle(component) {
+        if (component.name) {
+            return component.name;
+        }
+
         switch (component.type) {
             case 'CORE':
                 return 'Hull Integrity';
@@ -32,6 +36,8 @@ export default {
                 return 'Jump Drives allow vessels to make calculated jumps between sectors.';
             case 'CPU':
                 return 'Used to accomplish complex tasks like calculating jumps, classifying targets, and long-range combat.';
+            case 'WEAPON':
+                return 'Blows holes in other things. Do not aim at your eyes.';
             case 'SENSORS':
                 return 'Determines the maximum range targets can be spotted at as well as the range they become automatically classified.';
             default:

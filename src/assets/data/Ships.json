@@ -72,6 +72,9 @@
                     },
                     {
                         "componentId": "SENSORS_CAPSHIP"
+                    },
+                    {
+                        "componentId": "GUN_CAPSHIP"
                     }
                 ]
             }

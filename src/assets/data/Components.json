@@ -172,5 +172,21 @@
             "range": 450,
             "isOn": true
         }
+    ],
+    "weapons": [
+        {
+            "id": "GUN_CAPSHIP",
+            "name": "Railgun",
+            "type": "WEAPON",
+            "range": 450,
+            "arcStart": -25,
+            "arcEnd": 25,
+            "loadTime": 5,
+            "isOn": true,
+            "projectileInfo": {
+                "initialThrust": 50,
+                "maxTicks": 10
+            }
+        }
     ]
 }

@@ -1,4 +1,5 @@
 import VectorHelper from '../logic/helpers/VectorHelper';
+import CombatService from '../logic/services/CombatService.js';
 
 export default {
     namespaced: true,
@@ -18,8 +19,8 @@ export default {
             const ship = context.rootGetters.playerShip;
             const heading = VectorHelper.clampDegreeArc(
                 Math.round(VectorHelper.getHeadingInDegrees(ship.pos, pos)),
-                ship.heading - 15,
-                ship.heading + 15
+                ship.heading + CombatService.minAimPoint(ship),
+                ship.heading + CombatService.maxAimPoint(ship)
             );
             context.commit(
                 'SET_AIMPOINT',
