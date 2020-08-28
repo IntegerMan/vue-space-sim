@@ -177,7 +177,6 @@ export default {
         showAimPoint() {
             switch (this.mapMode) {
                 case MapMode.DEBUG:
-                case MapMode.HELM:
                 case MapMode.COMBAT:
                     return this.contact === this.$store.getters.playerShip;
                 default:
@@ -235,7 +234,7 @@ export default {
             switch (this.mapMode) {
                 case MapMode.HELM:
                 case MapMode.NAV:
-                    return this.contact.isPlayer;
+                    return this.contact.isPlayer || !ShipService.isMobile(this.contact);
                 case MapMode.DEBUG:
                     return true;
                 default:
@@ -247,6 +246,7 @@ export default {
                 case MapMode.NAV:
                 case MapMode.SENSORS:
                 case MapMode.DEBUG:
+                case MapMode.HELM:
                 case MapMode.SITUATION:
                     return this.contact.isPlayer;
                 default:

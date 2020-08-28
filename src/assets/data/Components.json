@@ -92,14 +92,14 @@
             "id": "RCS_FREIGHTER",
             "type": "RCS",
             "maxHealth": 5,
-            "turnSpeed": 8,
+            "turnSpeed": 5,
             "isOn": true
         },
         {
             "id": "RCS_CAPSHIP",
             "type": "RCS",
             "maxHealth": 5,
-            "turnSpeed": 12,
+            "turnSpeed": 8,
             "isOn": true
         }
     ],

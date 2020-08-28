@@ -68,7 +68,7 @@ export default {
             if (this.isPaused) {
                 this.clearTimer();
             } else {
-                const ticks = this.isFastForward ? 150 : 500;
+                const ticks = this.isFastForward ? 50 : 150;
                 this.timeout = setTimeout(this.onTimerTick, ticks);
             }
         },
