@@ -148,14 +148,14 @@
             "id": "SENSORS_SCOUT",
             "type": "SENSORS",
             "maxHealth": 3,
-            "range": 350,
+            "range": 800,
             "isOn": true
         },
         {
             "id": "SENSORS_FIGHTER",
             "type": "SENSORS",
             "maxHealth": 5,
-            "range": 100,
+            "range": 150,
             "isOn": true
         },
         {
@@ -169,7 +169,7 @@
             "id": "SENSORS_CAPSHIP",
             "type": "SENSORS",
             "maxHealth": 10,
-            "range": 450,
+            "range": 600,
             "isOn": true
         }
     ],
@@ -184,8 +184,9 @@
             "loadTime": 5,
             "isOn": true,
             "projectileInfo": {
-                "initialThrust": 50,
-                "maxTicks": 10
+                "thrust": 50,
+                "maxTicks": 10,
+                "size": 5
             }
         }
     ]

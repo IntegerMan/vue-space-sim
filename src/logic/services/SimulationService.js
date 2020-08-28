@@ -66,10 +66,19 @@ export default {
     adjustSystems(context) {
         if (!context.contact) return context;
 
+        let ticksLeft = context.contact.ticksLeft;
+        if (ticksLeft !== undefined) {
+            if (--ticksLeft <= 0) {
+                console.debug('Despawning projectile', context.contact);
+                return { ...context, contact: null };
+            }
+        }
+
         return {
             ...context,
             contact: {
                 ...context.contact,
+                ticksLeft,
                 heading: VectorHelper.steerTowardsHeading(
                     context.contact.heading,
                     context.contact.desiredHeading,
@@ -99,17 +108,22 @@ export default {
         const contact = context.contact;
         if (!contact) return context;
 
+        // Figure out thrust for things that have engines
+        const engines = ComponentService.getComponentsOfType(contact.components, 'ENGINE');
+        if (engines.length || contact.thrust === undefined) {
+            const throttlePercent = contact.throttle / 100;
+            const bestThrust = ComponentService.getLargestValue(
+                engines.filter(e => e.isOn),
+                e => e.maxThrust
+            );
+            contact.thrust = throttlePercent * bestThrust;
+        }
+
         // Advance the ship given the current position, thrust, and heading
-        const throttlePercent = contact.throttle / 100;
         const newPos = VectorHelper.calculateNewPosition(
             contact.pos,
             contact.heading,
-            // TODO: This doesn't work for things with inherent thrust like projectiles
-            throttlePercent *
-                ComponentService.getLargestValue(
-                    ComponentService.getActiveComponentsOfType(contact.components, 'ENGINE'),
-                    e => e.maxThrust
-                )
+            contact.thrust
         );
 
         // Check to see if we've reached our current nav target
@@ -140,11 +154,25 @@ export default {
         if (!contact) return context;
 
         if (uiState.isFiring && contact.id === 'PLAYER') {
-            const heading = VectorHelper.clampDegrees(contact.heading + uiState.aimPoint);
-            const pos = { x: 900, y: 900 }; // TODO: Calculate
+            const projectiles = [];
+            const weapons = ComponentService.getActiveComponentsOfType(
+                contact.components,
+                'WEAPON'
+            );
 
-            const projectiles = [ShipService.createProjectile(contact, pos, heading)];
-            console.debug('ADD THE PEW PEW', context, projectiles);
+            weapons.forEach(w => {
+                const heading = VectorHelper.clampDegrees(contact.heading + uiState.aimPoint);
+
+                const pos = VectorHelper.calculateNewPosition(
+                    contact.pos, // TODO: May need to offset this
+                    heading,
+                    contact.size * 3 + w.projectileInfo.size
+                );
+
+                const proj = ShipService.createProjectile(contact, pos, heading, w.projectileInfo);
+                projectiles.push(proj);
+            });
+
             return { ...context, newContacts: _.concat(context.newContacts, ...projectiles) };
         } else {
             return context;

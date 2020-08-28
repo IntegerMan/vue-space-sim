@@ -4,6 +4,7 @@ import VectorHelper from '../helpers/VectorHelper';
 import _ from 'lodash';
 import ShipDefinitionService from './ShipDefinitionService';
 import ComponentService from './ComponentService';
+import RandomService from './RandomService';
 
 export default {
     createContact(configureFunc, classification, pos) {
@@ -61,16 +62,19 @@ export default {
             pos
         );
     },
-    createProjectile(owner, pos, heading = 0) {
+    createProjectile(owner, pos, heading, projectileInfo) {
         const configureFunc = proj => {
             proj.contactType = ContactType.MISSILE;
             proj.owner = owner.id;
             proj.heading = heading;
             proj.desiredHeading = heading;
             proj.throttle = 100;
+            proj.id = 'proj-' + owner.id + '-' + RandomService.randomInt(0, 9999);
             proj.desiredThrottle = 100;
-            proj.name = '';
-            proj.code = 'v';
+            proj.size = projectileInfo.size;
+            proj.ticksLeft = projectileInfo.maxTicks;
+            proj.thrust = projectileInfo.thrust;
+            proj.name = projectileInfo.name || 'v';
             proj.navTarget = { x: -900, y: -900 }; // TODO: Blatant hack to avoid despawning
         };
         return this.createContact(configureFunc, owner.classification, pos);
@@ -159,7 +163,10 @@ export default {
         const entities = _.concat(sector.ships, ...sector.jumpPoints, ...sector.stations);
 
         return entities.filter(
-            c => !this.isMobile(c) || VectorHelper.calculateDistance(centerPos, c.pos) <= range
+            c =>
+                !this.isMobile(c) ||
+                c.isPlayer ||
+                VectorHelper.calculateDistance(centerPos, c.pos) <= range
         );
     },
 };
