@@ -21,7 +21,7 @@ export default {
             ships: _.compact(
                 sector.ships.map(c => {
                     const context = {
-                        contact: c,
+                        contact: { ...c },
                         uiState,
                         newContacts: [],
                     };
@@ -64,45 +64,37 @@ export default {
         return simFunc(context);
     },
     adjustSystems(context) {
-        if (!context.contact) return context;
+        const contact = context.contact;
 
-        let ticksLeft = context.contact.ticksLeft;
-        if (ticksLeft !== undefined) {
-            if (--ticksLeft <= 0) {
+        if (!contact) return context;
+
+        if (contact.ticksLeft !== undefined) {
+            if (--contact.ticksLeft <= 0) {
                 console.debug('Despawning projectile', context.contact);
-                return { ...context, contact: null };
+                context.contact = null;
+                return context;
             }
         }
 
-        return {
-            ...context,
-            contact: {
-                ...context.contact,
-                ticksLeft,
-                heading: VectorHelper.steerTowardsHeading(
-                    context.contact.heading,
-                    context.contact.desiredHeading,
-                    ComponentService.getLargestValue(
-                        ComponentService.getActiveComponentsOfType(
-                            context.contact.components,
-                            'RCS'
-                        ),
-                        r => r.turnSpeed
-                    )
-                ),
-                throttle: VectorHelper.moveTowardsSetThrottle(
-                    context.contact.throttle,
-                    context.contact.desiredThrottle,
-                    ComponentService.getLargestValue(
-                        ComponentService.getActiveComponentsOfType(
-                            context.contact.components,
-                            'ENGINE'
-                        ),
-                        e => e.maxAcceleration
-                    )
-                ),
-            },
-        };
+        contact.heading = VectorHelper.steerTowardsHeading(
+            context.contact.heading,
+            context.contact.desiredHeading,
+            ComponentService.getLargestValue(
+                ComponentService.getActiveComponentsOfType(context.contact.components, 'RCS'),
+                r => r.turnSpeed
+            )
+        );
+
+        contact.throttle = VectorHelper.moveTowardsSetThrottle(
+            context.contact.throttle,
+            context.contact.desiredThrottle,
+            ComponentService.getLargestValue(
+                ComponentService.getActiveComponentsOfType(context.contact.components, 'ENGINE'),
+                e => e.maxAcceleration
+            )
+        );
+
+        return context;
     },
     updatePosition(context) {
         const contact = context.contact;
@@ -119,33 +111,30 @@ export default {
             contact.thrust = throttlePercent * bestThrust;
         }
 
-        // Advance the ship given the current position, thrust, and heading
-        const newPos = VectorHelper.calculateNewPosition(
-            contact.pos,
-            contact.heading,
-            contact.thrust
-        );
+        if (ShipService.isMobile(contact)) {
+            // Advance the ship given the current position, thrust, and heading
+            contact.pos = VectorHelper.calculateNewPosition(
+                contact.pos,
+                contact.heading,
+                contact.thrust
+            );
 
-        // Check to see if we've reached our current nav target
-        let targetPos = contact.navTarget;
-        if (targetPos && VectorHelper.calculateDistance(contact.pos, targetPos) <= 5) {
-            targetPos = undefined;
-        }
+            // Check to see if we've reached our current nav target
+            if (
+                contact.navTarget &&
+                VectorHelper.calculateDistance(contact.pos, contact.navTarget) <= 5
+            ) {
+                contact.navTarget = undefined;
+            }
 
-        // If we don't have a navigational target anymore, we must have arrived at our destination. Land / jump.
-        if (!contact.isPlayer && !targetPos && ShipService.isMobile(contact)) {
-            return { ...context, contact: null };
+            // If we don't have a navigational target anymore, we must have arrived at our destination. Land / jump.
+            if (!contact.isPlayer && !contact.navTarget) {
+                context.contact = null;
+            }
         }
 
         // Return a modified version of the ship
-        return {
-            ...context,
-            contact: {
-                ...contact,
-                pos: newPos,
-                navTarget: targetPos,
-            },
-        };
+        return context;
     },
     launchProjectiles(context) {
         const contact = context.contact;
@@ -173,10 +162,10 @@ export default {
                 projectiles.push(proj);
             });
 
-            return { ...context, newContacts: _.concat(context.newContacts, ...projectiles) };
-        } else {
-            return context;
+            context.newContacts = _.concat(context.newContacts, ...projectiles);
         }
+
+        return context;
     },
     spawnForRandomTask(sector) {
         SectorService.getRandomTasksForSector(sector, 1)
