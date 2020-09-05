@@ -8,7 +8,7 @@ export default {
         const modX = thrust * Math.sin(radians);
         const modY = thrust * Math.cos(radians);
 
-        return { x: pos.x + modX, y: pos.y - modY };
+        return { x: Math.round(pos.x + modX), y: Math.round(pos.y - modY) };
     },
 
     /**
@@ -151,5 +151,35 @@ export default {
         const desired = range * pct;
 
         return Math.max(min, desired);
+    },
+
+    generatePointArray(start, end, segments) {
+        const values = [];
+
+        if (segments > 1) {
+            const xDiff = end.x - start.x;
+            const yDiff = end.y - start.y;
+
+            const xPerSegment = xDiff / segments;
+            const yPerSegment = yDiff / segments;
+
+            let xPos = start.x;
+            let yPos = start.y;
+
+            for (let i = 0; i < segments - 1; i++) {
+                xPos += xPerSegment;
+                yPos += yPerSegment;
+
+                values.push({ x: Math.round(xPos), y: Math.round(yPos) });
+            }
+        }
+
+        values.push(end);
+
+        return values;
+    },
+
+    checkCollision(pos1, radius1, pos2, radius2) {
+        return this.calculateDistance(pos1, pos2) < radius1 + radius2;
     },
 };

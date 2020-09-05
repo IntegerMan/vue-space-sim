@@ -13,33 +13,34 @@ export default {
      * @returns {Object} the new sector
      */
     simulateAll(sector, uiState) {
-        let newContacts = [];
+        const newContacts = [];
 
-        const newSector = {
-            ...sector,
-            // Using compact here to remove null entries representing contacts that no longer exist
-            ships: _.compact(
-                sector.ships.map(c => {
-                    const context = {
-                        contact: { ...c },
-                        uiState,
-                        newContacts: [],
-                    };
+        const originalShips = sector.ships.slice();
 
-                    const simResult = this.simulate(context);
+        for (const ship of originalShips) {
+            const context = {
+                contact: { ...ship },
+                uiState,
+                newContacts: [],
+                otherContacts: originalShips.filter(s => s !== ship),
+            };
 
-                    // Add any new contacts to our array
-                    if (simResult.newContacts && simResult.newContacts.length) {
-                        newContacts = _.concat(newContacts, ...simResult.newContacts);
-                    }
+            const simResult = this.simulate(context);
 
-                    return simResult.contact;
-                })
-            ),
-        };
+            // If the ship is still around, keep it around
+            if (simResult.contact) {
+                newContacts.push(simResult.contact);
+            }
 
-        // Add any new contacts
-        newContacts.forEach(c => newSector.ships.push(c));
+            // Add any new contacts to our array
+            if (simResult.newContacts) {
+                for (const contact of simResult.newContacts) {
+                    newContacts.push(contact);
+                }
+            }
+        }
+
+        const newSector = { ...sector, ships: newContacts };
 
         // Spawn ships as needed
         if (sector.timeBetweenShipSpawn <= 0) {
@@ -113,11 +114,37 @@ export default {
 
         if (ShipService.isMobile(contact)) {
             // Advance the ship given the current position, thrust, and heading
-            contact.pos = VectorHelper.calculateNewPosition(
+            let newPos = VectorHelper.calculateNewPosition(
                 contact.pos,
                 contact.heading,
                 contact.thrust
             );
+
+            if (contact.pos !== newPos) {
+                // Generate intermediate points
+                const points = VectorHelper.generatePointArray(contact.pos, newPos, 4);
+
+                let collided = false;
+                for (const pos of points) {
+                    for (const c of context.otherContacts) {
+                        if (VectorHelper.checkCollision(pos, contact.size, c.pos, c.size)) {
+                            console.log('Collision detected', contact, c);
+                            // TODO: This should probably damage both entities
+                            collided = true;
+                            break;
+                        }
+                    }
+
+                    if (collided) {
+                        break;
+                    } else {
+                        newPos = pos;
+                    }
+                }
+
+                // Actually move
+                context.contact.pos = newPos;
+            }
 
             // Check to see if we've reached our current nav target
             if (
