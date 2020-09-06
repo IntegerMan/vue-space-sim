@@ -165,23 +165,21 @@ export default {
             .forEach(contact => sector.ships.push(contact));
     },
 
-    configureStatic(obj) {
-        obj.code = obj.code || '';
-        obj.heading = 0;
-        obj.desiredHeading = 0;
-        obj.throttle = 0;
-        obj.desiredThrottle = 0;
-        obj.pos = new Point(obj.pos.x, obj.pos.y);
-    },
     configureStation(obj) {
-        this.configureStatic(obj);
+        const station = new FixedEntity(
+            new Point(obj.pos.x, obj.pos.y),
+            ShipService.parseOwner(obj)
+        ); // TODO: May want a specific class
 
-        obj.type = 'STATION';
-        obj.contactType = ContactType.STATION;
-        obj.size = ShipService.parseTier(obj);
-        obj.classification = ShipService.parseOwner(obj);
+        station.name = obj.name || 'Jump Point';
+        station.type = 'STATION';
+        station.contactType = ContactType.STATION;
+        station.size = ShipService.parseTier(obj);
+        station.code = obj.id;
+        station.aiTasks = obj.aiTasks;
+        station.id = obj.id;
 
-        return obj;
+        return station;
     },
     /**
      * Creates a new Jump Point entity from stored data representing a jump point
@@ -189,7 +187,7 @@ export default {
      * @returns {FixedEntity} the created entity
      */
     configureJumpPoint(obj) {
-        const jumpPoint = new FixedEntity(obj.pos, Classification.NEUTRAL); // TODO: May want a specific class
+        const jumpPoint = new FixedEntity(new Point(obj.pos.x, obj.pos.y), Classification.NEUTRAL); // TODO: May want a specific class
 
         jumpPoint.name = obj.name || 'Jump Point';
         jumpPoint.type = 'JUMP_POINT';
