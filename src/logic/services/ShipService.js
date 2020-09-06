@@ -4,7 +4,7 @@ import _ from 'lodash';
 import ShipDefinitionService from './ShipDefinitionService';
 import ComponentService from './ComponentService';
 import RandomService from './RandomService';
-import MobileEntity from '@/logic/classes/MobileEntity';
+import ProjectileEntity from '@/logic/classes/ProjectileEntity';
 
 export default {
     createShip(configureFunc, classification, shipType, pos) {
@@ -40,7 +40,7 @@ export default {
         );
     },
     createProjectile(owner, pos, heading, projectileInfo) {
-        const proj = new MobileEntity(pos, owner.classification);
+        const proj = new ProjectileEntity(pos, owner.classification, projectileInfo);
 
         proj.contactType = ContactType.MISSILE;
         proj.owner = owner.id;
@@ -49,10 +49,6 @@ export default {
         proj.throttle = 100;
         proj.id = 'proj-' + owner.id + '-' + RandomService.randomInt(0, 9999);
         proj.desiredThrottle = 100;
-        proj.size = projectileInfo.size;
-        proj.ticksLeft = projectileInfo.maxTicks;
-        proj.thrust = projectileInfo.thrust;
-        proj.name = projectileInfo.name || 'v';
         proj.navTarget = { x: -900, y: -900 }; // TODO: Blatant hack to avoid despawning
 
         return proj;

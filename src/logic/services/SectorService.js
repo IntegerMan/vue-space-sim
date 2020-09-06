@@ -53,31 +53,13 @@ export default {
 
     /**
      * Finds the specified origin within the sector and returns it
-     * @param {Object} sector the sector to search for the referenced origin
+     * @param {Sector} sector the sector to search for the referenced origin
      * @param {Object} origin the origin associated with the task. This is set in aggregateSectorTasks.
      * @returns {Object | null} the requested origin, or null if no origin could be found
      */
     findOrigin(sector, origin) {
-        switch (origin.type) {
-            case 'STATION':
-                return this.findStation(sector, origin.id);
-            case 'JUMP':
-                return sector.jumpPoints.find(j => j.id === origin.id);
-            default:
-                return null;
-        }
+        return sector.fixedEntities.find(s => s.id === origin.id);
     },
-
-    /**
-     * Finds a station within the sector with the specified ID and returns it.
-     * @param {Sector} sector the sector to search for the station
-     * @param {Object} stationId the station ID
-     * @returns {FixedEntity | null} the station or null if no station could be found
-     */
-    findStation(sector, stationId) {
-        return sector.fixedEntities.find(s => s.id === stationId);
-    },
-
     /**
      * Finds the specified destination within the sector and returns it. Some tasks have station destinations
      * while others have more complex constructs
@@ -87,7 +69,7 @@ export default {
      */
     findDestination(sector, task) {
         if (task.stationId) {
-            return this.findStation(sector, task.stationId);
+            return sector.fixedEntities.find(s => s.id === task.stationId);
         }
         // TODO: Find jump points
         // TODO: Find locations array for mining ops
@@ -106,7 +88,7 @@ export default {
         const destination = this.findDestination(sector, task);
 
         if (!origin) {
-            console.warn('Could not find task origin in sector ' + sector.id, task.origin);
+            console.warn(`Could not find task origin in sector ${sector.id}`, task.origin);
             return null;
         }
 

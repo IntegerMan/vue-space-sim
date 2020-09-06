@@ -1,6 +1,6 @@
 import Ships from '../../assets/data/Ships.json';
 import ComponentService from './ComponentService.js';
-import MobileEntity from '@/logic/classes/MobileEntity';
+import ShipEntity from '@/logic/classes/ShipEntity';
 
 export default {
     /**
@@ -18,7 +18,7 @@ export default {
             return null;
         }
 
-        const ship = new MobileEntity(pos, classification);
+        const ship = new ShipEntity(pos, classification);
         ship.id = template.id;
         ship.name = template.name;
         ship.size = template.size;

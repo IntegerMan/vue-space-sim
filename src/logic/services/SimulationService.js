@@ -24,7 +24,13 @@ export default {
             }
         }
 
-        // Spawn ships as needed
+        // Remove any dead entities
+        for (const ship of sector.ships.filter(s => s.isDead).slice()) {
+            const index = sector.ships.indexOf(ship);
+            sector.ships.splice(index, 1);
+        }
+
+        // Spawn entities as needed
         if (sector.timeBetweenShipSpawn <= 0) {
             const numShips = sector.ships.filter(s => !s.isPlayer).length;
 
