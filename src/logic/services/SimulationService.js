@@ -149,7 +149,7 @@ export default {
             // Check to see if we've reached our current nav target
             if (
                 contact.navTarget &&
-                VectorHelper.calculateDistance(contact.pos, contact.navTarget) <= 5
+                contact.pos.calculateDistance(contact.navTarget) <= 5
             ) {
                 contact.navTarget = undefined;
             }

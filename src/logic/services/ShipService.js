@@ -1,27 +1,15 @@
 import ContactType from '../enums/ContactType';
 import Classification from '../enums/Classification';
-import VectorHelper from '../helpers/VectorHelper';
 import _ from 'lodash';
 import ShipDefinitionService from './ShipDefinitionService';
 import ComponentService from './ComponentService';
 import RandomService from './RandomService';
+import SectorEntity from '@/logic/classes/SectorEntity';
+import Point from '@/logic/classes/Point';
 
 export default {
     createContact(configureFunc, classification, pos) {
-        const contact = {
-            id: -1,
-            code: '',
-            name: 'TODO',
-            isPlayer: false,
-            classification: classification,
-            contactType: ContactType.UNCLASSIFIED,
-            size: 15,
-            heading: 0,
-            desiredHeading: 0,
-            throttle: 0,
-            desiredThrottle: 0,
-            pos: pos,
-        };
+        const contact = new SectorEntity(pos, classification);
 
         if (configureFunc) {
             configureFunc(contact);
@@ -30,19 +18,18 @@ export default {
         return contact;
     },
     createShip(configureFunc, classification, shipType, pos) {
-        const contact = ShipDefinitionService.buildFromTemplate(shipType);
+        const contact = ShipDefinitionService.buildFromTemplate(shipType, pos, classification);
+
         contact.id = -1;
         contact.isPlayer = false;
         contact.type = 'SHIP';
         contact.code = '';
-        contact.classification = classification;
         contact.contactType = shipType;
         contact.throttle = 25;
         contact.desiredThrottle = contact.throttle;
         contact.navTarget = undefined;
         contact.heading = 0;
         contact.desiredHeading = 0;
-        contact.pos = pos;
 
         if (configureFunc) {
             configureFunc(contact);
@@ -85,6 +72,7 @@ export default {
         obj.desiredHeading = 0;
         obj.throttle = 0;
         obj.desiredThrottle = 0;
+        obj.pos = new Point(obj.pos.x, obj.pos.y);
     },
     configureStation(obj) {
         this.configureStatic(obj);
@@ -153,7 +141,7 @@ export default {
     /**
      * Calculates contacts that should be visible given the scanning ship or station's sensors
      * @param {Object} sector the current sector
-     * @param {Object} scanningObject the object doing the scanning
+     * @param {SectorEntity} scanningObject the object doing the scanning
      * @returns {Object[]} all visible objects
      */
     calculateVisibleContacts(sector, scanningObject) {
@@ -163,10 +151,7 @@ export default {
         const entities = _.concat(sector.ships, ...sector.jumpPoints, ...sector.stations);
 
         return entities.filter(
-            c =>
-                !this.isMobile(c) ||
-                c.isPlayer ||
-                VectorHelper.calculateDistance(centerPos, c.pos) <= range
+            c => !this.isMobile(c) || c.isPlayer || centerPos.calculateDistance(c.pos) <= range
         );
     },
 };

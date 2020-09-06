@@ -23,14 +23,4 @@ export default {
     randomSign() {
         return Math.round(Math.random()) === 0 ? -1 : 1;
     },
-    /**
-     * Displaces a point by random values in the X or y directions
-     * @param {Object} pos the original point
-     * @param {Number} radius a radius to move things around in
-     */
-    displace(pos, radius) {
-        const deltaX = Math.random() * radius;
-        const deltaY = radius - deltaX;
-        return { x: pos.x + deltaX * this.randomSign(), y: pos.y + deltaY * this.randomSign() };
-    },
 };

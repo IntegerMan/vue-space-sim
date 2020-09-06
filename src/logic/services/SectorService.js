@@ -7,6 +7,7 @@ import ShipService from './ShipService.js';
 import RandomService from './RandomService.js';
 
 import _ from 'lodash';
+import Point from '@/logic/classes/Point';
 
 export default {
     loadSector(sectorId) {
@@ -22,6 +23,10 @@ export default {
 
         sector.stations.forEach(s => ShipService.configureStation(s));
         sector.jumpPoints.forEach(j => ShipService.configureJumpPoint(j));
+
+        if (sector.playerStartPos) {
+            sector.playerStartPos = new Point(sector.playerStartPos.x, sector.playerStartPos.y);
+        }
 
         return sector;
     },
@@ -109,7 +114,7 @@ export default {
             pos = VectorHelper.calculateNewPosition(origin.pos, heading, 50);
         } else {
             console.warn('No destination detected for task', task);
-            pos = RandomService.displace(origin.pos, 50);
+            pos = origin.pos.displace(50);
             heading = VectorHelper.getHeadingInDegrees(origin.pos, pos); // Aim away from launch station
         }
 

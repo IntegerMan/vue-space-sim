@@ -12,6 +12,7 @@ import ComponentService from '../logic/services/ComponentService.js';
 import _ from 'lodash';
 
 import Sector from '../logic/enums/Sector';
+import Point from '@/logic/classes/Point';
 
 Vue.use(Vuex);
 
@@ -45,7 +46,7 @@ export default new Vuex.Store({
         },
         loadSector(context, sectorId) {
             const sector = SectorService.loadSector(sectorId);
-            const player = ShipService.createPlayer(sector.playerStartPos || { x: 880, y: 1000 });
+            const player = ShipService.createPlayer(sector.playerStartPos || new Point(880, 1000));
             SectorService.buildInitialContacts(sector, player);
             context.commit('SET_SECTOR', sector);
         },

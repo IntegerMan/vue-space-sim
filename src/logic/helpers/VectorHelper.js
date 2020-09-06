@@ -1,34 +1,23 @@
+import Point from '@/logic/classes/Point';
+
 export default {
     degreesToRadians(degrees) {
         return degrees * (Math.PI / 180);
     },
 
-    calculateNewPosition(pos, headingInDegrees, thrust) {
-        const radians = this.degreesToRadians(headingInDegrees);
-        const modX = thrust * Math.sin(radians);
-        const modY = thrust * Math.cos(radians);
-
-        return { x: Math.round(pos.x + modX), y: Math.round(pos.y - modY) };
-    },
-
     /**
-     * Calculates and returns the distance between two points
-     *
-     * @param {Object} pos1 the first point
-     * @param {Object} pos2 the second point
-     * @returns {Number} the distance between the two points
+     * Calculates a new position for a given point and returns it
+     * @param {Point} pos the point to start with
+     * @param {Number} headingInDegrees the current heading
+     * @param {Number} amountToMove the distance to displace the point
+     * @returns {Point} the new position
      */
-    calculateDistance(pos1, pos2) {
-        // Pythagorean Theorum: a^2 + b^2 = c^2. Solving for c.
-        return Math.sqrt((pos1.x - pos2.x) ** 2 + (pos1.y - pos2.y) ** 2);
-    },
+    calculateNewPosition(pos, headingInDegrees, amountToMove) {
+        const radians = this.degreesToRadians(headingInDegrees);
+        const modX = amountToMove * Math.sin(radians);
+        const modY = amountToMove * Math.cos(radians);
 
-    translateRelativeToPos(contact, pos, viewPortSize) {
-        return {
-            ...contact,
-            x: contact.pos.x - pos.x + viewPortSize.x / 2,
-            y: contact.pos.y - pos.y + viewPortSize.y / 2,
-        };
+        return new Point(pos.x + modX, pos.y - modY);
     },
 
     /**
@@ -170,7 +159,7 @@ export default {
                 xPos += xPerSegment;
                 yPos += yPerSegment;
 
-                values.push({ x: Math.round(xPos), y: Math.round(yPos) });
+                values.push(new Point(xPos, yPos));
             }
         }
 
@@ -179,7 +168,15 @@ export default {
         return values;
     },
 
+    /**
+     * Checks for a circle-based collision between two points
+     * @param {Point} pos1 the first point to check
+     * @param {Number} radius1 the radius of the first point
+     * @param {Point} pos2 the second point to check
+     * @param {Number} radius2 the radius of the second object
+     * @returns {boolean} whether or not there was a collision
+     */
     checkCollision(pos1, radius1, pos2, radius2) {
-        return this.calculateDistance(pos1, pos2) < radius1 + radius2;
+        return pos1.calculateDistance(pos2) < radius1 + radius2;
     },
 };
