@@ -25,11 +25,11 @@ export default {
 
         sectorData.stations
             .map(s => this.configureStation(s))
-            .forEach(s => sector.stations.push(s));
+            .forEach(s => sector.fixedEntities.push(s));
 
         sectorData.jumpPoints
             .map(j => this.configureJumpPoint(j))
-            .forEach(s => sector.jumpPoints.push(s));
+            .forEach(s => sector.fixedEntities.push(s));
 
         sectorData.hazards
             .map(h => ({ ...h, pos: new Point(h.pos.x, h.pos.y) }))
@@ -46,15 +46,9 @@ export default {
      * @returns {Object[]} an array of tasks
      */
     aggregateSectorTasks(sector) {
-        const stationTasks = _.flatMap(sector.stations, s =>
-            s.aiTasks.map(t => ({ ...t, origin: { type: 'STATION', id: s.id } }))
+        return _.flatMap(sector.fixedEntities, s =>
+            s.aiTasks.map(t => ({ ...t, origin: { type: s.type, id: s.id } }))
         );
-
-        const jumpTasks = _.flatMap(sector.jumpPoints, j =>
-            j.aiTasks.map(t => ({ ...t, origin: { type: 'JUMP', id: j.id } }))
-        );
-
-        return _.concat([], stationTasks, jumpTasks);
     },
 
     /**
@@ -76,20 +70,20 @@ export default {
 
     /**
      * Finds a station within the sector with the specified ID and returns it.
-     * @param {Object} sector the sector to search for the station
+     * @param {Sector} sector the sector to search for the station
      * @param {Object} stationId the station ID
-     * @returns {Object | null} the station or null if no station could be found
+     * @returns {FixedEntity | null} the station or null if no station could be found
      */
     findStation(sector, stationId) {
-        return sector.stations.find(s => s.id === stationId);
+        return sector.fixedEntities.find(s => s.id === stationId);
     },
 
     /**
      * Finds the specified destination within the sector and returns it. Some tasks have station destinations
      * while others have more complex constructs
-     * @param {Object} sector the sector to search for the referenced destination
+     * @param {Sector} sector the sector to search for the referenced destination
      * @param {Object} task the task to look for the destination of
-     * @returns {Object | null} the requested destination, or null if no destination could be found
+     * @returns {FixedEntity | null} the requested destination, or null if no destination could be found
      */
     findDestination(sector, task) {
         if (task.stationId) {
@@ -102,9 +96,9 @@ export default {
 
     /**
      * Builds and returns a ship for the specified task in the sector.
-     * @param {Object} sector the sector of space within the game world
+     * @param {Sector} sector the sector of space within the game world
      * @param {*} task the AI mission that the ship will fulfill
-     * @returns {Object | null} the ship that was generated or null if there was an error generating
+     * @returns {MobileEntity | null} the ship that was generated or null if there was an error generating
      */
     generateShipForTask(sector, task) {
         // Look up relevant information
@@ -155,7 +149,6 @@ export default {
     getRandomTasksForSector(sector, maxTasks) {
         return _.take(_.shuffle(this.aggregateSectorTasks(sector)), maxTasks);
     },
-
     buildInitialContacts(sector, player) {
         sector.ships.push(player);
 
@@ -164,7 +157,11 @@ export default {
             .filter(s => s)
             .forEach(contact => sector.ships.push(contact));
     },
-
+    /**
+     * Creates a new Station entity from stored data
+     * @param {any} obj the object data from a JSON file
+     * @returns {FixedEntity} the created entity
+     */
     configureStation(obj) {
         const station = new FixedEntity(
             new Point(obj.pos.x, obj.pos.y),
@@ -182,7 +179,7 @@ export default {
         return station;
     },
     /**
-     * Creates a new Jump Point entity from stored data representing a jump point
+     * Creates a new Jump Point entity from stored data
      * @param {any} obj the object data from a JSON file
      * @returns {FixedEntity} the created entity
      */

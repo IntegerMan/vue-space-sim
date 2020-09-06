@@ -114,7 +114,7 @@ export default {
         const centerPos = scanningObject.pos;
         const range = this.calculateSensorRange(scanningObject);
 
-        const entities = _.concat(sector.ships, ...sector.jumpPoints, ...sector.stations);
+        const entities = _.concat(sector.ships, ...sector.fixedEntities);
 
         return entities.filter(
             c => !this.isMobile(c) || c.isPlayer || centerPos.calculateDistance(c.pos) <= range

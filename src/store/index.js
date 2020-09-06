@@ -37,7 +37,7 @@ export default new Vuex.Store({
         },
         allEntities(state, getters) {
             const sector = getters.currentSector;
-            return _.concat(sector.ships, ...sector.jumpPoints, ...sector.stations);
+            return _.concat(sector.ships, ...sector.fixedEntities);
         },
     },
     actions: {

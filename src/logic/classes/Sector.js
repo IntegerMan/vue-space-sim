@@ -3,8 +3,7 @@ import Point from '@/logic/classes/Point';
 export default class Sector {
     constructor(sectorData) {
         this.ships = [];
-        this.stations = [];
-        this.jumpPoints = [];
+        this.fixedEntities = [];
         this.hazards = [];
 
         if (sectorData.playerStartPos) {

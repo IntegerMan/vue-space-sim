@@ -9,7 +9,7 @@ export default {
      * @param {String} shipId the unique identifier for the ship template
      * @param {Point} pos the initial position of the ship
      * @param {any} classification the classification of the ship
-     * @returns {Object|null} the newly created ship
+     * @returns {MobileEntity|null} the newly created ship
      */
     buildFromTemplate(shipId, pos, classification) {
         const template = Ships.find(s => s.id === shipId);
