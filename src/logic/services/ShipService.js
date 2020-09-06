@@ -4,19 +4,9 @@ import _ from 'lodash';
 import ShipDefinitionService from './ShipDefinitionService';
 import ComponentService from './ComponentService';
 import RandomService from './RandomService';
-import SectorEntity from '@/logic/classes/SectorEntity';
-import Point from '@/logic/classes/Point';
+import MobileEntity from '@/logic/classes/MobileEntity';
 
 export default {
-    createContact(configureFunc, classification, pos) {
-        const contact = new SectorEntity(pos, classification);
-
-        if (configureFunc) {
-            configureFunc(contact);
-        }
-
-        return contact;
-    },
     createShip(configureFunc, classification, shipType, pos) {
         const contact = ShipDefinitionService.buildFromTemplate(shipType, pos, classification);
 
@@ -50,46 +40,22 @@ export default {
         );
     },
     createProjectile(owner, pos, heading, projectileInfo) {
-        const configureFunc = proj => {
-            proj.contactType = ContactType.MISSILE;
-            proj.owner = owner.id;
-            proj.heading = heading;
-            proj.desiredHeading = heading;
-            proj.throttle = 100;
-            proj.id = 'proj-' + owner.id + '-' + RandomService.randomInt(0, 9999);
-            proj.desiredThrottle = 100;
-            proj.size = projectileInfo.size;
-            proj.ticksLeft = projectileInfo.maxTicks;
-            proj.thrust = projectileInfo.thrust;
-            proj.name = projectileInfo.name || 'v';
-            proj.navTarget = { x: -900, y: -900 }; // TODO: Blatant hack to avoid despawning
-        };
-        return this.createContact(configureFunc, owner.classification, pos);
-    },
-    configureStatic(obj) {
-        obj.code = obj.code || '';
-        obj.heading = 0;
-        obj.desiredHeading = 0;
-        obj.throttle = 0;
-        obj.desiredThrottle = 0;
-        obj.pos = new Point(obj.pos.x, obj.pos.y);
-    },
-    configureStation(obj) {
-        this.configureStatic(obj);
+        const proj = new MobileEntity(pos, owner.classification);
 
-        obj.type = 'STATION';
-        obj.contactType = ContactType.STATION;
-        obj.size = this.parseTier(obj);
-        obj.classification = this.parseOwner(obj);
-    },
-    configureJumpPoint(obj) {
-        this.configureStatic(obj);
+        proj.contactType = ContactType.MISSILE;
+        proj.owner = owner.id;
+        proj.heading = heading;
+        proj.desiredHeading = heading;
+        proj.throttle = 100;
+        proj.id = 'proj-' + owner.id + '-' + RandomService.randomInt(0, 9999);
+        proj.desiredThrottle = 100;
+        proj.size = projectileInfo.size;
+        proj.ticksLeft = projectileInfo.maxTicks;
+        proj.thrust = projectileInfo.thrust;
+        proj.name = projectileInfo.name || 'v';
+        proj.navTarget = { x: -900, y: -900 }; // TODO: Blatant hack to avoid despawning
 
-        obj.name = obj.name || 'Jump Point';
-        obj.type = 'JUMP_POINT';
-        obj.contactType = ContactType.JUMP_POINT;
-        obj.size = 25;
-        obj.classification = Classification.NEUTRAL;
+        return proj;
     },
 
     parseOwner(obj) {

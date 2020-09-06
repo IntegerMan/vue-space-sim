@@ -8,32 +8,40 @@ import RandomService from './RandomService.js';
 
 import _ from 'lodash';
 import Point from '@/logic/classes/Point';
+import Sector from '@/logic/classes/Sector';
+import ContactType from '@/logic/enums/ContactType';
 
 export default {
     loadSector(sectorId) {
-        const sector = SectorData.find(s => s.id === sectorId);
+        const sectorData = SectorData.find(s => s.id === sectorId);
 
-        if (!sector) {
+        if (!sectorData) {
             console.warn('Could not find sector', sectorId, SectorData);
             return null;
         }
 
-        sector.ships = [];
-        sector.timeBetweenShipSpawn = sector.minTimeBetweenShipSpawn;
+        const sector = new Sector(sectorData);
 
-        sector.stations.forEach(s => ShipService.configureStation(s));
-        sector.jumpPoints.forEach(j => ShipService.configureJumpPoint(j));
+        sectorData.stations
+            .map(s => this.configureStation(s))
+            .forEach(s => sector.stations.push(s));
 
-        if (sector.playerStartPos) {
-            sector.playerStartPos = new Point(sector.playerStartPos.x, sector.playerStartPos.y);
-        }
+        sectorData.jumpPoints
+            .map(j => this.configureJumpPoint(j))
+            .forEach(s => sector.jumpPoints.push(s));
+
+        sectorData.hazards
+            .map(h => ({...h, pos: new Point(h.pos.x, h.pos.y)}))
+            .forEach(h => sector.hazards.push(h));
+
+        console.debug('Loaded sector', sector, sectorData);
 
         return sector;
     },
     /**
      * Gathers all potential AI mission tasks in the sector and returns them in a single array
      *
-     * @param {Object} sector the sector that all tasks should be gathered from
+     * @param {Sector} sector the sector that all tasks should be gathered from
      * @returns {Object[]} an array of tasks
      */
     aggregateSectorTasks(sector) {
@@ -118,7 +126,7 @@ export default {
             heading = VectorHelper.getHeadingInDegrees(origin.pos, pos); // Aim away from launch station
         }
 
-        const ship = ShipService.createShip(
+        return ShipService.createShip(
             s => {
                 s.heading = heading;
                 s.desiredHeading = heading;
@@ -133,7 +141,6 @@ export default {
             // TODO: Should have an appropriate mission registered
             pos
         );
-        return ship;
     },
 
     /**
@@ -155,5 +162,36 @@ export default {
             .map(task => this.generateShipForTask(sector, task))
             .filter(s => s)
             .forEach(contact => sector.ships.push(contact));
+    },
+
+    configureStatic(obj) {
+        obj.code = obj.code || '';
+        obj.heading = 0;
+        obj.desiredHeading = 0;
+        obj.throttle = 0;
+        obj.desiredThrottle = 0;
+        obj.pos = new Point(obj.pos.x, obj.pos.y);
+    },
+    configureStation(obj) {
+        this.configureStatic(obj);
+
+        obj.type = 'STATION';
+        obj.contactType = ContactType.STATION;
+        obj.size = ShipService.parseTier(obj);
+        obj.classification = ShipService.parseOwner(obj);
+
+        return obj;
+    },
+    configureJumpPoint(obj) {
+        console.debug('configure Jump Point', obj);
+        this.configureStatic(obj);
+
+        obj.name = obj.name || 'Jump Point';
+        obj.type = 'JUMP_POINT';
+        obj.contactType = ContactType.JUMP_POINT;
+        obj.size = 25;
+        obj.classification = Classification.NEUTRAL;
+
+        return obj;
     },
 };
