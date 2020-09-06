@@ -1,6 +1,6 @@
 import Ships from '../../assets/data/Ships.json';
 import ComponentService from './ComponentService.js';
-import ShipEntity from '@/logic/classes/ShipEntity';
+import ShipEntity from '@/logic/classes/Entities/ShipEntity';
 
 export default {
     /**

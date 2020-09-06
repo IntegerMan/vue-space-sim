@@ -4,7 +4,7 @@ import _ from 'lodash';
 import ShipDefinitionService from './ShipDefinitionService';
 import ComponentService from './ComponentService';
 import RandomService from './RandomService';
-import ProjectileEntity from '@/logic/classes/ProjectileEntity';
+import ProjectileEntity from '@/logic/classes/Entities/ProjectileEntity';
 
 export default {
     createShip(configureFunc, classification, shipType, pos) {

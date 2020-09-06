@@ -43,6 +43,10 @@ export default {
 
         return sector;
     },
+    /**
+     * Spawns entities for a random task inside of the sector and adds the entities to the sector.
+     * @param {Sector} sector the sector
+     */
     spawnForRandomTask(sector) {
         SectorService.getRandomTasksForSector(sector, 1)
             .map(task => SectorService.generateShipForTask(sector, task))

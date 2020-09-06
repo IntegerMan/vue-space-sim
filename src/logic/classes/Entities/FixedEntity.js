@@ -1,4 +1,4 @@
-import SectorEntity from '@/logic/classes/SectorEntity';
+import SectorEntity from '@/logic/classes/Entities/SectorEntity';
 
 export default class FixedEntity extends SectorEntity {
     /**

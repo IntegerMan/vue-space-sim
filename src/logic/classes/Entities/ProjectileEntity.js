@@ -1,5 +1,5 @@
 import VectorHelper from '@/logic/helpers/VectorHelper';
-import MobileEntity from '@/logic/classes/MobileEntity';
+import MobileEntity from '@/logic/classes/Entities/MobileEntity';
 
 /**
  *  Represents a mobile object in the game world in a specific sector

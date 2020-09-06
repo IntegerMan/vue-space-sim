@@ -1,4 +1,5 @@
 import SimulationService from '../logic/services/SimulationService.js';
+import UIState from '@/logic/classes/UIState';
 
 const simulation = {
     namespaced: true,
@@ -13,13 +14,13 @@ const simulation = {
             commit('SET_SPEED', 1);
         },
         advance(context) {
-            const uiFlags = {
-                isFiring: context.rootGetters['combat/isFiring'],
-                aimPoint: context.rootGetters['combat/aimPoint'],
-            };
+            const uiState = new UIState(
+                context.rootGetters['combat/isFiring'],
+                context.rootGetters['combat/aimPoint']
+            );
 
             const sector = context.rootGetters.currentSector;
-            const newSector = SimulationService.simulateAll(sector, uiFlags);
+            const newSector = SimulationService.simulateAll(sector, uiState);
 
             context.commit('SET_SECTOR', newSector, { root: true });
             context.dispatch('simulationAdvanced', sector, { root: true });

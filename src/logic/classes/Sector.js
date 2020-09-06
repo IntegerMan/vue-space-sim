@@ -21,6 +21,7 @@ export default class Sector {
 
         this.size = sectorData.size;
 
+        this.minTimeBetweenShipSpawn = sectorData.minTimeBetweenShipSpawn;
         this.timeBetweenShipSpawn = sectorData.minTimeBetweenShipSpawn;
     }
 }

@@ -10,7 +10,7 @@ import _ from 'lodash';
 import Point from '@/logic/classes/Point';
 import Sector from '@/logic/classes/Sector';
 import ContactType from '@/logic/enums/ContactType';
-import FixedEntity from '@/logic/classes/FixedEntity';
+import FixedEntity from '@/logic/classes/Entities/FixedEntity';
 
 export default {
     loadSector(sectorId) {
