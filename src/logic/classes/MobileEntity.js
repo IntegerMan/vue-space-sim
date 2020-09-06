@@ -10,7 +10,7 @@ export default class MobileEntity extends SectorEntity {
     /**
      * Creates a new entity
      * @param {Point} pos the point in the game world
-     * @param classification
+     * @param {Number} classification
      */
     constructor(pos, classification) {
         super(pos, classification);
@@ -19,6 +19,7 @@ export default class MobileEntity extends SectorEntity {
         this.desiredHeading = 0;
         this.throttle = 0;
         this.desiredThrottle = 0;
+        this.components = [];
     }
 
     /**

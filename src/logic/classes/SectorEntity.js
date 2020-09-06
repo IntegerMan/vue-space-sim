@@ -7,12 +7,11 @@ export default class SectorEntity {
     /**
      * Creates a new entity
      * @param {Point} pos the point in the game world
-     * @param classification
+     * @param {Number} classification
      */
     constructor(pos, classification) {
         this.pos = pos;
         this.classification = classification;
-        this.components = [];
         this.id = -1;
         this.code = '';
         this.name = 'TODO';

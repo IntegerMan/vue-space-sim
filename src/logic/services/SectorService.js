@@ -10,6 +10,7 @@ import _ from 'lodash';
 import Point from '@/logic/classes/Point';
 import Sector from '@/logic/classes/Sector';
 import ContactType from '@/logic/enums/ContactType';
+import FixedEntity from '@/logic/classes/FixedEntity';
 
 export default {
     loadSector(sectorId) {
@@ -31,7 +32,7 @@ export default {
             .forEach(s => sector.jumpPoints.push(s));
 
         sectorData.hazards
-            .map(h => ({...h, pos: new Point(h.pos.x, h.pos.y)}))
+            .map(h => ({ ...h, pos: new Point(h.pos.x, h.pos.y) }))
             .forEach(h => sector.hazards.push(h));
 
         console.debug('Loaded sector', sector, sectorData);
@@ -182,16 +183,23 @@ export default {
 
         return obj;
     },
+    /**
+     * Creates a new Jump Point entity from stored data representing a jump point
+     * @param {any} obj the object data from a JSON file
+     * @returns {FixedEntity} the created entity
+     */
     configureJumpPoint(obj) {
-        console.debug('configure Jump Point', obj);
-        this.configureStatic(obj);
+        const jumpPoint = new FixedEntity(obj.pos, Classification.NEUTRAL); // TODO: May want a specific class
 
-        obj.name = obj.name || 'Jump Point';
-        obj.type = 'JUMP_POINT';
-        obj.contactType = ContactType.JUMP_POINT;
-        obj.size = 25;
-        obj.classification = Classification.NEUTRAL;
+        jumpPoint.name = obj.name || 'Jump Point';
+        jumpPoint.type = 'JUMP_POINT';
+        jumpPoint.contactType = ContactType.JUMP_POINT;
+        jumpPoint.size = 25;
+        jumpPoint.code = obj.id;
+        jumpPoint.aiTasks = obj.aiTasks;
+        jumpPoint.id = obj.id;
+        // TODO:Ignoring destPos
 
-        return obj;
+        return jumpPoint;
     },
 };
