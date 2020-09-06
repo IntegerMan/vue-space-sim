@@ -13,6 +13,10 @@ export default {
      * @returns {Point} the new position
      */
     calculateNewPosition(pos, headingInDegrees, amountToMove) {
+        if (amountToMove === undefined) {
+            throw 'amountToMove cannot be undefined';
+        }
+
         const radians = this.degreesToRadians(headingInDegrees);
         const modX = amountToMove * Math.sin(radians);
         const modY = amountToMove * Math.cos(radians);

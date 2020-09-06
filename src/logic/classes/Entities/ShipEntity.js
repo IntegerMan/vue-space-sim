@@ -1,6 +1,5 @@
 import VectorHelper from '@/logic/helpers/VectorHelper';
 import ComponentService from '@/logic/services/ComponentService';
-import ShipService from '@/logic/services/ShipService';
 import MobileEntity from '@/logic/classes/Entities/MobileEntity';
 
 /**
@@ -15,6 +14,9 @@ export default class ShipEntity extends MobileEntity {
     constructor(pos, classification) {
         super(pos, classification);
 
+        this.throttle = 25;
+        this.desiredThrottle = this.throttle;
+
         this.components = [];
     }
 
@@ -24,18 +26,18 @@ export default class ShipEntity extends MobileEntity {
      * @returns {SimContext} the updated context
      */
     simulate(context) {
-        context = this.adjustSystems(context);
-        context = this.updatePosition(context);
-        context = this.launchProjectiles(context);
+        if (this.components.length <= 0) {
+            console.warn('No components are present on ship', this);
+        }
+
+        this.adjustSystems();
+        this.updatePosition(context);
+        this.launchProjectiles(context);
+
         return context;
     }
 
-    adjustSystems(context) {
-        // Adjust steering for AI Ships with nav targets
-        if (!this.isPlayer && this.navTarget) {
-            this.desiredHeading = VectorHelper.getHeadingInDegrees(this.pos, this.navTarget);
-        }
-
+    adjustHeading() {
         this.heading = VectorHelper.steerTowardsHeading(
             this.heading,
             this.desiredHeading,
@@ -44,7 +46,8 @@ export default class ShipEntity extends MobileEntity {
                 r => r.turnSpeed
             )
         );
-
+    }
+    adjustThrottle() {
         this.throttle = VectorHelper.moveTowardsSetThrottle(
             this.throttle,
             this.desiredThrottle,
@@ -53,11 +56,8 @@ export default class ShipEntity extends MobileEntity {
                 e => e.maxAcceleration
             )
         );
-
-        return context;
     }
-
-    updatePosition(context) {
+    adjustThrust() {
         // Figure out thrust for things that have engines
         const engines = ComponentService.getComponentsOfType(this.components, 'ENGINE');
         if (engines.length) {
@@ -68,46 +68,38 @@ export default class ShipEntity extends MobileEntity {
             );
             this.thrust = throttlePercent * bestThrust;
         }
+    }
 
+    adjustSystems() {
+        // Adjust steering for AI Ships with nav targets
+        if (this.navTarget) {
+            this.desiredHeading = VectorHelper.getHeadingInDegrees(this.pos, this.navTarget);
+        }
+
+        this.adjustHeading();
+        this.adjustThrottle();
+        this.adjustThrust();
+    }
+
+    updateNavTarget() {
+        if (this.navTarget && this.pos.calculateDistance(this.navTarget) <= 5) {
+            this.navTarget = undefined;
+        }
+    }
+
+    updatePosition(context) {
         // Advance the ship given the current position, thrust, and heading
         let newPos = VectorHelper.calculateNewPosition(this.pos, this.heading, this.thrust);
         this.moveObject(newPos, context);
 
-        // Check to see if we've reached our current nav target
-        if (this.navTarget && this.pos.calculateDistance(this.navTarget) <= 5) {
-            this.navTarget = undefined;
-        }
+        this.updateNavTarget();
 
         // If we don't have a navigational target anymore, we must have arrived at our destination. Land / jump.
-        if (!this.isPlayer && !this.navTarget) {
+        if (!this.navTarget) {
             context.contact = null;
             this.isDead = true;
         }
-
-        // Return a modified version of the ship
-        return context;
     }
 
-    launchProjectiles(context) {
-        const uiState = context.uiState;
-
-        if (uiState.isFiring && this.id === 'PLAYER') {
-            const weapons = ComponentService.getActiveComponentsOfType(this.components, 'WEAPON');
-
-            weapons.forEach(w => {
-                const heading = VectorHelper.clampDegrees(this.heading + uiState.aimPoint);
-
-                const pos = VectorHelper.calculateNewPosition(
-                    this.pos, // TODO: May need to offset this
-                    heading,
-                    this.size * 3 + w.projectileInfo.size
-                );
-
-                const proj = ShipService.createProjectile(this, pos, heading, w.projectileInfo);
-                context.newContacts.push(proj);
-            });
-        }
-
-        return context;
-    }
+    launchProjectiles() {}
 }

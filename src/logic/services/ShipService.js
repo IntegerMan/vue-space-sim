@@ -1,44 +1,11 @@
 import ContactType from '../enums/ContactType';
 import Classification from '../enums/Classification';
 import _ from 'lodash';
-import ShipDefinitionService from './ShipDefinitionService';
 import ComponentService from './ComponentService';
 import RandomService from './RandomService';
 import ProjectileEntity from '@/logic/classes/Entities/ProjectileEntity';
 
 export default {
-    createShip(configureFunc, classification, shipType, pos) {
-        const contact = ShipDefinitionService.buildFromTemplate(shipType, pos, classification);
-
-        contact.id = -1;
-        contact.isPlayer = false;
-        contact.type = 'SHIP';
-        contact.code = '';
-        contact.contactType = shipType;
-        contact.throttle = 25;
-        contact.desiredThrottle = contact.throttle;
-        contact.navTarget = undefined;
-        contact.heading = 0;
-        contact.desiredHeading = 0;
-
-        if (configureFunc) {
-            configureFunc(contact);
-        }
-
-        return contact;
-    },
-    createPlayer(pos) {
-        return this.createShip(
-            s => {
-                s.isPlayer = true;
-                s.code = 'CVS-65';
-                s.id = 'PLAYER';
-            },
-            Classification.FRIENDLY,
-            'CARRIER',
-            pos
-        );
-    },
     createProjectile(owner, pos, heading, projectileInfo) {
         const proj = new ProjectileEntity(pos, owner.classification, projectileInfo);
 
@@ -102,7 +69,7 @@ export default {
     },
     /**
      * Calculates contacts that should be visible given the scanning ship or station's sensors
-     * @param {Object} sector the current sector
+     * @param {Sector} sector the current sector
      * @param {SectorEntity} scanningObject the object doing the scanning
      * @returns {Object[]} all visible objects
      */

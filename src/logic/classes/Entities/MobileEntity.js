@@ -17,6 +17,7 @@ export default class MobileEntity extends SectorEntity {
         this.desiredHeading = 0;
         this.throttle = 0;
         this.desiredThrottle = 0;
+        this.thrust = 0;
     }
 
     /**

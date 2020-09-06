@@ -13,6 +13,8 @@ import _ from 'lodash';
 
 import Sector from '../logic/enums/Sector';
 import Point from '@/logic/classes/Point';
+import PlayerEntity from '@/logic/classes/Entities/PlayerEntity';
+import ShipDefinitionService from '@/logic/services/ShipDefinitionService';
 
 Vue.use(Vuex);
 
@@ -46,8 +48,10 @@ export default new Vuex.Store({
         },
         loadSector(context, sectorId) {
             const sector = SectorService.loadSector(sectorId);
-            const player = ShipService.createPlayer(sector.playerStartPos || new Point(880, 1000));
+            const player = new PlayerEntity(sector.playerStartPos || new Point(880, 1000));
+            ShipDefinitionService.buildFromTemplate(player);
             SectorService.buildInitialContacts(sector, player);
+            console.debug('Sector Loaded', sector);
             context.commit('SET_SECTOR', sector);
         },
         toggleComponent(context, payload) {

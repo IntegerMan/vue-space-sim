@@ -10,6 +10,10 @@ export default class Point {
      * @param {Number} y the Y Position
      */
     constructor(x, y) {
+        if (isNaN(x) || isNaN(y)) {
+            throw `Tried to create a Point at ${x}, ${y}`;
+        }
+
         this.x = Math.round(x);
         this.y = Math.round(y);
 

@@ -11,6 +11,8 @@ import Point from '@/logic/classes/Point';
 import Sector from '@/logic/classes/Sector';
 import ContactType from '@/logic/enums/ContactType';
 import FixedEntity from '@/logic/classes/Entities/FixedEntity';
+import ShipEntity from '@/logic/classes/Entities/ShipEntity';
+import ShipDefinitionService from '@/logic/services/ShipDefinitionService';
 
 export default {
     loadSector(sectorId) {
@@ -103,21 +105,19 @@ export default {
             heading = VectorHelper.getHeadingInDegrees(origin.pos, pos); // Aim away from launch station
         }
 
-        return ShipService.createShip(
-            s => {
-                s.heading = heading;
-                s.desiredHeading = heading;
-                s.id = Math.round(Math.random() * 8999) + 1000; // TODO: Not guaranteed to be unique
+        const entity = new ShipEntity(pos, RandomService.randomEnum(Classification));
+        entity.contactType = task.shipType;
+        ShipDefinitionService.buildFromTemplate(entity);
 
-                if (destination) {
-                    s.navTarget = destination.pos;
-                }
-            },
-            RandomService.randomEnum(Classification), // TODO: Should have an appropriate classification
-            task.shipType,
-            // TODO: Should have an appropriate mission registered
-            pos
-        );
+        entity.heading = heading;
+        entity.desiredHeading = heading;
+        entity.id = Math.round(Math.random() * 8999) + 1000; // TODO: Not guaranteed to be unique
+
+        if (destination) {
+            entity.navTarget = destination.pos;
+        }
+
+        return entity;
     },
 
     /**
