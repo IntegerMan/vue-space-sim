@@ -18,6 +18,7 @@ export default class ProjectileEntity extends MobileEntity {
         this.ticksLeft = projectileInfo.maxTicks;
         this.thrust = projectileInfo.thrust;
         this.name = projectileInfo.name || 'v';
+        this.health = 1;
     }
 
     adjustSystems(context) {
@@ -41,5 +42,11 @@ export default class ProjectileEntity extends MobileEntity {
 
         // Return a modified version of the ship
         return context;
+    }
+
+    damage(amount) {
+        this.health -= amount;
+        this.isDead = this.health <= 0;
+        // TODO: Spawning an explosion might be a good idea.
     }
 }

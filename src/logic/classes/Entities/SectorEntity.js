@@ -33,7 +33,7 @@ export default class SectorEntity {
      * Determines whether or not this object can move
      * @returns {boolean}
      */
-    isMobile(){
+    isMobile() {
         return false;
     }
 
@@ -54,4 +54,21 @@ export default class SectorEntity {
         return false;
     }
 
+    /**
+     * Gets the display name of this entity for logging purposes
+     * @returns {string}
+     */
+    displayName() {
+        return `${this.name} (${this.id})`;
+    }
+
+    /**
+     * Applies damage to this entity
+     * @param {Number} amount
+     */
+    damage(amount) {
+        console.warn(
+            `${this.displayName()} received ${amount} damage but no implementation was present to handle it`
+        );
+    }
 }

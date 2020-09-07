@@ -102,4 +102,12 @@ export default class ShipEntity extends MobileEntity {
     }
 
     launchProjectiles() {}
+
+    damage(amount) {
+        const hull = this.components[0];
+
+        hull.health -= amount;
+
+        this.isDead = hull.health <= 0;
+    }
 }

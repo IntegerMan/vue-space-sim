@@ -173,4 +173,17 @@ export default {
 
         return jumpPoint;
     },
+    /**
+     * Spawns entities for a random task inside of the sector and adds the entities to the sector.
+     * @param {Sector} sector the sector
+     */
+    spawnForRandomTask(sector) {
+        this.getRandomTasksForSector(sector, 1)
+            .map(task => this.generateShipForTask(sector, task))
+            .filter(s => s)
+            .forEach(s => {
+                sector.ships.push(s);
+                sector.timeBetweenShipSpawn = sector.minTimeBetweenShipSpawn;
+            });
+    },
 };

@@ -1,5 +1,6 @@
 import SectorEntity from '@/logic/classes/Entities/SectorEntity';
 import VectorHelper from '@/logic/helpers/VectorHelper';
+import CombatService from '@/logic/services/CombatService';
 
 /**
  *  Represents a mobile object in the game world in a specific sector
@@ -40,34 +41,34 @@ export default class MobileEntity extends SectorEntity {
     }
 
     moveObject(newPos, context) {
-        if (this.pos !== newPos) {
-            // Generate intermediate points
-            const points = VectorHelper.generatePointArray(this.pos, newPos, 4);
-
-            let collided = false;
-            for (const pos of points) {
-                for (const c of context.otherContacts) {
-                    if (VectorHelper.checkCollision(pos, this.size, c.pos, c.size)) {
-                        console.log('Collision detected', this, c);
-                        // TODO: This should probably damage both entities
-                        collided = true;
-                        break;
-                    }
-                }
-
-                if (collided) {
-                    break;
-                } else {
-                    newPos = pos;
+        if (this.pos === newPos) {
+            return;
+        }
+        const points = VectorHelper.generatePointArray(this.pos, newPos, 4);
+        for (const pos of points) {
+            // Check this point for any conflicts
+            for (const contact of context.otherContacts) {
+                if (VectorHelper.checkCollision(pos, this.size, contact.pos, contact.size)) {
+                    this.collidedWith(contact);
+                    return;
                 }
             }
 
             // Actually move
-            this.pos = newPos;
+            this.pos = pos;
         }
     }
 
     isMobile() {
         return true;
+    }
+
+    /**
+     * Responds to a collision between two entities
+     * @param {SectorEntity} otherEntity the entity this entity collided into
+     */
+    collidedWith(otherEntity) {
+        console.log(`${this.displayName()} collided with ${otherEntity.displayName()}`);
+        CombatService.applyCollisionDamage(this, otherEntity);
     }
 }
