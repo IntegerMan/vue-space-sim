@@ -62,6 +62,8 @@ export default {
         return this.flattenedComponents(components).find(c => c === target);
     },
     findComponentTemplate(componentId) {
+        if (!componentId) throw 'Cannot find an undefined component template';
+
         for (let key in Components) {
             const values = Components[key];
 

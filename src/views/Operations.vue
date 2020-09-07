@@ -15,7 +15,6 @@
 
 <script>
 import ComponentDisplay from '../components/ComponentDisplay.vue';
-import ComponentService from '../logic/services/ComponentService.js';
 
 export default {
     name: 'Operations',
@@ -25,9 +24,7 @@ export default {
     computed: {
         playerComponents() {
             const player = this.$store.getters.playerShip;
-            const components = ComponentService.flattenedComponents(player.components);
-
-            return components;
+            return player.getAllComponents();
         },
     },
 };

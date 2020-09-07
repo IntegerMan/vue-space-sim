@@ -17,7 +17,23 @@ export default class ShipEntity extends MobileEntity {
         this.throttle = 25;
         this.desiredThrottle = this.throttle;
 
-        this.components = [];
+        this.hullPart = null;
+        this.enginePart = null;
+        this.thrusterPart = null;
+        this.jumpDrivePart = null;
+        this.weaponPart = null;
+        this.sensorsPart = null;
+    }
+
+    getAllComponents() {
+        return [
+            this.hullPart,
+            this.enginePart,
+            this.thrusterPart,
+            this.jumpDrivePart,
+            this.weaponPart,
+            this.sensorsPart,
+        ].filter(c => c);
     }
 
     /**
@@ -26,10 +42,6 @@ export default class ShipEntity extends MobileEntity {
      * @returns {SimContext} the updated context
      */
     simulate(context) {
-        if (this.components.length <= 0) {
-            console.warn('No components are present on ship', this);
-        }
-
         this.adjustSystems();
         this.updatePosition(context);
         this.launchProjectiles(context);
@@ -41,10 +53,7 @@ export default class ShipEntity extends MobileEntity {
         this.heading = VectorHelper.steerTowardsHeading(
             this.heading,
             this.desiredHeading,
-            ComponentService.getLargestValue(
-                ComponentService.getActiveComponentsOfType(this.components, 'RCS'),
-                r => r.turnSpeed
-            )
+            this.thrusterPart.effectiveTurnSpeed()
         );
     }
     adjustThrottle() {
@@ -104,10 +113,8 @@ export default class ShipEntity extends MobileEntity {
     launchProjectiles() {}
 
     damage(amount) {
-        const hull = this.components[0];
+        this.hullPart.health -= amount;
 
-        hull.health -= amount;
-
-        this.isDead = hull.health <= 0;
+        this.isDead = this.hullPart.health <= 0;
     }
 }

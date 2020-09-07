@@ -9,8 +9,6 @@
 </template>
 
 <script>
-import ComponentService from '../logic/services/ComponentService.js';
-
 export default {
     props: {
         type: {
@@ -28,16 +26,10 @@ export default {
     },
     computed: {
         isReady() {
-            return (
-                ComponentService.getActiveComponentsOfType(this.owner.components, this.type)
-                    .length > 0
-            );
+            return this.owner.getAllComponents().find(c => c.type === this.type && c.isOn === true);
         },
         isOffline() {
-            return (
-                ComponentService.getActiveComponentsOfType(this.owner.components, this.type)
-                    .length <= 0
-            );
+            return !this.owner.getAllComponents().find(c => c.type === this.type && c.isOn === true);
         },
     },
 };

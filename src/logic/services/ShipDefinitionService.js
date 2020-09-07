@@ -1,5 +1,7 @@
 import Ships from '../../assets/data/Ships.json';
 import ComponentService from './ComponentService.js';
+import HullPart from '@/logic/classes/Parts/HullPart';
+import ThrusterPart from '@/logic/classes/Parts/ThrusterPart';
 
 export default {
     /**
@@ -19,7 +21,10 @@ export default {
         entity.id = template.id;
         entity.name = template.name;
         entity.size = template.size;
-        entity.components = template.components.map(c => this.initializeComponent({ ...c }));
+
+        console.debug(template);
+        entity.hullPart = new HullPart(ComponentService.findComponentTemplate(template.core));
+        entity.thrusterPart = new ThrusterPart(ComponentService.findComponentTemplate(template.thrusters));
 
         console.debug(`Built ship ${entity.contactType}`, entity);
 

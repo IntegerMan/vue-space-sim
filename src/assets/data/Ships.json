@@ -3,132 +3,54 @@
         "id": "SCOUT",
         "name": "Scout",
         "size": 6,
-        "components": [
-            {
-                "componentId": "CORE_SCOUT",
-                "children": [
-                    {
-                        "componentId": "ENGINE_SCOUT"
-                    },
-                    {
-                        "componentId": "RCS_SCOUT"
-                    },
-                    {
-                        "componentId": "JUMP_XS"
-                    },
-                    {
-                        "componentId": "CPU_SCOUT"
-                    },
-                    {
-                        "componentId": "SENSORS_SCOUT"
-                    }
-                ]
-            }
-        ]
+        "core": "CORE_SCOUT",
+        "engine": "ENGINE_SCOUT",
+        "thrusters": "RCS_SCOUT",
+        "jump": "JUMP_XS",
+        "cpu": "CPU_SCOUT",
+        "sensors": "SENSORS_SCOUT"
     },
     {
         "id": "FIGHTER",
         "name": "Fighter",
         "size": 9,
-        "components": [
-            {
-                "componentId": "CORE_FIGHTER",
-                "children": [
-                    {
-                        "componentId": "ENGINE_FIGHTER"
-                    },
-                    {
-                        "componentId": "RCS_FIGHTER"
-                    },
-                    {
-                        "componentId": "CPU_FIGHTER"
-                    },
-                    {
-                        "componentId": "SENSORS_FIGHTER"
-                    }
-                ]
-            }
-        ]
+        "core": "CORE_FIGHTER",
+        "engine": "ENGINE_FIGHTER",
+        "thrusters": "RCS_FIGHTER",
+        "cpu": "CPU_FIGHTER",
+        "sensors": "SENSORS_FIGHTER"
     },
     {
         "id": "CARRIER",
         "name": "Carrier",
         "size": 25,
-        "components": [
-            {
-                "componentId": "CORE_CAPSHIP",
-                "children": [
-                    {
-                        "componentId": "ENGINE_CAPSHIP"
-                    },
-                    {
-                        "componentId": "RCS_CAPSHIP"
-                    },
-                    {
-                        "componentId": "JUMP_LG"
-                    },
-                    {
-                        "componentId": "CPU_CAPSHIP"
-                    },
-                    {
-                        "componentId": "SENSORS_CAPSHIP"
-                    },
-                    {
-                        "componentId": "GUN_CAPSHIP"
-                    }
-                ]
-            }
-        ]
+        "core": "CORE_CAPSHIP",
+        "engine": "ENGINE_CAPSHIP",
+        "thrusters": "RCS_CAPSHIP",
+        "jump": "JUMP_LG",
+        "cpu": "CPU_CAPSHIP",
+        "sensors": "SENSORS_CAPSHIP",
+        "weapons": "GUN_CAPSHIP"
     },
     {
         "id": "FREIGHTER",
         "name": "Freighter",
         "size": 20,
-        "components": [
-            {
-                "componentId": "CORE_FREIGHTER",
-                "children": [
-                    {
-                        "componentId": "ENGINE_FREIGHTER"
-                    },
-                    {
-                        "componentId": "RCS_FREIGHTER"
-                    },
-                    {
-                        "componentId": "JUMP_LG"
-                    },
-                    {
-                        "componentId": "CPU_CIVILIAN"
-                    },
-                    {
-                        "componentId": "SENSORS_CIVILIAN"
-                    }
-                ]
-            }
-        ]
+        "core": "CORE_FREIGHTER",
+        "engine": "ENGINE_FREIGHTER",
+        "thrusters": "RCS_FREIGHTER",
+        "jump": "JUMP_LG",
+        "cpu": "CPU_CIVILIAN",
+        "sensors": "SENSORS_CIVILIAN"
     },
     {
         "id": "UTILITY",
         "name": "Utility",
         "size": 12,
-        "components": [
-            {
-                "componentId": "CORE_UTILITY",
-                "children": [
-                    {
-                        "componentId": "ENGINE_UTILITY"
-                    },
-                    {
-                        "componentId": "RCS_FREIGHTER"
-                    },
-                    {
-                        "componentId": "CPU_CIVILIAN"
-                    },
-                    {
-                        "componentId": "SENSORS_CIVILIAN"
-                    }
-                ]
-            }
-        ]
+        "core": "CORE_UTILITY",
+        "engine": "ENGINE_UTILITY",
+        "thrusters": "RCS_FREIGHTER",
+        "cpu": "CPU_CIVILIAN",
+        "sensors": "SENSORS_CIVILIAN"
     }
 ]
