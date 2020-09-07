@@ -11,13 +11,13 @@ export default class ProjectileEntity extends MobileEntity {
      * @param {Number} classification
      * @param {any} projectileInfo
      */
-    constructor(pos, classification, projectileInfo) {
+    constructor(pos, classification, size, maxTicks, thrust, name) {
         super(pos, classification);
 
-        this.size = projectileInfo.size;
-        this.ticksLeft = projectileInfo.maxTicks;
-        this.thrust = projectileInfo.thrust;
-        this.name = projectileInfo.name || 'v';
+        this.size = size;
+        this.ticksLeft = maxTicks;
+        this.thrust = thrust;
+        this.name = name || 'v';
         this.health = 1;
     }
 

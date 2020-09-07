@@ -5,8 +5,8 @@ import RandomService from './RandomService';
 import ProjectileEntity from '@/logic/classes/Entities/ProjectileEntity';
 
 export default {
-    createProjectile(owner, pos, heading, projectileInfo) {
-        const proj = new ProjectileEntity(pos, owner.classification, projectileInfo);
+    createProjectile(owner, pos, heading, size, maxTicks, thrust, name) {
+        const proj = new ProjectileEntity(pos, owner.classification, size, maxTicks, thrust, name);
 
         proj.contactType = ContactType.MISSILE;
         proj.owner = owner.id;

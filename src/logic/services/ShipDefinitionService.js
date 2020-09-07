@@ -4,6 +4,7 @@ import HullPart from '@/logic/classes/Parts/HullPart';
 import ThrusterPart from '@/logic/classes/Parts/ThrusterPart';
 import EnginePart from '@/logic/classes/Parts/EnginePart';
 import SensorPart from '@/logic/classes/Parts/SensorPart';
+import WeaponPart from '@/logic/classes/Parts/WeaponPart';
 
 export default {
     /**
@@ -28,6 +29,7 @@ export default {
         entity.thrusterPart = new ThrusterPart(ComponentService.findComponentTemplate(template.thrusters));
         entity.enginePart = new EnginePart(ComponentService.findComponentTemplate(template.engines));
         entity.sensorsPart = new SensorPart(ComponentService.findComponentTemplate(template.sensors));
+        entity.weaponPart = new WeaponPart(ComponentService.findComponentTemplate(template.weapons));
 
         console.debug(`Built ship ${entity.contactType}`, entity);
 

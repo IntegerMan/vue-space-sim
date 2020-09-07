@@ -52,18 +52,12 @@ export default {
     getComponentsOfType(components, type) {
         return this.flattenedComponents(components).filter(c => c.type === type);
     },
-    getActiveComponentsOfType(components, type) {
-        return this.getComponentsOfType(components, type).filter(c => c.isOn !== false);
-    },
-    getLargestValue(components, func) {
-        return components.reduce((priorBest, comp) => Math.max(func(comp), priorBest), 0);
-    },
     findComponentRecursive(components, target) {
         return this.flattenedComponents(components).find(c => c === target);
     },
     findComponentTemplate(componentId) {
         if (!componentId) {
-          return null;
+            return null;
         }
 
         for (let key in Components) {

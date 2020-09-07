@@ -7,4 +7,8 @@ export default class EntityPart {
         this.maxHealth = componentData.maxHealth;
         this.isOn = componentData.isOn;
     }
+
+    isEmpty() {
+        return this.partId === 'EMPTY';
+    }
 }

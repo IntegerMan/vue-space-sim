@@ -1,5 +1,4 @@
 import VectorHelper from '@/logic/helpers/VectorHelper';
-import ComponentService from '@/logic/services/ComponentService';
 import ShipService from '@/logic/services/ShipService';
 import ShipEntity from '@/logic/classes/Entities/ShipEntity';
 import Classification from '@/logic/enums/Classification';
@@ -43,19 +42,27 @@ export default class PlayerEntity extends ShipEntity {
         const uiState = context.uiState;
 
         if (uiState.isFiring) {
-            const weapons = ComponentService.getActiveComponentsOfType(this.components, 'WEAPON');
+            const weapon = this.weaponPart;
 
-            weapons.forEach(w => {
-                const heading = VectorHelper.clampDegrees(this.heading + uiState.aimPoint);
+            const heading = VectorHelper.clampDegrees(this.heading + uiState.aimPoint);
 
-                const pos = VectorHelper.calculateNewPosition(
-                    this.pos, // TODO: May need to offset this
+            const pos = VectorHelper.calculateNewPosition(
+                this.pos, // TODO: May need to offset this
+                heading,
+                this.size * 3 + weapon.projectileSize
+            );
+
+            context.newContacts.push(
+                ShipService.createProjectile(
+                    this,
+                    pos,
                     heading,
-                    this.size * 3 + w.projectileInfo.size
-                );
-
-                context.newContacts.push(ShipService.createProjectile(this, pos, heading, w.projectileInfo));
-            });
+                    weapon.projectileSize,
+                    weapon.projectileLifeTime,
+                    weapon.projectileThrust,
+                    weapon.projectileName
+                )
+            );
         }
     }
 
