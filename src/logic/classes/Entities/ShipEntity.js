@@ -19,6 +19,7 @@ export default class ShipEntity extends MobileEntity {
         this.hullPart = null;
         this.enginePart = null;
         this.thrusterPart = null;
+        this.computerPart = null;
         this.jumpDrivePart = null;
         this.weaponPart = null;
         this.sensorsPart = null;
@@ -29,6 +30,7 @@ export default class ShipEntity extends MobileEntity {
             this.hullPart,
             this.enginePart,
             this.thrusterPart,
+            this.computerPart,
             this.jumpDrivePart,
             this.weaponPart,
             this.sensorsPart,

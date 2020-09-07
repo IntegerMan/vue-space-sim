@@ -1,10 +1,11 @@
 import EntityPart from '@/logic/classes/Parts/EntityPart';
 
-function buildEmptyWeaponData() {
+function buildEmptyData() {
     return {
         id: 'EMPTY',
         type: 'WEAPON',
         name: 'Empty',
+        maxHealth: 0,
         isOn: undefined,
         projectileInfo: {
             maxTicks: 1,
@@ -17,7 +18,7 @@ function buildEmptyWeaponData() {
 export default class WeaponPart extends EntityPart {
     constructor(componentData) {
         if (!componentData) {
-            componentData = buildEmptyWeaponData();
+            componentData = buildEmptyData();
         }
 
         super(componentData);
@@ -32,21 +33,5 @@ export default class WeaponPart extends EntityPart {
         this.projectileSize = componentData.projectileInfo.size || 0;
         this.projectileThrust = componentData.projectileInfo.thrust || 0;
         this.projectileName = componentData.projectileInfo.name || '';
-    }
-
-    /**
-     * Gets the effective maximum thrust of the component. If the component is off, this will be zero.
-     * @returns {Number}
-     */
-    effectiveMaxThrust() {
-        return this.isOn ? this.maxThrust : 0;
-    }
-
-    /**
-     * Gets the effective maximum acceleration of the component. If the component is off, this will be zero.
-     * @returns {Number}
-     */
-    effectiveMaxAcceleration() {
-        return this.isOn ? this.maxAcceleration : 0;
     }
 }

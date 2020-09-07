@@ -182,6 +182,7 @@
             "arcStart": -25,
             "arcEnd": 25,
             "loadTime": 5,
+            "maxHealth": 10,
             "isOn": true,
             "projectileInfo": {
                 "thrust": 50,

@@ -7,7 +7,6 @@ import combat from './combat.js';
 
 import SectorService from '../logic/services/SectorService.js';
 import ShipService from '../logic/services/ShipService.js';
-import ComponentService from '../logic/services/ComponentService.js';
 
 import _ from 'lodash';
 
@@ -79,10 +78,7 @@ export default new Vuex.Store({
         },
         TOGGLE_COMPONENT(state, payload) {
             const contact = state.sector.ships.find(c => c.id === payload.contactId);
-            const targetComponent = ComponentService.findComponentRecursive(
-                contact.components,
-                payload.component
-            );
+            const targetComponent = contact.getAllComponents().find(c => c === payload.component);
 
             if (targetComponent) {
                 targetComponent.isOn = !targetComponent.isOn;

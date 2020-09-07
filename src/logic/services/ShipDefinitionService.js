@@ -5,6 +5,8 @@ import ThrusterPart from '@/logic/classes/Parts/ThrusterPart';
 import EnginePart from '@/logic/classes/Parts/EnginePart';
 import SensorPart from '@/logic/classes/Parts/SensorPart';
 import WeaponPart from '@/logic/classes/Parts/WeaponPart';
+import ComputerPart from '@/logic/classes/Parts/ComputerPart';
+import JumpDrivePart from '@/logic/classes/Parts/JumpDrivePart';
 
 export default {
     /**
@@ -30,22 +32,11 @@ export default {
         entity.enginePart = new EnginePart(ComponentService.findComponentTemplate(template.engines));
         entity.sensorsPart = new SensorPart(ComponentService.findComponentTemplate(template.sensors));
         entity.weaponPart = new WeaponPart(ComponentService.findComponentTemplate(template.weapons));
+        entity.computerPart = new ComputerPart(ComponentService.findComponentTemplate(template.cpu));
+        entity.jumpDrivePart = new JumpDrivePart(ComponentService.findComponentTemplate(template.jump));
 
         console.debug(`Built ship ${entity.contactType}`, entity);
 
         return entity;
-    },
-    initializeComponent(component) {
-        const componentTemplate = ComponentService.findComponentTemplate(component.componentId);
-
-        const output = { ...componentTemplate };
-
-        output.health = componentTemplate.maxHealth;
-
-        if (component.children) {
-            output.children = component.children.map(c => this.initializeComponent({ ...c }));
-        }
-
-        return output;
     },
 };
