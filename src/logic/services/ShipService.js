@@ -46,21 +46,6 @@ export default {
                 return 30;
         }
     },
-    /**
-     * Determines whether or not the specified contact is expected to move about the map
-     * @param {Object} contact the contact to evaluate
-     * @returns {Boolean} whether or not the contact should move around the map
-     */
-    isMobile(contact) {
-        switch (contact.type) {
-            case 'JUMP_POINT':
-            case 'STATION':
-            case 'HAZARD':
-                return false;
-            default:
-                return true;
-        }
-    },
     calculateSensorRange(scanningObject) {
         return ComponentService.getLargestValue(
             ComponentService.getActiveComponentsOfType(scanningObject.components, 'SENSORS'),
@@ -80,7 +65,7 @@ export default {
         const entities = _.concat(sector.ships, ...sector.fixedEntities);
 
         return entities.filter(
-            c => !this.isMobile(c) || c.isPlayer || centerPos.calculateDistance(c.pos) <= range
+            c => c.isAlwaysKnown() || c.isPlayer() || centerPos.calculateDistance(c.pos) <= range
         );
     },
 };

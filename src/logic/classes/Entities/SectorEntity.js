@@ -15,7 +15,6 @@ export default class SectorEntity {
         this.id = -1;
         this.code = '';
         this.name = 'TODO';
-        this.isPlayer = false;
         this.isDead = false;
         this.contactType = ContactType.UNCLASSIFIED;
         this.size = 15;
@@ -29,4 +28,30 @@ export default class SectorEntity {
     simulate(context) {
         return context;
     }
+
+    /**
+     * Determines whether or not this object can move
+     * @returns {boolean}
+     */
+    isMobile(){
+        return false;
+    }
+
+    /**
+     * Determines whether or not this object is always known to all entities.
+     * This is useful for certain fixed entities such as well-known stations.
+     * @returns {boolean}
+     */
+    isAlwaysKnown() {
+        return !this.isMobile();
+    }
+
+    /**
+     * Determines whether or not this is the player entity
+     * @returns {boolean}
+     */
+    isPlayer() {
+        return false;
+    }
+
 }

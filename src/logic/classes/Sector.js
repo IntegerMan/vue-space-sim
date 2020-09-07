@@ -32,8 +32,9 @@ export default class Sector {
      * @returns {AITask[]} an array of tasks
      */
     getTasks() {
-        return _.flatMap(this.fixedEntities, e =>
-            e.aiTasks.map(t => ({ ...t, origin: { type: s.type, id: s.id } }))
-        );
+        return _.flatMap(this.fixedEntities, e => {
+            const origin = { type: e.type, id: e.id };
+            return e.aiTasks.map(t => ({ ...t, origin: origin }));
+        });
     }
 }

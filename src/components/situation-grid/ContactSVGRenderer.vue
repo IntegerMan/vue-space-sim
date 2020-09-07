@@ -160,7 +160,7 @@ export default {
                 case MapMode.FLIGHTOPS:
                     return this.contact.classification === Classification.FRIENDLY;
                 case MapMode.HELM:
-                    return this.contact.isPlayer;
+                    return this.isPlayer;
                 default:
                     return false;
             }
@@ -178,7 +178,7 @@ export default {
             switch (this.mapMode) {
                 case MapMode.DEBUG:
                 case MapMode.COMBAT:
-                    return this.contact === this.$store.getters.playerShip;
+                    return this.isPlayer;
                 default:
                     return false;
             }
@@ -189,9 +189,8 @@ export default {
                     return true;
                 case MapMode.HELM:
                 case MapMode.COMBAT:
-                    return this.contact === this.$store.getters.playerShip;
                 case MapMode.SITUATION:
-                    return this.contact.isPlayer;
+                    return this.isPlayer;
                 default:
                     return false;
             }
@@ -234,7 +233,7 @@ export default {
             switch (this.mapMode) {
                 case MapMode.HELM:
                 case MapMode.NAV:
-                    return this.contact.isPlayer || !ShipService.isMobile(this.contact);
+                    return this.isPlayer || !this.contact.isMobile();
                 case MapMode.DEBUG:
                     return true;
                 default:
@@ -248,7 +247,7 @@ export default {
                 case MapMode.DEBUG:
                 case MapMode.HELM:
                 case MapMode.SITUATION:
-                    return this.contact.isPlayer;
+                    return this.isPlayer;
                 default:
                     return false;
             }
@@ -257,7 +256,7 @@ export default {
             return ShipService.calculateSensorRange(this.contact);
         },
         isPlayer() {
-            return this.contact.id === this.$store.getters.playerShip.id;
+            return this.contact.isPlayer();
         },
         showDesiredHeading() {
             if (
@@ -297,7 +296,7 @@ export default {
                     return true;
                 case MapMode.SITUATION:
                 case MapMode.COMBAT:
-                    return this.contact.isPlayer;
+                    return this.isPlayer;
                 case MapMode.FLIGHTOPS:
                     return this.contact.classification === Classification.FRIENDLY;
                 default:

@@ -66,4 +66,8 @@ export default class MobileEntity extends SectorEntity {
             this.pos = newPos;
         }
     }
+
+    isMobile() {
+        return true;
+    }
 }

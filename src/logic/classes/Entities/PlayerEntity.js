@@ -16,7 +16,6 @@ export default class PlayerEntity extends ShipEntity {
     constructor(pos) {
         super(pos, Classification.FRIENDLY);
 
-        this.isPlayer = true;
         this.code = 'CVS-65';
         this.id = 'PLAYER';
         this.name = 'Concordia';
@@ -55,10 +54,16 @@ export default class PlayerEntity extends ShipEntity {
                     this.size * 3 + w.projectileInfo.size
                 );
 
-                context.newContacts.push(
-                    ShipService.createProjectile(this, pos, heading, w.projectileInfo)
-                );
+                context.newContacts.push(ShipService.createProjectile(this, pos, heading, w.projectileInfo));
             });
         }
+    }
+
+    /**
+     * Determines whether or not this is the player entity
+     * @returns {boolean}
+     */
+    isPlayer() {
+        return true;
     }
 }

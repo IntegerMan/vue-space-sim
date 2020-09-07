@@ -11,18 +11,9 @@ export default {
     simulateAll(sector, uiState) {
         const ships = sector.ships.slice();
 
-        for (const ship of ships) {
-            const context = new SimContext(ship, ships, uiState);
-
-            const simResult = ship.simulate(context);
-
-            // Add any new contacts to our array
-            if (simResult.newContacts) {
-                for (const contact of simResult.newContacts) {
-                    sector.ships.push(contact);
-                }
-            }
-        }
+        ships.forEach(ship => {
+            this.simulate(ship, ships, uiState, sector);
+        });
 
         // Remove any dead entities
         for (const ship of sector.ships.filter(s => s.isDead).slice()) {
@@ -32,7 +23,7 @@ export default {
 
         // Spawn entities as needed
         if (sector.timeBetweenShipSpawn <= 0) {
-            const numShips = sector.ships.filter(s => !s.isPlayer).length;
+            const numShips = sector.ships.filter(s => !s.isPlayer()).length;
 
             if (numShips < sector.maxAiShips) {
                 this.spawnForRandomTask(sector);
@@ -42,6 +33,19 @@ export default {
         }
 
         return sector;
+    },
+    /**
+     *
+     * @param ship {MobileEntity}
+     * @param ships {MobileEntity[]}
+     * @param uiState {UIState}
+     * @param sector {Sector}
+     */
+    simulate(ship, ships, uiState, sector) {
+        const simResult = ship.simulate(new SimContext(ship, ships, uiState));
+
+        // Add any new contacts to our array
+        sector.ships.push(...simResult.newContacts);
     },
     /**
      * Spawns entities for a random task inside of the sector and adds the entities to the sector.

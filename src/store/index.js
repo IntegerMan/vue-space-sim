@@ -32,7 +32,7 @@ export default new Vuex.Store({
             return state.sector;
         },
         playerShip(state, getters) {
-            return getters.currentSector.ships.find(c => c.isPlayer);
+            return getters.currentSector.ships.find(c => c.isPlayer());
         },
         playerContacts(state, getters) {
             return ShipService.calculateVisibleContacts(getters.currentSector, getters.playerShip);

@@ -11,4 +11,9 @@ export default class FixedEntity extends SectorEntity {
 
         this.aiTasks = [];
     }
+
+
+    isMobile() {
+        return false;
+    }
 }
