@@ -110,7 +110,6 @@ import MapMode from '../../logic/enums/MapMode.js';
 import Classification from '../../logic/enums/Classification.js';
 import ContactType from '../../logic/enums/ContactType.js';
 import ContactSVGIcon from './ContactSVGIcon.vue';
-import ShipService from '../../logic/services/ShipService.js';
 import CombatService from '../../logic/services/CombatService.js';
 import ColorLiterals from '../../logic/helpers/ColorLiterals.js';
 
@@ -253,7 +252,7 @@ export default {
             }
         },
         sensorRange() {
-            return ShipService.calculateSensorRange(this.contact);
+            return this.contact.sensorsPart.effectiveRange();
         },
         isPlayer() {
             return this.contact.isPlayer();

@@ -38,7 +38,7 @@ export default {
             .map(h => ({ ...h, pos: new Point(h.pos.x, h.pos.y) }))
             .forEach(h => sector.hazards.push(h));
 
-        console.debug('Loaded sector', sector, sectorData);
+        console.debug('Loaded sector data', sector, sectorData);
 
         return sector;
     },

@@ -1,5 +1,4 @@
 import VectorHelper from '@/logic/helpers/VectorHelper';
-import ComponentService from '@/logic/services/ComponentService';
 import MobileEntity from '@/logic/classes/Entities/MobileEntity';
 
 /**
@@ -60,23 +59,12 @@ export default class ShipEntity extends MobileEntity {
         this.throttle = VectorHelper.moveTowardsSetThrottle(
             this.throttle,
             this.desiredThrottle,
-            ComponentService.getLargestValue(
-                ComponentService.getActiveComponentsOfType(this.components, 'ENGINE'),
-                e => e.maxAcceleration
-            )
+            this.enginePart.effectiveMaxAcceleration()
         );
     }
     adjustThrust() {
-        // Figure out thrust for things that have engines
-        const engines = ComponentService.getComponentsOfType(this.components, 'ENGINE');
-        if (engines.length) {
-            const throttlePercent = this.throttle / 100;
-            const bestThrust = ComponentService.getLargestValue(
-                engines.filter(e => e.isOn),
-                e => e.maxThrust
-            );
-            this.thrust = throttlePercent * bestThrust;
-        }
+        const throttlePercent = this.throttle / 100;
+        this.thrust = throttlePercent * this.enginePart.effectiveMaxThrust();
     }
 
     adjustSystems() {

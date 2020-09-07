@@ -1,7 +1,6 @@
 import ContactType from '../enums/ContactType';
 import Classification from '../enums/Classification';
 import _ from 'lodash';
-import ComponentService from './ComponentService';
 import RandomService from './RandomService';
 import ProjectileEntity from '@/logic/classes/Entities/ProjectileEntity';
 
@@ -46,26 +45,18 @@ export default {
                 return 30;
         }
     },
-    calculateSensorRange(scanningObject) {
-        return ComponentService.getLargestValue(
-            ComponentService.getActiveComponentsOfType(scanningObject.components, 'SENSORS'),
-            c => c.range
-        );
-    },
     /**
      * Calculates contacts that should be visible given the scanning ship or station's sensors
      * @param {Sector} sector the current sector
-     * @param {SectorEntity} scanningObject the object doing the scanning
+     * @param {ShipEntity} scanningObject the object doing the scanning
      * @returns {Object[]} all visible objects
      */
     calculateVisibleContacts(sector, scanningObject) {
         const centerPos = scanningObject.pos;
-        const range = this.calculateSensorRange(scanningObject);
+        const range = scanningObject.sensorsPart.effectiveRange();
 
         const entities = _.concat(sector.ships, ...sector.fixedEntities);
 
-        return entities.filter(
-            c => c.isAlwaysKnown() || c.isPlayer() || centerPos.calculateDistance(c.pos) <= range
-        );
+        return entities.filter(c => c.isAlwaysKnown() || c.isPlayer() || centerPos.calculateDistance(c.pos) <= range);
     },
 };
