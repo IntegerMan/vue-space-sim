@@ -9,7 +9,6 @@ export default class SimContext {
      * @param {UIState} uiState the user interface state
      */
     constructor(entity, entities, uiState) {
-        this.contact = entity;
         this.uiState = uiState;
         this.newContacts = [];
         this.otherContacts = entities.filter(s => s !== entity);

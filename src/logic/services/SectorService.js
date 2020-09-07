@@ -13,6 +13,7 @@ import ContactType from '@/logic/enums/ContactType';
 import FixedEntity from '@/logic/classes/Entities/FixedEntity';
 import ShipEntity from '@/logic/classes/Entities/ShipEntity';
 import ShipDefinitionService from '@/logic/services/ShipDefinitionService';
+import AITask from '@/logic/classes/AITask';
 
 export default {
     loadSector(sectorId) {
@@ -40,17 +41,6 @@ export default {
         console.debug('Loaded sector', sector, sectorData);
 
         return sector;
-    },
-    /**
-     * Gathers all potential AI mission tasks in the sector and returns them in a single array
-     *
-     * @param {Sector} sector the sector that all tasks should be gathered from
-     * @returns {Object[]} an array of tasks
-     */
-    aggregateSectorTasks(sector) {
-        return _.flatMap(sector.fixedEntities, s =>
-            s.aiTasks.map(t => ({ ...t, origin: { type: s.type, id: s.id } }))
-        );
     },
 
     /**
@@ -119,18 +109,22 @@ export default {
 
         return entity;
     },
-
     /**
      * Identifies all tasks in the sector, then randomly sorts them and returns up to maxTasks
      * tasks in an array
      *
-     * @param {Object} sector
-     * @param {Number} maxTasks
-     * @returns {Object[]} the tasks to return, in random order
+     * @param {Sector} sector the sector to search
+     * @param {Number} maxTasks the number of tasks to take at random
+     * @returns {AITask[]} the tasks to return, in random order
      */
     getRandomTasksForSector(sector, maxTasks) {
-        return _.take(_.shuffle(this.aggregateSectorTasks(sector)), maxTasks);
+        return _.take(_.shuffle(sector.getTasks()), maxTasks);
     },
+    /**
+     * Randomly adds contacts to the sector for tasks declared in the sector
+     * @param {Sector} sector the sector
+     * @param {PlayerEntity} player the player entity
+     */
     buildInitialContacts(sector, player) {
         sector.ships.push(player);
 
@@ -155,7 +149,7 @@ export default {
         station.contactType = ContactType.STATION;
         station.size = ShipService.parseTier(obj);
         station.code = obj.id;
-        station.aiTasks = obj.aiTasks;
+        station.aiTasks = obj.aiTasks.map(t => new AITask(t));
         station.id = obj.id;
 
         return station;
@@ -173,7 +167,7 @@ export default {
         jumpPoint.contactType = ContactType.JUMP_POINT;
         jumpPoint.size = 25;
         jumpPoint.code = obj.id;
-        jumpPoint.aiTasks = obj.aiTasks;
+        jumpPoint.aiTasks = obj.aiTasks.map(t => new AITask(t));
         jumpPoint.id = obj.id;
         // TODO:Ignoring destPos
 
