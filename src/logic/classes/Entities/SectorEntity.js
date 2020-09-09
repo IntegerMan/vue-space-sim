@@ -67,8 +67,6 @@ export default class SectorEntity {
      * @param {Number} amount
      */
     damage(amount) {
-        console.warn(
-            `${this.displayName()} received ${amount} damage but no implementation was present to handle it`
-        );
+        console.warn(`${this.displayName()} received ${amount} damage but no implementation was present to handle it`);
     }
 }

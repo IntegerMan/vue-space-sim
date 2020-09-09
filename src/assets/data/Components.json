@@ -143,6 +143,80 @@
             "isOn": true
         }
     ],
+    "powerplants": [
+        {
+            "id": "POWER_XS",
+            "type": "POWERPLANT",
+            "maxHealth": 5,
+            "energyPerTick": 1,
+            "isOn": true
+        },
+        {
+            "id": "POWER_SM",
+            "type": "POWERPLANT",
+            "maxHealth": 5,
+            "energyPerTick": 2,
+            "isOn": true
+        },
+        {
+            "id": "POWER_MD",
+            "type": "POWERPLANT",
+            "maxHealth": 10,
+            "energyPerTick": 3,
+            "isOn": true
+        },
+        {
+            "id": "POWER_LG",
+            "type": "POWERPLANT",
+            "maxHealth": 15,
+            "energyPerTick": 5,
+            "isOn": true
+        },
+        {
+            "id": "POWER_XL",
+            "type": "POWERPLANT",
+            "maxHealth": 25,
+            "energyPerTick": 10,
+            "isOn": true
+        }
+    ],
+    "batteries": [
+        {
+            "id": "BAT_XS",
+            "type": "BATTERY",
+            "capacity": 15,
+            "maxHealth": 5,
+            "isOn": true
+        },
+        {
+            "id": "BAT_SM",
+            "type": "BATTERY",
+            "capacity": 25,
+            "maxHealth": 5,
+            "isOn": true
+        },
+        {
+            "id": "BAT_MD",
+            "type": "BATTERY",
+            "capacity": 35,
+            "maxHealth": 10,
+            "isOn": true
+        },
+        {
+            "id": "BAT_LG",
+            "type": "BATTERY",
+            "capacity": 50,
+            "maxHealth": 15,
+            "isOn": true
+        },
+        {
+            "id": "BAT_XL",
+            "type": "BATTERY",
+            "capacity": 100,
+            "maxHealth": 25,
+            "isOn": true
+        }
+    ],
     "sensors": [
         {
             "id": "SENSORS_SCOUT",

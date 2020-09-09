@@ -4,11 +4,7 @@
             <h1 class="title has-text-light">Operations</h1>
         </div>
         <div class="component-container">
-            <component-display
-                v-for="component of playerComponents"
-                :key="component.slotId"
-                :component="component"
-            />
+            <component-display v-for="component of playerComponents" :key="component.slotId" :component="component" />
         </div>
     </section>
 </template>

@@ -7,6 +7,8 @@ import SensorPart from '@/logic/classes/Parts/SensorPart';
 import WeaponPart from '@/logic/classes/Parts/WeaponPart';
 import ComputerPart from '@/logic/classes/Parts/ComputerPart';
 import JumpDrivePart from '@/logic/classes/Parts/JumpDrivePart';
+import BatteryPart from '@/logic/classes/Parts/BatteryPart';
+import GeneratorPart from '@/logic/classes/Parts/GeneratorPart';
 
 export default {
     /**
@@ -34,6 +36,8 @@ export default {
         entity.weaponPart = new WeaponPart(ComponentService.findComponentTemplate(template.weapons));
         entity.computerPart = new ComputerPart(ComponentService.findComponentTemplate(template.cpu));
         entity.jumpDrivePart = new JumpDrivePart(ComponentService.findComponentTemplate(template.jump));
+        entity.batteryPart = new BatteryPart(ComponentService.findComponentTemplate(template.battery));
+        entity.generatorPart = new GeneratorPart(ComponentService.findComponentTemplate(template.power));
 
         console.debug(`Built ship ${entity.contactType}`, entity);
 

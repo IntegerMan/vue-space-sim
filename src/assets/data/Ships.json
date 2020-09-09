@@ -8,7 +8,9 @@
         "thrusters": "RCS_SCOUT",
         "jump": "JUMP_XS",
         "cpu": "CPU_SCOUT",
-        "sensors": "SENSORS_SCOUT"
+        "sensors": "SENSORS_SCOUT",
+        "battery": "BAT_SM",
+        "power": "POWER_SM"
     },
     {
         "id": "FIGHTER",
@@ -18,7 +20,9 @@
         "engines": "ENGINE_FIGHTER",
         "thrusters": "RCS_FIGHTER",
         "cpu": "CPU_FIGHTER",
-        "sensors": "SENSORS_FIGHTER"
+        "sensors": "SENSORS_FIGHTER",
+        "battery": "BAT_SM",
+        "power": "POWER_XS"
     },
     {
         "id": "CARRIER",
@@ -30,7 +34,9 @@
         "jump": "JUMP_LG",
         "cpu": "CPU_CAPSHIP",
         "sensors": "SENSORS_CAPSHIP",
-        "weapons": "GUN_CAPSHIP"
+        "weapons": "GUN_CAPSHIP",
+        "battery": "BAT_XL",
+        "power": "POWER_LG"
     },
     {
         "id": "FREIGHTER",
@@ -41,7 +47,9 @@
         "thrusters": "RCS_FREIGHTER",
         "jump": "JUMP_LG",
         "cpu": "CPU_CIVILIAN",
-        "sensors": "SENSORS_CIVILIAN"
+        "sensors": "SENSORS_CIVILIAN",
+        "battery": "BAT_MD",
+        "power": "POWER_MD"
     },
     {
         "id": "UTILITY",
@@ -51,6 +59,8 @@
         "engines": "ENGINE_UTILITY",
         "thrusters": "RCS_FREIGHTER",
         "cpu": "CPU_CIVILIAN",
-        "sensors": "SENSORS_CIVILIAN"
+        "sensors": "SENSORS_CIVILIAN",
+        "battery": "BAT_MD",
+        "power": "POWER_LG"
     }
 ]

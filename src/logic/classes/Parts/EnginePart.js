@@ -1,7 +1,6 @@
 import EntityPart from '@/logic/classes/Parts/EntityPart';
 
 export default class EnginePart extends EntityPart {
-
     constructor(componentData) {
         if (!componentData) throw 'No component data provided for engine';
 

@@ -4,22 +4,11 @@
         <title>{{ tooltip }}</title>
 
         <!-- Sensor Radius -->
-        <circle
-            v-if="showSensorRadius"
-            :r="sensorRange"
-            :stroke="standardColor"
-            :stroke-width="2"
-            fill="transparent"
-        />
+        <circle v-if="showSensorRadius" :r="sensorRange" :stroke="standardColor" :stroke-width="2" fill="transparent" />
 
         <!-- Heading indicator arrow -->
         <g :transform="`rotate(${contact.heading})`" trasform-origin="0 0" v-if="showHeading">
-            <line
-                :y1="-radius"
-                :y2="-radius - throttleMagnitude - 3"
-                :stroke-width="2"
-                :stroke="standardColor"
-            />
+            <line :y1="-radius" :y2="-radius - throttleMagnitude - 3" :stroke-width="2" :stroke="standardColor" />
             <polygon
                 points="-7,0 7,0 0,-7"
                 :fill="standardColor"
@@ -35,10 +24,7 @@
             :stroke="contactColor"
         >
             <line :y1="-radius" :y2="-radius - desiredThrottleMagnitude - 3" />
-            <polygon
-                points="-7,0 7,0 0,-7"
-                :transform="`translate(0 ${-radius - desiredThrottleMagnitude})`"
-            />
+            <polygon points="-7,0 7,0 0,-7" :transform="`translate(0 ${-radius - desiredThrottleMagnitude})`" />
         </g>
 
         <!-- Navigational Path -->
@@ -92,13 +78,7 @@
         <!-- The bounding circle -->
         <circle :r="radius" :stroke="standardColor" :stroke-width="2" fill="transparent" />
         <!-- Legend -->
-        <text
-            v-if="showLegend"
-            :y="radius + fontSize"
-            :stroke="contactColor"
-            text-anchor="middle"
-            v-text="tooltip"
-        />
+        <text v-if="showLegend" :y="radius + fontSize" :stroke="contactColor" text-anchor="middle" v-text="tooltip" />
     </g>
 </template>
 
@@ -136,12 +116,8 @@ export default {
                 0,
                 0,
                 CombatService.weaponRange(this.contact),
-                VectorHelper.clampDegrees(
-                    this.contact.heading + CombatService.minAimPoint(this.contact)
-                ),
-                VectorHelper.clampDegrees(
-                    this.contact.heading + CombatService.maxAimPoint(this.contact)
-                )
+                VectorHelper.clampDegrees(this.contact.heading + CombatService.minAimPoint(this.contact)),
+                VectorHelper.clampDegrees(this.contact.heading + CombatService.maxAimPoint(this.contact))
             );
         },
         heading() {
@@ -215,18 +191,10 @@ export default {
             return this.contact.size * this.zoom;
         },
         throttleMagnitude() {
-            return VectorHelper.calculatePercentMagnitude(
-                this.contact.throttle,
-                3 * this.zoom,
-                50 * this.zoom
-            );
+            return VectorHelper.calculatePercentMagnitude(this.contact.throttle, 3 * this.zoom, 50 * this.zoom);
         },
         desiredThrottleMagnitude() {
-            return VectorHelper.calculatePercentMagnitude(
-                this.contact.desiredThrottle,
-                3 * this.zoom,
-                50 * this.zoom
-            );
+            return VectorHelper.calculatePercentMagnitude(this.contact.desiredThrottle, 3 * this.zoom, 50 * this.zoom);
         },
         showLegend() {
             switch (this.mapMode) {

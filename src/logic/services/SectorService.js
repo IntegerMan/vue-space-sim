@@ -26,17 +26,11 @@ export default {
 
         const sector = new Sector(sectorData);
 
-        sectorData.stations
-            .map(s => this.configureStation(s))
-            .forEach(s => sector.fixedEntities.push(s));
+        sectorData.stations.map(s => this.configureStation(s)).forEach(s => sector.fixedEntities.push(s));
 
-        sectorData.jumpPoints
-            .map(j => this.configureJumpPoint(j))
-            .forEach(s => sector.fixedEntities.push(s));
+        sectorData.jumpPoints.map(j => this.configureJumpPoint(j)).forEach(s => sector.fixedEntities.push(s));
 
-        sectorData.hazards
-            .map(h => ({ ...h, pos: new Point(h.pos.x, h.pos.y) }))
-            .forEach(h => sector.hazards.push(h));
+        sectorData.hazards.map(h => ({ ...h, pos: new Point(h.pos.x, h.pos.y) })).forEach(h => sector.hazards.push(h));
 
         console.debug('Loaded sector data', sector, sectorData);
 
@@ -139,10 +133,7 @@ export default {
      * @returns {FixedEntity} the created entity
      */
     configureStation(obj) {
-        const station = new FixedEntity(
-            new Point(obj.pos.x, obj.pos.y),
-            ShipService.parseOwner(obj)
-        ); // TODO: May want a specific class
+        const station = new FixedEntity(new Point(obj.pos.x, obj.pos.y), ShipService.parseOwner(obj)); // TODO: May want a specific class
 
         station.name = obj.name || 'Jump Point';
         station.type = 'STATION';

@@ -23,6 +23,8 @@ export default class ShipEntity extends MobileEntity {
         this.jumpDrivePart = null;
         this.weaponPart = null;
         this.sensorsPart = null;
+        this.batteryPart = null;
+        this.generatorPart = null;
     }
 
     getAllComponents() {
@@ -34,6 +36,8 @@ export default class ShipEntity extends MobileEntity {
             this.jumpDrivePart,
             this.weaponPart,
             this.sensorsPart,
+            this.batteryPart,
+            this.generatorPart,
         ].filter(c => c);
     }
 
